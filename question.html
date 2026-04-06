@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AskAnOptom — Answer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/question.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">ask<span>anoptom</span></a>
+    <div class="nav-links">
+      <a href="#">resources</a>
+      <a href="#">for students</a>
+      <a href="#">for professionals</a>
+    </div>
+    <a href="index.html" class="nav-cta">ask a question</a>
+  </nav>
+
+  <!-- QUESTION PAGE BODY -->
+  <main class="q-page">
+
+    <!-- INLINE SEARCH (smaller) -->
+    <div class="q-search-wrap">
+      <div class="search-box" id="searchBox">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 18 18" fill="none">
+          <circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M13 13l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Ask another question..." autocomplete="off" />
+        <button onclick="handleSearch()">
+          Ask
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ANSWER AREA -->
+    <div class="q-body">
+
+      <!-- Loading state (shown while AI is thinking) -->
+      <div class="loading-state" id="loadingState">
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <p class="loading-text">Searching the knowledge base...</p>
+      </div>
+
+      <!-- Answer content (hidden until loaded) -->
+      <div class="answer-content" id="answerContent" style="display:none;">
+
+        <div class="q-meta" id="qMeta">
+          <!-- Tags injected by JS -->
+        </div>
+
+        <h1 class="q-title" id="qTitle">
+          <!-- Question injected by JS -->
+        </h1>
+
+        <div class="q-answer-body" id="qAnswerBody">
+          <!-- Answer injected by JS (or from API later) -->
+        </div>
+
+        <div class="answer-sources" id="qSources">
+          <span class="sources-label">sources</span>
+          <!-- Sources injected by JS -->
+        </div>
+
+      </div>
+
+      <!-- AD STRIP -->
+      <div class="ad-strip" style="margin: 2rem 0; max-width: 100%;">
+        <div class="ad-inner">
+          <span class="ad-label">sponsored</span>
+          <p class="ad-text">Need a comprehensive eye exam in Trinidad?</p>
+          <p class="ad-sub">Book with The Optometrist Company — Chaguanas, opening 2026</p>
+        </div>
+        <a href="#" class="ad-btn">learn more</a>
+      </div>
+
+      <!-- RELATED QUESTIONS -->
+      <div class="related-section" id="relatedSection" style="display:none;">
+        <div class="section-label">related questions</div>
+        <div class="related-chips" id="relatedChips">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" style="margin-top:2rem;">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ask<span>anoptom</span></a>
+        <p class="footer-tagline">T&T's eye care resource</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">home</a>
+        <a href="#">resources</a>
+        <a href="#">about</a>
+      </div>
+      <p class="footer-disclaimer">
+        Answers are for informational purposes only and do not constitute medical advice.
+        Always consult a licensed optometrist for clinical decisions.
+      </p>
+      <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
+    </div>
+  </footer>
+
+  <script src="js/question.js"></script>
+</body>
+</html>
