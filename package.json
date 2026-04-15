@@ -1,0 +1,9 @@
+{
+  "name": "askanoptom",
+  "version": "1.0.0",
+  "description": "AskAnOptom.com — Eye care answers you can trust",
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}
