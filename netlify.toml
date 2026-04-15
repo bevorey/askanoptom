@@ -1,0 +1,21 @@
+# netlify.toml
+# Tells Netlify how your project is structured
+
+[build]
+  # Where your HTML files live
+  publish = "frontend"
+
+  # Where your functions live
+  functions = "netlify/functions"
+
+[functions]
+  # Use ES modules (import/export syntax)
+  node_bundler = "esbuild"
+
+# Redirects all /api/* requests to your function
+# so your frontend can call /api/ask instead of
+# the long /.netlify/functions/ask URL
+[[redirects]]
+  from   = "/api/ask"
+  to     = "/.netlify/functions/ask"
+  status = 200
