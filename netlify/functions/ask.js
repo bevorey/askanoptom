@@ -93,8 +93,10 @@ export const handler = async (event) => {
       ]
     });
 
-    const raw  = message.content[0].text;
-    const data = JSON.parse(raw);
+    // Strip markdown code fences in case Claude wraps the JSON
+    const raw     = message.content[0].text;
+    const cleaned = raw.replace(/```json|```/g, '').trim();
+    const data    = JSON.parse(cleaned);
 
     return {
       statusCode: 200,
