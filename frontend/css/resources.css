@@ -1,0 +1,108 @@
+/* resources.css — styles for the resources page */
+
+/* PAGE HEADER */
+.page-header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 1.5rem 0;
+}
+.page-header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal-dark);
+  margin-bottom: 0.5rem;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+.page-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+/* FILTER TABS */
+.filter-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: none;
+}
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+  position: relative;
+  bottom: -1px;
+}
+.filter-tab svg { opacity: 0.6; }
+.filter-tab:hover { color: var(--text-primary); }
+.filter-tab.active {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
+}
+.filter-tab.active svg { opacity: 1; }
+
+/* MAIN */
+.resources-main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* PANELS */
+.panel { display: block; }
+.panel.hidden { display: none; }
+
+.panel-section {
+  margin-bottom: 3rem;
+}
+.panel-section-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* FADE IN ANIMATION */
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.panel:not(.hidden) {
+  animation: panelFadeIn 0.25s ease both;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .filter-tab {
+    padding: 0.75rem 0.85rem;
+    font-size: 12px;
+  }
+  .filter-tab svg { display: none; }
+}
