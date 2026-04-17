@@ -2,1337 +2,211 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For Professionals — AskAnOptom</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #f7f5f0;
-      --white: #ffffff;
-      --ink: #1a1a1a;
-      --ink-light: #4a4a4a;
-      --ink-muted: #8a8a8a;
-      --green: #2a6b4f;
-      --green-light: #e8f2ed;
-      --green-mid: #3d8c68;
-      --gold: #c9a84c;
-      --gold-light: #faf3e0;
-      --border: #e2ddd6;
-      --tag-bg: #f0ede8;
-      --shadow: 0 2px 12px rgba(0,0,0,0.06);
-      --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      min-height: 100vh;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    /* NAV */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.3px;
-    }
-
-    .nav-logo span { color: var(--green); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--ink-light);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 400;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a.active { color: var(--green); font-weight: 500; }
-
-    .nav-cta {
-      background: var(--green);
-      color: white !important;
-      padding: 8px 18px;
-      border-radius: 100px;
-      font-weight: 500 !important;
-      font-size: 14px !important;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--green-mid) !important; color: white !important; }
-
-    /* HERO */
-    .hero {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 64px 40px 48px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 48px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .hero-left { flex: 1; max-width: 560px; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--green-light);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: 100px;
-      margin-bottom: 20px;
-      letter-spacing: 0.3px;
-    }
-
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      line-height: 1.15;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--green);
-    }
-
-    .hero p {
-      color: var(--ink-light);
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 28px;
-      font-weight: 300;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--border);
-      padding: 12px 24px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-secondary:hover { border-color: var(--ink-muted); transform: translateY(-1px); }
-
-    .hero-stats {
-      display: flex;
-      gap: 32px;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-    }
-
-    .stat { }
-
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--ink-muted);
-      font-weight: 400;
-      margin-top: 2px;
-    }
-
-    /* HERO RIGHT — FEATURED CASE PREVIEW */
-    .hero-right {
-      width: 360px;
-      flex-shrink: 0;
-    }
-
-    .case-preview-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .case-preview-header {
-      background: var(--ink);
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .case-preview-header span {
-      font-size: 11px;
-      color: rgba(255,255,255,0.5);
-      font-family: 'DM Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .live-dot {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #4ade80;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .live-dot::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .case-preview-body { padding: 18px; }
-
-    .case-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .tag {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 100px;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-    }
-
-    .tag-specialty {
-      background: var(--green-light);
-      color: var(--green);
-    }
-
-    .tag-status-open {
-      background: #fef9c3;
-      color: #854d0e;
-    }
-
-    .tag-status-resolved {
-      background: var(--green-light);
-      color: var(--green);
-    }
-
-    .tag-ai {
-      background: #f3e8ff;
-      color: #7c3aed;
-    }
-
-    .case-preview-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-
-    .case-preview-snippet {
-      font-size: 13px;
-      color: var(--ink-light);
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .case-preview-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--ink-muted);
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .case-avatar-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .avatar-sm {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      color: white;
-      font-weight: 600;
-    }
-
-    /* MAIN LAYOUT */
-    .main-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 40px;
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 32px;
-      align-items: start;
-    }
-
-    /* FEED HEADER */
-    .feed-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .feed-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .feed-filters {
-      display: flex;
-      gap: 6px;
-    }
-
-    .filter-pill {
-      font-size: 12px;
-      padding: 5px 14px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      background: var(--white);
-      color: var(--ink-light);
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: all 0.15s;
-    }
-
-    .filter-pill:hover { border-color: var(--green); color: var(--green); }
-    .filter-pill.active { background: var(--green); color: white; border-color: var(--green); }
-
-    /* CASE CARDS */
-    .case-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 24px;
-      margin-bottom: 14px;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .case-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: transparent;
-      transition: background 0.2s;
-    }
-
-    .case-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-      border-color: #d4cfc8;
-    }
-
-    .case-card:hover::before { background: var(--green); }
-
-    .case-card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .case-card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 17px;
-      font-weight: 600;
-      line-height: 1.35;
-      flex: 1;
-    }
-
-    .case-card-body {
-      font-size: 13.5px;
-      color: var(--ink-light);
-      line-height: 1.65;
-      margin-bottom: 14px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .case-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .case-card-meta {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 12px;
-      color: var(--ink-muted);
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .case-card-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .action-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      color: var(--ink-muted);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .action-btn:hover { background: var(--tag-bg); color: var(--ink); }
-
-    .ai-synthesis-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      background: #f3e8ff;
-      color: #7c3aed;
-      padding: 3px 9px;
-      border-radius: 100px;
-      font-weight: 500;
-    }
-
-    /* OPEN CASE EXPANDED */
-    .case-expanded {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow-hover);
-    }
-
-    .case-expanded-header {
-      padding: 22px 24px 18px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .case-expanded-body {
-      padding: 20px 24px;
-    }
-
-    .case-section {
-      margin-bottom: 18px;
-    }
-
-    .case-section-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      margin-bottom: 6px;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .case-section-content {
-      font-size: 14px;
-      color: var(--ink-light);
-      line-height: 1.7;
-    }
-
-    /* AI SYNTHESIS PANEL */
-    .ai-panel {
-      background: linear-gradient(135deg, #faf5ff 0%, #f0e8ff 100%);
-      border: 1px solid #e0d0f8;
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin: 18px 24px;
-    }
-
-    .ai-panel-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .ai-icon {
-      width: 28px; height: 28px;
-      background: #7c3aed;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-    }
-
-    .ai-panel-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #4c1d95;
-    }
-
-    .ai-panel-subtitle {
-      font-size: 11px;
-      color: #7c3aed;
-      opacity: 0.7;
-    }
-
-    .ai-panel-content {
-      font-size: 13.5px;
-      color: #2e1065;
-      line-height: 1.7;
-    }
-
-    .ai-panel-content strong { color: #4c1d95; }
-
-    /* COMMENTS */
-    .comments-section {
-      padding: 0 24px 20px;
-    }
-
-    .comments-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink-muted);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .comment {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .comment-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: white;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .comment-avatar.gold { background: var(--gold); }
-    .comment-avatar.slate { background: #64748b; }
-
-    .comment-body { flex: 1; }
-
-    .comment-meta {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-
-    .comment-author {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .comment-credential {
-      font-size: 11px;
-      color: var(--green);
-      font-weight: 500;
-    }
-
-    .comment-time {
-      font-size: 11px;
-      color: var(--ink-muted);
-    }
-
-    .comment-text {
-      font-size: 13.5px;
-      color: var(--ink-light);
-      line-height: 1.65;
-    }
-
-    .comment-upvote {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--ink-muted);
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      padding: 3px 8px;
-      border-radius: 6px;
-      transition: background 0.15s;
-    }
-
-    .comment-upvote:hover { background: var(--tag-bg); }
-
-    .comment-input-row {
-      display: flex;
-      gap: 10px;
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
-      background: var(--cream);
-    }
-
-    .comment-input {
-      flex: 1;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.2s;
-      resize: none;
-    }
-
-    .comment-input:focus { border-color: var(--green); }
-
-    /* SIDEBAR */
-    .sidebar { }
-
-    .sidebar-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    .sidebar-card-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .post-case-card {
-      background: var(--ink);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 18px;
-      color: white;
-    }
-
-    .post-case-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .post-case-card p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .btn-post {
-      background: var(--green);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.2s;
-    }
-
-    .btn-post:hover { background: var(--green-mid); }
-
-    .specialty-list { list-style: none; }
-
-    .specialty-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      transition: color 0.15s;
-    }
-
-    .specialty-item:last-child { border-bottom: none; }
-
-    .specialty-item:hover .specialty-name { color: var(--green); }
-
-    .specialty-name {
-      font-size: 13px;
-      color: var(--ink-light);
-      transition: color 0.15s;
-    }
-
-    .specialty-count {
-      font-size: 11px;
-      color: var(--ink-muted);
-      background: var(--tag-bg);
-      padding: 2px 8px;
-      border-radius: 100px;
-    }
-
-    .top-contributor {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 0;
-    }
-
-    .contributor-info { flex: 1; }
-
-    .contributor-name {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .contributor-cred {
-      font-size: 11px;
-      color: var(--ink-muted);
-    }
-
-    .contributor-score {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--green);
-      font-family: 'DM Mono', monospace;
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .case-card, .case-expanded {
-      animation: fadeUp 0.4s ease both;
-    }
-
-    .case-card:nth-child(1) { animation-delay: 0.05s; }
-    .case-card:nth-child(2) { animation-delay: 0.1s; }
-    .case-card:nth-child(3) { animation-delay: 0.15s; }
-    .case-card:nth-child(4) { animation-delay: 0.2s; }
-
-    /* REGISTER MODAL OVERLAY */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-
-    .modal {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 36px;
-      width: 440px;
-      max-width: 90vw;
-      transform: scale(0.96);
-      transition: transform 0.2s;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-    }
-
-    .modal-overlay.open .modal { transform: scale(1); }
-
-    .modal h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      margin-bottom: 6px;
-    }
-
-    .modal p {
-      font-size: 14px;
-      color: var(--ink-muted);
-      margin-bottom: 24px;
-    }
-
-    .form-group { margin-bottom: 14px; }
-
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-light);
-      margin-bottom: 5px;
-      letter-spacing: 0.2px;
-    }
-
-    .form-input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-      background: var(--cream);
-    }
-
-    .form-input:focus { border-color: var(--green); background: white; }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-
-    .btn-close-modal {
-      background: none;
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      border-radius: 100px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      transition: background 0.15s;
-    }
-
-    .btn-close-modal:hover { background: var(--tag-bg); }
-
-    @media (max-width: 900px) {
-      .hero { flex-direction: column; padding: 40px 20px; }
-      .hero-right { width: 100%; }
-      .main-wrapper { grid-template-columns: 1fr; padding: 24px 20px; }
-      nav { padding: 0 20px; }
-      .nav-links { gap: 16px; }
-    }
-  </style>
+  <meta name="description" content="A peer forum for optometrists and eye care professionals. Post cases, discuss differentials, and collaborate with colleagues worldwide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/professionals.css" />
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">ask<span>anoptom</span></a>
-  <ul class="nav-links">
-    <li><a href="#">resources</a></li>
-    <li><a href="#">for students</a></li>
-    <li><a href="#" class="active">for professionals</a></li>
-    <li><a href="#" class="nav-cta">ask a question</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div style="background: var(--white); border-bottom: 1px solid var(--border);">
-  <div class="hero">
-    <div class="hero-left">
-      <div class="hero-badge">Beta — Open to all eye care professionals</div>
-      <h1>Problem-Based<br>Learning, <em>reimagined</em><br>for optometry.</h1>
-      <p>Post anonymized cases, discuss differentials with colleagues worldwide, and let AI synthesize the discussion — all in one place built for eye care professionals.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="openModal()">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-          Post a Case
-        </button>
-        <button class="btn-secondary">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          Browse Cases
-        </button>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">142</div>
-          <div class="stat-label">Cases posted</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">38</div>
-          <div class="stat-label">Active this week</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">19</div>
-          <div class="stat-label">Countries represented</div>
-        </div>
-      </div>
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">ask<span>anoptom</span></a>
+    <div class="nav-links">
+      <a href="resources.html">resources</a>
+      <a href="resources.html#students">for students</a>
+      <a href="professionals.html" style="color:var(--teal);">for professionals</a>
     </div>
+    <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+  </nav>
 
-    <!-- FEATURED CASE PREVIEW -->
-    <div class="hero-right">
-      <div class="case-preview-card">
-        <div class="case-preview-header">
-          <span>Featured Case</span>
-          <div class="live-dot">Active discussion</div>
+  <!-- HERO -->
+  <section class="pro-hero">
+    <div class="pro-hero-inner">
+
+      <div class="pro-hero-left">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          coming soon · open to all eye care professionals
         </div>
-        <div class="case-preview-body">
-          <div class="case-tags">
-            <span class="tag tag-specialty">Cornea</span>
-            <span class="tag tag-status-open">Open</span>
-            <span class="tag tag-ai">AI Synthesized</span>
+        <h1 class="pro-hero-title">
+          Problem-based learning,<br />
+          <em>reimagined</em> for optometry.
+        </h1>
+        <p class="pro-hero-sub">Post anonymized cases, discuss differentials with colleagues worldwide, and let AI synthesize the discussion — all in one place built for eye care professionals.</p>
+
+        <!-- WAITLIST FORM -->
+        <div class="waitlist-box">
+          <p class="waitlist-label">Join the waitlist — be first when we launch</p>
+          <div class="waitlist-form">
+            <input type="email" id="waitlistEmail" placeholder="your@email.com" class="waitlist-input" />
+            <button class="waitlist-btn" onclick="handleWaitlist()">
+              Join waitlist
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
           </div>
-          <div class="case-preview-title">34M, unilateral progressive corneal thinning — KC or pellucid?</div>
-          <div class="case-preview-snippet">Patient presents with best corrected VA 6/12 OD, 6/6 OS. Topography shows inferior steepening, Belin-Ambrosio D score 3.2...</div>
-          <div class="case-preview-meta">
-            <div class="case-avatar-row">
-              <div class="avatar-sm">DR</div>
-              <div class="avatar-sm" style="background:#64748b">KP</div>
-              <div class="avatar-sm" style="background: var(--gold)">MO</div>
-              <span style="margin-left:4px">+5 more</span>
+          <p class="waitlist-sub" id="waitlistConfirm" style="display:none;">
+            ✓ You're on the list — we'll be in touch.
+          </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="pro-stats">
+          <div class="pro-stat">
+            <div class="pro-stat-num">142</div>
+            <div class="pro-stat-label">Cases posted</div>
+          </div>
+          <div class="pro-stat">
+            <div class="pro-stat-num">38</div>
+            <div class="pro-stat-label">Active this week</div>
+          </div>
+          <div class="pro-stat">
+            <div class="pro-stat-num">19</div>
+            <div class="pro-stat-label">Countries represented</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED CASE PREVIEW -->
+      <div class="pro-hero-right">
+        <div class="case-preview-card">
+          <div class="case-preview-header">
+            <span class="case-preview-label">featured case</span>
+            <span class="live-badge">
+              <span class="live-dot-anim"></span>
+              active discussion
+            </span>
+          </div>
+          <div class="case-preview-body">
+            <div class="case-tag-row">
+              <span class="case-tag case-tag-teal">cornea</span>
+              <span class="case-tag case-tag-amber">open</span>
+              <span class="case-tag case-tag-purple">AI synthesized</span>
             </div>
-            <span>14 comments</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-wrapper">
-
-  <!-- FEED -->
-  <div class="feed">
-    <div class="feed-header">
-      <div class="feed-title">Recent Cases</div>
-      <div class="feed-filters">
-        <button class="filter-pill active">All</button>
-        <button class="filter-pill">Open</button>
-        <button class="filter-pill">Resolved</button>
-        <button class="filter-pill">AI Reviewed</button>
-      </div>
-    </div>
-
-    <!-- EXPANDED CASE (first one open) -->
-    <div class="case-expanded">
-      <div class="case-expanded-header">
-        <div class="case-tags" style="margin-bottom:10px">
-          <span class="tag tag-specialty">Cornea</span>
-          <span class="tag tag-status-open">Open</span>
-          <span class="tag tag-ai">✦ AI Synthesized</span>
-        </div>
-        <div class="case-card-title" style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;margin-bottom:8px">34M, unilateral progressive corneal thinning — KC or pellucid marginal degeneration?</div>
-        <div class="case-card-meta">
-          <span class="meta-item">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            Posted 3h ago
-          </span>
-          <span class="meta-item">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            14 comments
-          </span>
-          <span class="meta-item" style="color:var(--green)">Dr. B. Reyaz, OD · Trinidad</span>
-        </div>
-      </div>
-
-      <div class="case-expanded-body">
-        <div class="case-section">
-          <div class="case-section-label">Chief Complaint</div>
-          <div class="case-section-content">Patient reports gradual blurring of right eye over 18 months. Contact lens wearer, recently unable to achieve adequate correction with soft lenses.</div>
-        </div>
-        <div class="case-section">
-          <div class="case-section-label">Findings</div>
-          <div class="case-section-content">BCVA: 6/12 OD (with -4.50 -3.25 × 165), 6/6 OS. Slit lamp: mild inferior corneal thinning OD, no Fleischer ring visible, no Vogt's striae. Topography: inferior steepening, SimK 46.8 / 43.1 OD. Belin-Ambrosio D score: 3.2 OD. IOP normal OU.</div>
-        </div>
-        <div class="case-section">
-          <div class="case-section-label">Question for Discussion</div>
-          <div class="case-section-content">Pattern suggests ectasia but location of thinning is more inferior-peripheral than classic KC apex. Considering KC vs PMD vs forme fruste. Would you proceed with CXL at this stage?</div>
-        </div>
-      </div>
-
-      <!-- AI SYNTHESIS -->
-      <div class="ai-panel">
-        <div class="ai-panel-header">
-          <div class="ai-icon">✦</div>
-          <div>
-            <div class="ai-panel-title">AI Clinical Synthesis</div>
-            <div class="ai-panel-subtitle">Based on case details + 14 comments</div>
-          </div>
-        </div>
-        <div class="ai-panel-content">
-          <strong>Differential weighting:</strong> The topographic pattern with inferior peripheral thinning and a D-score of 3.2 is more consistent with <strong>pellucid marginal degeneration</strong> than classic KC, though forme fruste KC cannot be excluded without OD imaging. Commenters have noted the absence of a Fleischer ring argues against classic KC.<br><br>
-          <strong>Consensus on CXL:</strong> 3 of 5 commenters recommend <strong>CXL referral now</strong> given documented progression over 18 months. Dr. K. Patel (UK) suggests Scheimpflug imaging to confirm pachymetry at thinnest point before proceeding. <strong>Sources:</strong> Rabinowitz 1998, DEWS Ectasia Guidelines 2019.
-        </div>
-      </div>
-
-      <!-- COMMENTS -->
-      <div class="comments-section">
-        <div class="comments-title">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Discussion · 14 comments
-        </div>
-
-        <div class="comment">
-          <div class="comment-avatar">KP</div>
-          <div class="comment-body">
-            <div class="comment-meta">
-              <span class="comment-author">Dr. K. Patel</span>
-              <span class="comment-credential">OD · London, UK</span>
-              <span class="comment-time">2h ago</span>
+            <h3 class="case-preview-title">34M, unilateral progressive corneal thinning — KC or pellucid?</h3>
+            <p class="case-preview-snippet">Patient presents with BCVA 6/12 OD. Topography shows inferior steepening, Belin-Ambrosio D score 3.2. CXL referral being considered...</p>
+            <div class="case-preview-footer">
+              <div class="avatar-row">
+                <div class="avatar-sm" style="background:var(--teal);">DR</div>
+                <div class="avatar-sm" style="background:var(--text-secondary);">KP</div>
+                <div class="avatar-sm" style="background:var(--amber);">MO</div>
+                <span class="avatar-more">+5 more</span>
+              </div>
+              <span class="case-preview-count">14 comments</span>
             </div>
-            <div class="comment-text">The "crab claw" appearance on topography and the inferior-peripheral location of thinning strongly suggests PMD over KC. I'd get Scheimpflug before making any CXL decisions — if thinnest point is &lt;400µm you're already limited on treatment options.</div>
-            <button class="comment-upvote">▲ 7</button>
-          </div>
-        </div>
-
-        <div class="comment">
-          <div class="comment-avatar gold">MO</div>
-          <div class="comment-body">
-            <div class="comment-meta">
-              <span class="comment-author">Dr. M. Osei</span>
-              <span class="comment-credential">Cornea Fellow · Accra, Ghana</span>
-              <span class="comment-time">1h ago</span>
-            </div>
-            <div class="comment-text">Agree with Dr. Patel. Also worth checking for systemic associations — atopy especially given the rubbing history. A D-score of 3.2 in a 34yo with documented progression is enough for me to refer for CXL evaluation regardless of KC vs PMD classification.</div>
-            <button class="comment-upvote">▲ 5</button>
-          </div>
-        </div>
-
-        <div class="comment">
-          <div class="comment-avatar slate">RJ</div>
-          <div class="comment-body">
-            <div class="comment-meta">
-              <span class="comment-author">Dr. R. James</span>
-              <span class="comment-credential">OD · Barbados</span>
-              <span class="comment-time">45m ago</span>
-            </div>
-            <div class="comment-text">We've managed similar cases in the Caribbean where CXL access is limited — worth discussing scleral lens options in parallel so the patient isn't waiting months without a vision plan.</div>
-            <button class="comment-upvote">▲ 3</button>
           </div>
         </div>
       </div>
 
-      <div class="comment-input-row">
-        <div class="comment-avatar" style="width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:white;font-weight:600;flex-shrink:0">You</div>
-        <textarea class="comment-input" rows="1" placeholder="Share your clinical reasoning…"></textarea>
-        <button class="btn-primary" style="padding: 10px 16px; border-radius: 10px; font-size: 13px;">Post</button>
-      </div>
     </div>
+  </section>
 
-    <!-- CASE CARD 2 -->
-    <div class="case-card">
-      <div class="case-card-top">
-        <div>
-          <div class="case-tags" style="margin-bottom:8px">
-            <span class="tag tag-specialty">Retina</span>
-            <span class="tag tag-status-open">Open</span>
+  <!-- PREVIEW SECTION — what the forum looks like -->
+  <section class="pro-preview-section">
+    <div class="pro-preview-inner">
+      <div class="section-label">what to expect</div>
+
+      <div class="pro-features">
+
+        <div class="pro-feature">
+          <div class="pro-feature-icon" style="background:var(--teal-light);color:var(--teal-dark);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 13a2 2 0 0 1-2 2H6l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
           </div>
-          <div class="case-card-title">67F, sudden onset floaters and peripheral field loss OD — peripheral lattice or RD?</div>
+          <h3 class="pro-feature-title">Case-based discussion</h3>
+          <p class="pro-feature-desc">Post anonymized clinical cases and get input from optometrists and ophthalmologists across the Caribbean and beyond.</p>
         </div>
-      </div>
-      <div class="case-card-body">Dilated fundus exam shows lattice degeneration at 9–11 o'clock OD with a small horseshoe tear. Patient symptomatic for 48 hours. Macula flat on OCT. Referring for vitreoretinal opinion but seeking input on urgency level.</div>
-      <div class="case-card-footer">
-        <div class="case-card-meta">
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> 6h ago</span>
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 8 comments</span>
-          <span class="meta-item">Dr. A. Singh · Canada</span>
-        </div>
-        <div class="case-card-actions">
-          <button class="action-btn"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Reply</button>
-          <button class="action-btn">▲ 12</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- CASE CARD 3 -->
-    <div class="case-card">
-      <div class="case-card-top">
-        <div>
-          <div class="case-tags" style="margin-bottom:8px">
-            <span class="tag tag-specialty">Glaucoma</span>
-            <span class="tag tag-status-resolved" style="background:#dcfce7;color:#166534">Resolved ✓</span>
-            <span class="tag tag-ai">✦ AI Reviewed</span>
+        <div class="pro-feature">
+          <div class="pro-feature-icon" style="background:#f3e8ff;color:#7c3aed;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 5.5H17l-4.5 3.5 1.5 5.5L10 13.5 6 16.5l1.5-5.5L3 7.5h5.5L10 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
           </div>
-          <div class="case-card-title">52M, asymmetric disc cupping with normal IOP — NTG workup?</div>
+          <h3 class="pro-feature-title">AI synthesis</h3>
+          <p class="pro-feature-desc">After discussion, our AI summarises the clinical consensus, highlights key differentials, and cites relevant guidelines — automatically.</p>
         </div>
-      </div>
-      <div class="case-card-body">C/D ratio 0.75 OD vs 0.55 OS. IOPs consistently 14–16 mmHg OU. VF shows early paracentral depression OD. No family history. Patient asks if he needs drops if pressure is normal.</div>
-      <div class="case-card-footer">
-        <div class="case-card-meta">
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> 2 days ago</span>
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 19 comments</span>
-          <span class="meta-item">Dr. L. Chen · Singapore</span>
-        </div>
-        <div class="case-card-actions">
-          <button class="action-btn">View Resolution</button>
-          <button class="action-btn">▲ 31</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- CASE CARD 4 -->
-    <div class="case-card">
-      <div class="case-card-top">
-        <div>
-          <div class="case-tags" style="margin-bottom:8px">
-            <span class="tag tag-specialty">Pediatric</span>
-            <span class="tag tag-status-open">Open</span>
+        <div class="pro-feature">
+          <div class="pro-feature-icon" style="background:var(--blue-light);color:var(--blue);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M1 17c0-3 2.5-5 6-5M11 17c0-3 2.5-5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           </div>
-          <div class="case-card-title">8Y/O male, intermittent esotropia — when to refer for surgery vs prism?</div>
+          <h3 class="pro-feature-title">Verified community</h3>
+          <p class="pro-feature-desc">Every member is a licensed eye care professional. Know that the clinical reasoning you're reading comes from verified practitioners.</p>
         </div>
+
       </div>
-      <div class="case-card-body">Intermittent esotropia at distance, 18PD. Stereoacuity reduced. Has worn full cycloplegic Rx for 6 months with partial improvement. Parent resistant to surgical referral.</div>
-      <div class="case-card-footer">
-        <div class="case-card-meta">
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> 1 day ago</span>
-          <span class="meta-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 5 comments</span>
-          <span class="meta-item">Dr. F. Nwosu · Nigeria</span>
+
+      <!-- CASE CARD PREVIEWS (static, for illustration) -->
+      <div class="section-label" style="margin-top:3rem;">sample cases from the forum</div>
+      <div class="case-cards-preview">
+
+        <div class="case-card-preview">
+          <div class="case-tag-row">
+            <span class="case-tag case-tag-teal">retina</span>
+            <span class="case-tag case-tag-amber">open</span>
+          </div>
+          <h4 class="case-card-preview-title">67F, sudden onset floaters and peripheral field loss OD — lattice or RD?</h4>
+          <p class="case-card-preview-body">Dilated fundus exam shows lattice degeneration at 9–11 o'clock OD with a small horseshoe tear. Macula flat on OCT. Seeking input on urgency of referral.</p>
+          <div class="case-card-preview-footer">
+            <span>Dr. A. Singh · Canada</span>
+            <span>8 comments</span>
+          </div>
         </div>
-        <div class="case-card-actions">
-          <button class="action-btn"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Reply</button>
-          <button class="action-btn">▲ 9</button>
+
+        <div class="case-card-preview">
+          <div class="case-tag-row">
+            <span class="case-tag case-tag-teal">glaucoma</span>
+            <span class="case-tag case-tag-green">resolved</span>
+          </div>
+          <h4 class="case-card-preview-title">52M, asymmetric disc cupping with normal IOP — NTG workup?</h4>
+          <p class="case-card-preview-body">C/D ratio 0.75 OD vs 0.55 OS. IOPs consistently 14–16 mmHg OU. VF shows early paracentral depression OD. Patient asks if he needs drops if pressure is normal.</p>
+          <div class="case-card-preview-footer">
+            <span>Dr. L. Chen · Singapore</span>
+            <span>19 comments</span>
+          </div>
         </div>
-      </div>
-    </div>
 
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <div class="post-case-card">
-      <h3>Share a case with the world.</h3>
-      <p>Post anonymized cases and tap into clinical reasoning from ODs and ophthalmologists across 19 countries.</p>
-      <button class="btn-post" onclick="openModal()">+ Post a Case</button>
-    </div>
-
-    <div class="sidebar-card">
-      <div class="sidebar-card-title">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
-        Browse by Specialty
-      </div>
-      <ul class="specialty-list">
-        <li class="specialty-item"><span class="specialty-name">Cornea & Anterior Segment</span><span class="specialty-count">41</span></li>
-        <li class="specialty-item"><span class="specialty-name">Glaucoma</span><span class="specialty-count">28</span></li>
-        <li class="specialty-item"><span class="specialty-name">Retina</span><span class="specialty-count">23</span></li>
-        <li class="specialty-item"><span class="specialty-name">Pediatric & Binocular Vision</span><span class="specialty-count">18</span></li>
-        <li class="specialty-item"><span class="specialty-name">Contact Lenses</span><span class="specialty-count">16</span></li>
-        <li class="specialty-item"><span class="specialty-name">Neuro-Optometry</span><span class="specialty-count">10</span></li>
-        <li class="specialty-item"><span class="specialty-name">Ocular Disease</span><span class="specialty-count">6</span></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-card">
-      <div class="sidebar-card-title">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Top Contributors
-      </div>
-      <div class="top-contributor">
-        <div class="comment-avatar" style="width:32px;height:32px;font-size:12px">KP</div>
-        <div class="contributor-info">
-          <div class="contributor-name">Dr. K. Patel</div>
-          <div class="contributor-cred">OD · London, UK</div>
+        <div class="case-card-preview">
+          <div class="case-tag-row">
+            <span class="case-tag case-tag-blue">pediatric</span>
+            <span class="case-tag case-tag-amber">open</span>
+          </div>
+          <h4 class="case-card-preview-title">8Y/O male, intermittent esotropia — surgery vs prism?</h4>
+          <p class="case-card-preview-body">Intermittent esotropia at distance, 18PD. Full cycloplegic Rx for 6 months with partial improvement. Parent resistant to surgical referral.</p>
+          <div class="case-card-preview-footer">
+            <span>Dr. F. Nwosu · Nigeria</span>
+            <span>5 comments</span>
+          </div>
         </div>
-        <div class="contributor-score">142pts</div>
+
       </div>
-      <div class="top-contributor">
-        <div class="comment-avatar gold" style="width:32px;height:32px;font-size:12px">MO</div>
-        <div class="contributor-info">
-          <div class="contributor-name">Dr. M. Osei</div>
-          <div class="contributor-cred">Cornea Fellow · Ghana</div>
-        </div>
-        <div class="contributor-score">98pts</div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ask<span>anoptom</span></a>
+        <p class="footer-tagline">T&T's eye care resource</p>
       </div>
-      <div class="top-contributor">
-        <div class="comment-avatar slate" style="width:32px;height:32px;font-size:12px">BR</div>
-        <div class="contributor-info">
-          <div class="contributor-name">Dr. B. Reyaz</div>
-          <div class="contributor-cred">OD · Trinidad</div>
-        </div>
-        <div class="contributor-score">87pts</div>
+      <div class="footer-links">
+        <a href="index.html">ask a question</a>
+        <a href="resources.html">resources</a>
+        <a href="professionals.html">for professionals</a>
+        <a href="#">about</a>
       </div>
+      <p class="footer-disclaimer">
+        Answers are for informational purposes only and do not constitute medical advice.
+        Always consult a licensed optometrist for clinical decisions.
+      </p>
+      <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
     </div>
+  </footer>
 
-  </div>
-</div>
-
-<!-- REGISTER MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal">
-    <h2>Join the PBL Forum</h2>
-    <p>Create a free account to post cases, comment, and collaborate with eye care professionals worldwide.</p>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">First Name</label>
-        <input class="form-input" type="text" placeholder="Bevon" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Last Name</label>
-        <input class="form-input" type="text" placeholder="Reyaz" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Email</label>
-      <input class="form-input" type="email" placeholder="dr@example.com" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Credential / Role</label>
-      <input class="form-input" type="text" placeholder="OD, Trinidad & Tobago" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Username</label>
-      <input class="form-input" type="text" placeholder="dr_reyaz" />
-    </div>
-    <div class="modal-actions">
-      <button class="btn-close-modal" onclick="closeModal()">Cancel</button>
-      <button class="btn-primary" style="flex:1;justify-content:center">Create Account →</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  function openModal() {
-    document.getElementById('modalOverlay').classList.add('open');
-  }
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('open');
-  }
-  function handleOverlayClick(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeModal();
-  }
-
-  // Filter pills
-  document.querySelectorAll('.filter-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-    });
-  });
-
-  // Upvote buttons
-  document.querySelectorAll('.comment-upvote, .action-btn').forEach(btn => {
-    if (btn.textContent.includes('▲')) {
-      btn.addEventListener('click', () => {
-        const num = parseInt(btn.textContent.replace('▲','').trim());
-        btn.textContent = `▲ ${num + 1}`;
-        btn.style.color = 'var(--green)';
-      });
-    }
-  });
-
-  // Auto-expand textarea
-  document.querySelectorAll('.comment-input').forEach(ta => {
-    ta.addEventListener('input', () => {
-      ta.style.height = 'auto';
-      ta.style.height = ta.scrollHeight + 'px';
-    });
-  });
-</script>
-
+  <script src="js/professionals.js"></script>
 </body>
 </html>
