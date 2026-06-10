@@ -4,6 +4,7 @@
   "description": "AskAnOptom.com — Eye care answers you can trust",
   "type": "module",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.39.0"
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@supabase/supabase-js": "^2.39.0"
   }
 }
