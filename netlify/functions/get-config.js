@@ -7,8 +7,8 @@ export const handler = async () => {
     statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      supabaseUrl:  process.env.https://oxailghpsonsgubzsezf.supabase.co,
-      supabaseAnon: process.env.sb_publishable_yQq9hHwJTCUyCsis1uaJnw_2hUoSQBA
+      supabaseUrl:  process.env.SUPABASE_URL,
+      supabaseAnon: process.env.SUPABASE_ANON_KEY
     })
   };
 };
