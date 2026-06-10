@@ -288,17 +288,15 @@ async function submitThread() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to post');
 
-    // clear fields and close before reloading feed
+    // clear fields and close modal
     titleEl.value = '';
     bodyEl.value  = '';
     closePostModal();
-    await loadThreads(activeSpecialty);
+    // small delay to let modal fully close before touching the feed
+    setTimeout(() => loadThreads(activeSpecialty), 300);
 
   } catch (err) {
-    // only show error and reset button if something actually went wrong
-    if (err.message !== 'Cannot read properties of null (reading \'style\')') {
-      alert('Failed to post case: ' + err.message);
-    }
+    alert('Failed to post case: ' + err.message);
     if (btn) { btn.disabled = false; btn.textContent = 'Post case'; }
   }
 }
