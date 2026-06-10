@@ -13,8 +13,9 @@
 // CONFIG — add your values from Supabase dashboard
 // Settings → API → Project URL and anon key
 // ─────────────────────────────────────────────
-const SUPABASE_URL  = 'https://oxailghpsonsgubzsezf.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_yQq9hHwJTCUyCsis1uaJnw_2hUoSQBA';
+// credentials loaded dynamically via get-config function
+const { createClient } = supabase;
+let sb = null;
 
 // ─────────────────────────────────────────────
 // INIT
