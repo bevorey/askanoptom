@@ -684,19 +684,17 @@
   font-family: var(--font-body);
   color: var(--text-tertiary);
   background: none;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 3px 10px;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 8px;
   cursor: pointer;
   transition: all var(--transition);
 }
 .vote-btn:hover {
-  border-color: var(--teal-mid);
   color: var(--teal-dark);
   background: var(--teal-light);
 }
 .vote-btn-active {
-  border-color: var(--teal-mid);
   color: var(--teal-dark);
   background: var(--teal-light);
 }

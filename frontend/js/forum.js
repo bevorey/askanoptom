@@ -259,7 +259,7 @@ function renderThreadDetail(thread, comments, panel) {
               </div>
               <p class="expand-reply-text">${escapeHtml(c.body)}</p>
               <button class="vote-btn" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
-                👍 <span class="vote-count">${votes}</span>
+                ▲ <span class="vote-count">${votes}</span>
               </button>
             </div>
           </div>`;
