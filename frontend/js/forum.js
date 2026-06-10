@@ -219,7 +219,11 @@ async function expandThread(threadId) {
 
 async function loadThreadDetail(threadId, panel) {
   try {
-    const res  = await fetch(`/.netlify/functions/get-threads?thread_id=${threadId}`);
+    const headers = {};
+    if (currentSession?.access_token) {
+      headers['Authorization'] = `Bearer ${currentSession.access_token}`;
+    }
+    const res  = await fetch(`/.netlify/functions/get-threads?thread_id=${threadId}`, { headers });
     const data = await res.json();
     renderThreadDetail(data.thread, data.comments || [], panel);
   } catch (err) {
@@ -248,6 +252,7 @@ function renderThreadDetail(thread, comments, panel) {
         const ccountry = ca?.country  || '';
         const ci      = cn.substring(0, 2).toUpperCase();
         const votes   = c.upvotes || 0;
+        const voted   = c.user_has_voted ? 'vote-btn-active' : '';
         return `
           <div class="expand-reply">
             <div class="expand-reply-avatar">${ci}</div>
@@ -258,7 +263,7 @@ function renderThreadDetail(thread, comments, panel) {
                 <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
               </div>
               <p class="expand-reply-text">${escapeHtml(c.body)}</p>
-              <button class="vote-btn" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
+              <button class="vote-btn ${voted}" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
                 ▲ <span class="vote-count">${votes}</span>
               </button>
             </div>
