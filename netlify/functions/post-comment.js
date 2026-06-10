@@ -1,16 +1,11 @@
 // netlify/functions/post-comment.js
-// =============================================
-// Posts a comment on a thread
-// Requires a valid Supabase auth token
-// =============================================
+import { createClient } from '@supabase/supabase-js';
 
 export const handler = async (event) => {
 
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
-
-  const { createClient } = await import('@supabase/supabase-js');
 
   const token = event.headers.authorization?.replace('Bearer ', '');
   if (!token) {
@@ -46,7 +41,6 @@ export const handler = async (event) => {
   }
 
   try {
-    // Ensure profile exists
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')

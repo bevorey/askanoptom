@@ -1,8 +1,5 @@
 // netlify/functions/post-thread.js
-// =============================================
-// Creates a new forum thread
-// Requires a valid Supabase auth token
-// =============================================
+import { createClient } from '@supabase/supabase-js';
 
 export const handler = async (event) => {
 
@@ -10,9 +7,6 @@ export const handler = async (event) => {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  const { createClient } = await import('@supabase/supabase-js');
-
-  // Get auth token from request header
   const token = event.headers.authorization?.replace('Bearer ', '');
   if (!token) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Not authenticated' }) };
@@ -24,7 +18,6 @@ export const handler = async (event) => {
     { global: { headers: { Authorization: `Bearer ${token}` } } }
   );
 
-  // Verify user
   const { data: { user }, error: authErr } = await supabase.auth.getUser();
   if (authErr || !user) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Invalid session' }) };
@@ -52,7 +45,6 @@ export const handler = async (event) => {
   }
 
   try {
-    // Ensure profile exists
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
@@ -60,7 +52,6 @@ export const handler = async (event) => {
       .single();
 
     if (!profile) {
-      // Create profile from Google data
       const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous';
       const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
       await supabase.from('profiles').insert({

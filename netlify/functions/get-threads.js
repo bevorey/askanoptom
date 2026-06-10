@@ -1,12 +1,7 @@
 // netlify/functions/get-threads.js
-// =============================================
-// Fetches forum threads from Supabase
-// with author profiles and comment counts
-// =============================================
+import { createClient } from '@supabase/supabase-js';
 
 export const handler = async (event) => {
-
-  const { createClient } = await import('@supabase/supabase-js');
 
   const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -17,7 +12,6 @@ export const handler = async (event) => {
   const thread_id = event.queryStringParameters?.thread_id || null;
 
   try {
-    // Single thread with comments
     if (thread_id) {
       const { data: thread, error: tErr } = await supabase
         .from('threads')
@@ -42,7 +36,6 @@ export const handler = async (event) => {
       };
     }
 
-    // Thread list
     let query = supabase
       .from('threads')
       .select(`*, profiles(full_name, credential, country, avatar_initials)`)
@@ -54,7 +47,6 @@ export const handler = async (event) => {
     const { data: threads, error } = await query;
     if (error) throw error;
 
-    // Get comment counts
     const ids = threads.map(t => t.id);
     const { data: counts } = await supabase
       .from('comments')
