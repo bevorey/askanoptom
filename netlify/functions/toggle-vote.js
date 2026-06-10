@@ -12,20 +12,13 @@ export const handler = async (event) => {
     return { statusCode: 401, body: JSON.stringify({ error: 'Not authenticated' }) };
   }
 
-  // Use service role key for direct DB writes — bypasses RLS for upvote count
-  const supabaseAdmin = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY
-  );
-
-  // Use anon client with user token to verify identity
-  const supabaseUser = createClient(
+  const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_ANON_KEY,
     { global: { headers: { Authorization: `Bearer ${token}` } } }
   );
 
-  const { data: { user }, error: authErr } = await supabaseUser.auth.getUser();
+  const { data: { user }, error: authErr } = await supabase.auth.getUser();
   if (authErr || !user) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Invalid session' }) };
   }
@@ -43,55 +36,52 @@ export const handler = async (event) => {
   }
 
   try {
-    // Check if vote already exists
-    const { data: existing } = await supabaseAdmin
+    // Check existing vote
+    const { data: existing } = await supabase
       .from('comment_votes')
       .select('id')
       .eq('comment_id', comment_id)
       .eq('user_id', user.id)
+      .maybeSingle();
+
+    // Get current upvote count
+    const { data: comment } = await supabase
+      .from('comments')
+      .select('upvotes')
+      .eq('id', comment_id)
       .single();
 
+    const currentCount = comment?.upvotes || 0;
+
     if (existing) {
-      // Remove vote and decrement
-      await supabaseAdmin
+      // Remove vote
+      await supabase
         .from('comment_votes')
         .delete()
         .eq('comment_id', comment_id)
         .eq('user_id', user.id);
 
-      await supabaseAdmin
-        .from('comments')
-        .update({ upvotes: supabaseAdmin.sql`greatest(upvotes - 1, 0)` })
-        .eq('id', comment_id);
+      const newCount = Math.max(currentCount - 1, 0);
 
-      // Fetch updated count
-      const { data: updated } = await supabaseAdmin
+      await supabase
         .from('comments')
-        .select('upvotes')
-        .eq('id', comment_id)
-        .single();
+        .update({ upvotes: newCount })
+        .eq('id', comment_id);
 
       return {
         statusCode: 200,
-        body: JSON.stringify({ action: 'removed', upvotes: updated?.upvotes ?? 0 })
+        body: JSON.stringify({ action: 'removed', upvotes: newCount })
       };
 
     } else {
-      // Add vote and increment
-      await supabaseAdmin
+      // Add vote
+      await supabase
         .from('comment_votes')
         .insert({ comment_id, user_id: user.id });
 
-      // Get current count and increment
-      const { data: current } = await supabaseAdmin
-        .from('comments')
-        .select('upvotes')
-        .eq('id', comment_id)
-        .single();
+      const newCount = currentCount + 1;
 
-      const newCount = (current?.upvotes || 0) + 1;
-
-      await supabaseAdmin
+      await supabase
         .from('comments')
         .update({ upvotes: newCount })
         .eq('id', comment_id);
@@ -106,7 +96,7 @@ export const handler = async (event) => {
     console.error('toggle-vote error:', err.message);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to toggle vote: ' + err.message })
+      body: JSON.stringify({ error: err.message })
     };
   }
 };
