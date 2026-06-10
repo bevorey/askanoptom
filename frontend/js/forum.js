@@ -451,7 +451,8 @@ async function toggleVote(commentId, btn) {
 
   // Optimistic update
   btn.classList.toggle('vote-btn-active');
-  countEl.textContent = voted ? current - 1 : current + 1;
+  countEl.textContent = voted ? Math.max(current - 1, 0) : current + 1;
+  btn.disabled = true;
 
   try {
     const res = await fetch('/.netlify/functions/toggle-vote', {
@@ -463,13 +464,21 @@ async function toggleVote(commentId, btn) {
       body: JSON.stringify({ comment_id: commentId })
     });
 
-    if (!res.ok) throw new Error('Vote failed');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Vote failed');
+
+    // Use server count as source of truth
+    if (typeof data.upvotes === 'number') {
+      countEl.textContent = data.upvotes;
+    }
 
   } catch (err) {
     // Revert on failure
     btn.classList.toggle('vote-btn-active');
     countEl.textContent = current;
     console.error('Vote error:', err.message);
+  } finally {
+    btn.disabled = false;
   }
 }
 
