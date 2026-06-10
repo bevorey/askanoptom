@@ -14,14 +14,13 @@
 // Settings → API → Project URL and anon key
 // ─────────────────────────────────────────────
 // credentials loaded dynamically via get-config function
-const { createClient } = supabase;
-let sb = null;
+
 
 // ─────────────────────────────────────────────
 // INIT
+// supabase loaded via CDN in HTML — use window.supabase
 // ─────────────────────────────────────────────
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+let sb = null;
 
 let currentUser    = null;
 let currentSession = null;
@@ -407,6 +406,22 @@ function escapeHtml(str) {
 }
 
 // ─────────────────────────────────────────────
-// BOOTSTRAP
+// BOOTSTRAP — fetch config then init
 // ─────────────────────────────────────────────
-initAuth().then(() => loadThreads());
+async function bootstrap() {
+  try {
+    const res    = await fetch('/.netlify/functions/get-config');
+    const config = await res.json();
+    // use window.supabase from CDN — avoids redeclaration conflict
+    sb = window.supabase.createClient(config.supabaseUrl, config.supabaseAnon);
+  } catch (err) {
+    console.error('Failed to load config:', err);
+    document.getElementById('feedLoading').innerHTML =
+      '<p style="color:var(--text-tertiary);font-size:13px;">Could not connect to the forum. Please try refreshing.</p>';
+    return;
+  }
+  await initAuth();
+  await loadThreads();
+}
+
+bootstrap();
