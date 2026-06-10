@@ -539,7 +539,10 @@
   border-color: var(--teal-mid) !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  border-bottom-color: transparent !important;
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .thread-expand-panel {
@@ -550,6 +553,7 @@
   border-bottom-right-radius: var(--radius-lg);
   overflow: hidden;
   animation: expandDown 0.2s ease;
+  margin-top: 0;
 }
 
 @keyframes expandDown {
