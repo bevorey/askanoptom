@@ -10,20 +10,14 @@
    ============================================= */
 
 // ─────────────────────────────────────────────
-// CONFIG — add your values from Supabase dashboard
-// Settings → API → Project URL and anon key
-// ─────────────────────────────────────────────
-// credentials loaded dynamically via get-config function
-
-
-// ─────────────────────────────────────────────
 // INIT
 // supabase loaded via CDN in HTML — use window.supabase
+// credentials fetched from get-config function
 // ─────────────────────────────────────────────
 let sb = null;
 
-let currentUser    = null;
-let currentSession = null;
+let currentUser     = null;
+let currentSession  = null;
 let activeSpecialty = 'all';
 let activeThreadId  = null;
 
@@ -37,7 +31,6 @@ async function initAuth() {
     currentUser    = session.user;
     renderAuthState(true);
   }
-
   sb.auth.onAuthStateChange((_event, session) => {
     currentSession = session;
     currentUser    = session?.user || null;
@@ -46,9 +39,9 @@ async function initAuth() {
 }
 
 function renderAuthState(signedIn) {
-  const authCard  = document.getElementById('authCard');
-  const userCard  = document.getElementById('userCard');
-  const navAuth   = document.getElementById('navAuth');
+  const authCard = document.getElementById('authCard');
+  const userCard = document.getElementById('userCard');
+  const navAuth  = document.getElementById('navAuth');
 
   if (signedIn && currentUser) {
     const name     = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'You';
@@ -89,7 +82,8 @@ async function signOut() {
 async function loadThreads(specialty = 'all') {
   const feed    = document.getElementById('forumFeed');
   const loading = document.getElementById('feedLoading');
-  loading.style.display = 'flex';
+
+  if (loading) loading.style.display = 'flex';
 
   try {
     const url = specialty === 'all'
@@ -99,7 +93,7 @@ async function loadThreads(specialty = 'all') {
     const res  = await fetch(url);
     const data = await res.json();
 
-    loading.style.display = 'none';
+    if (loading) loading.style.display = 'none';
 
     if (!data.threads || data.threads.length === 0) {
       feed.innerHTML = `
@@ -116,7 +110,7 @@ async function loadThreads(specialty = 'all') {
     });
 
   } catch (err) {
-    loading.style.display = 'none';
+    if (loading) loading.style.display = 'none';
     feed.innerHTML = `
       <div class="forum-empty">
         <div class="forum-empty-title">Couldn't load cases</div>
@@ -188,21 +182,21 @@ async function openThread(threadId) {
 }
 
 function renderThreadDetail(thread, comments) {
-  const body     = document.getElementById('threadModalBody');
-  const author   = thread.profiles;
-  const name     = author?.full_name || 'Anonymous';
-  const cred     = author?.credential || '';
-  const country  = author?.country    || '';
-  const timeAgo  = formatTimeAgo(thread.created_at);
+  const body    = document.getElementById('threadModalBody');
+  const author  = thread.profiles;
+  const name    = author?.full_name || 'Anonymous';
+  const cred    = author?.credential || '';
+  const country = author?.country    || '';
+  const timeAgo = formatTimeAgo(thread.created_at);
 
   const commentsHtml = comments.length === 0
     ? '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:1rem;">No replies yet — be the first to contribute.</p>'
     : comments.map(c => {
-        const ca = c.profiles;
-        const cn = ca?.full_name || 'Anonymous';
-        const cc = ca?.credential || '';
-        const ccountry = ca?.country || '';
-        const init = cn.substring(0, 2).toUpperCase();
+        const ca      = c.profiles;
+        const cn      = ca?.full_name || 'Anonymous';
+        const cc      = ca?.credential || '';
+        const ccountry = ca?.country  || '';
+        const init    = cn.substring(0, 2).toUpperCase();
         return `
           <div class="comment-item">
             <div class="comment-avatar">${init}</div>
@@ -265,10 +259,10 @@ function closePostModal() {
 async function submitThread() {
   if (!currentUser || !currentSession) { signInWithGoogle(); return; }
 
-  const titleEl    = document.getElementById('threadTitle');
+  const titleEl     = document.getElementById('threadTitle');
   const specialtyEl = document.getElementById('threadSpecialty');
-  const bodyEl     = document.getElementById('threadBody');
-  const btn        = document.getElementById('btnSubmitThread');
+  const bodyEl      = document.getElementById('threadBody');
+  const btn         = document.getElementById('btnSubmitThread');
 
   const title    = titleEl.value.trim();
   const specialty = specialtyEl.value;
@@ -294,15 +288,17 @@ async function submitThread() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to post');
 
-    // clear fields before closing
+    // clear fields and close before reloading feed
     titleEl.value = '';
     bodyEl.value  = '';
     closePostModal();
     await loadThreads(activeSpecialty);
 
   } catch (err) {
-    alert('Failed to post case: ' + err.message);
-    // only reset button on error — modal is still open
+    // only show error and reset button if something actually went wrong
+    if (err.message !== 'Cannot read properties of null (reading \'style\')') {
+      alert('Failed to post case: ' + err.message);
+    }
     if (btn) { btn.disabled = false; btn.textContent = 'Post case'; }
   }
 }
@@ -333,7 +329,6 @@ async function submitComment() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to post');
 
-    // Re-render thread with new comment
     await openThread(activeThreadId);
 
   } catch (err) {
@@ -347,7 +342,6 @@ async function submitComment() {
 // ─────────────────────────────────────────────
 function filterBySpecialty(specialty) {
   activeSpecialty = specialty;
-  // Update filter pills
   document.querySelectorAll('.forum-filter').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.specialty === specialty);
   });
@@ -364,22 +358,21 @@ document.querySelectorAll('.forum-filter').forEach(btn => {
 });
 
 // ─────────────────────────────────────────────
-// CHAR COUNTER
+// CHAR COUNTER + MODAL CLOSE ON OVERLAY CLICK
 // ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  const body    = document.getElementById('threadBody');
+  const bodyEl  = document.getElementById('threadBody');
   const counter = document.getElementById('charCount');
-  if (body && counter) {
-    body.addEventListener('input', () => {
-      counter.textContent = body.value.length;
+  if (bodyEl && counter) {
+    bodyEl.addEventListener('input', () => {
+      counter.textContent = bodyEl.value.length;
     });
   }
 
-  // Close modals on overlay click
-  document.getElementById('postModal').addEventListener('click', e => {
+  document.getElementById('postModal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('postModal')) closePostModal();
   });
-  document.getElementById('threadModal').addEventListener('click', e => {
+  document.getElementById('threadModal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('threadModal')) closeThreadModal();
   });
 });
@@ -388,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // UTILITIES
 // ─────────────────────────────────────────────
 function formatTimeAgo(iso) {
-  const diff = Date.now() - new Date(iso).getTime();
+  const diff  = Date.now() - new Date(iso).getTime();
   const mins  = Math.floor(diff / 60000);
   const hours = Math.floor(diff / 3600000);
   const days  = Math.floor(diff / 86400000);
@@ -415,11 +408,11 @@ async function bootstrap() {
   try {
     const res    = await fetch('/.netlify/functions/get-config');
     const config = await res.json();
-    // use window.supabase from CDN — avoids redeclaration conflict
     sb = window.supabase.createClient(config.supabaseUrl, config.supabaseAnon);
   } catch (err) {
     console.error('Failed to load config:', err);
-    document.getElementById('feedLoading').innerHTML =
+    const loading = document.getElementById('feedLoading');
+    if (loading) loading.innerHTML =
       '<p style="color:var(--text-tertiary);font-size:13px;">Could not connect to the forum. Please try refreshing.</p>';
     return;
   }
