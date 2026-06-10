@@ -99,11 +99,9 @@ async function loadThreads(specialty = 'all') {
       wrapper.className = 'thread-wrapper';
       wrapper.id = `wrapper-${thread.id}`;
 
-      // Thread card
       const card = renderThreadCard(thread);
       wrapper.appendChild(card);
 
-      // Expanded panel (hidden by default)
       const panel = document.createElement('div');
       panel.className = 'thread-expand-panel hidden';
       panel.id = `panel-${thread.id}`;
@@ -111,9 +109,9 @@ async function loadThreads(specialty = 'all') {
 
       feed.appendChild(wrapper);
 
-      // Auto-expand first thread
+      // Auto-expand first thread — delay to ensure session is loaded
       if (index === 0) {
-        expandThread(thread.id);
+        setTimeout(() => expandThread(thread.id), 300);
       }
     });
 
