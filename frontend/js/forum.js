@@ -265,18 +265,21 @@ function closePostModal() {
 async function submitThread() {
   if (!currentUser || !currentSession) { signInWithGoogle(); return; }
 
-  const title    = document.getElementById('threadTitle').value.trim();
-  const specialty = document.getElementById('threadSpecialty').value;
-  const body     = document.getElementById('threadBody').value.trim();
-  const btn      = document.getElementById('btnSubmitThread');
+  const titleEl    = document.getElementById('threadTitle');
+  const specialtyEl = document.getElementById('threadSpecialty');
+  const bodyEl     = document.getElementById('threadBody');
+  const btn        = document.getElementById('btnSubmitThread');
+
+  const title    = titleEl.value.trim();
+  const specialty = specialtyEl.value;
+  const body     = bodyEl.value.trim();
 
   if (!title || !body) {
     alert('Please fill in the title and case details.');
     return;
   }
 
-  btn.disabled   = true;
-  btn.textContent = 'Posting...';
+  if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
 
   try {
     const res = await fetch('/.netlify/functions/post-thread', {
@@ -291,16 +294,16 @@ async function submitThread() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to post');
 
+    // clear fields before closing
+    titleEl.value = '';
+    bodyEl.value  = '';
     closePostModal();
-    document.getElementById('threadTitle').value = '';
-    document.getElementById('threadBody').value  = '';
     await loadThreads(activeSpecialty);
 
   } catch (err) {
     alert('Failed to post case: ' + err.message);
-  } finally {
-    btn.disabled    = false;
-    btn.textContent = 'Post case';
+    // only reset button on error — modal is still open
+    if (btn) { btn.disabled = false; btn.textContent = 'Post case'; }
   }
 }
 
