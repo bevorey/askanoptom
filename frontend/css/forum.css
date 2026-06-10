@@ -4,7 +4,7 @@
 .forum-header {
   background: #fff;
   border-bottom: 1px solid var(--border);
-  padding: 2.5rem 1.5rem 0;
+  padding: 3.5rem 1.5rem 0;
 }
 .forum-header-inner {
   max-width: var(--max-w);
@@ -13,7 +13,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
 }
 .forum-header-left { flex: 1; }
 .btn-post-case {
