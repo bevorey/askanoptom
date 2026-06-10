@@ -284,6 +284,7 @@ function renderThreadDetail(thread, comments, panel) {
 
   panel.innerHTML = `
     <div class="thread-expand-inner">
+      <div class="thread-expand-body">${escapeHtml(thread.body)}</div>
       <div class="expand-replies">
         ${commentsHtml}
       </div>

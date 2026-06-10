@@ -699,3 +699,14 @@
   background: var(--teal-light);
 }
 .vote-count { font-weight: 500; }
+
+/* Thread body in expanded panel */
+.thread-expand-body {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  white-space: pre-wrap;
+}
