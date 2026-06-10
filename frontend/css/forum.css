@@ -255,15 +255,15 @@
   font-size: 13px;
   font-weight: 500;
   font-family: var(--font-body);
-  padding: 6px 14px;
-  border: 1px solid var(--border-mid);
+  padding: 7px 16px;
+  border: none;
   border-radius: 20px;
-  background: #fff;
+  background: var(--bg-secondary);
   color: var(--text-primary);
   cursor: pointer;
   transition: background var(--transition);
 }
-.nav-signin-btn:hover { background: var(--bg-secondary); }
+.nav-signin-btn:hover { background: var(--border); }
 
 /* ── MODALS ──────────────────────────────── */
 .modal-overlay {

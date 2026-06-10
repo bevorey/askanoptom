@@ -1,302 +1,180 @@
-/* professionals.css — for professionals hub / forum teaser page */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Forum — AskAnOptom</title>
+  <meta name="description" content="Peer case discussion forum for optometrists and eye care professionals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/forum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
 
-/* ── HERO ─────────────────────────────────── */
-.pro-hero {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  padding: 4rem 1.5rem 3rem;
-}
-.pro-hero-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 3rem;
-  align-items: center;
-}
-.pro-hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-.pro-hero-title em {
-  font-style: italic;
-  color: var(--teal);
-}
-.pro-hero-sub {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 480px;
-}
+  <nav class="nav">
+    <a href="index.html" class="logo">ask<span>anoptom</span></a>
+    <div class="nav-links">
+      <a href="resources.html">resources</a>
+      <a href="students.html">for students</a>
+      <a href="professionals.html" style="color:var(--teal);">for professionals</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="nav-auth" id="navAuth"></div>
+      <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+    </div>
+  </nav>
 
-/* WAITLIST */
-.waitlist-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 2rem;
-  max-width: 460px;
-}
-.waitlist-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-}
-.waitlist-form {
-  display: flex;
-  gap: 8px;
-}
-.waitlist-input {
-  flex: 1;
-  font-family: var(--font-body);
-  font-size: 14px;
-  padding: 9px 14px;
-  border: 1px solid var(--border-mid);
-  border-radius: var(--radius-md);
-  background: #fff;
-  color: var(--text-primary);
-  outline: none;
-  transition: border-color var(--transition);
-}
-.waitlist-input:focus { border-color: var(--teal); }
-.waitlist-input::placeholder { color: var(--text-tertiary); }
-.waitlist-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  padding: 9px 16px;
-  background: var(--teal);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: background var(--transition);
-  white-space: nowrap;
-}
-.waitlist-btn:hover { background: var(--teal-dark); }
-.waitlist-sub {
-  font-size: 13px;
-  color: var(--teal-dark);
-  margin-top: 0.5rem;
-}
+  <div class="forum-header">
+    <div class="forum-header-inner">
+      <div class="forum-header-left">
+        <div class="page-eyebrow">professional forum</div>
+        <h1 class="page-title">Case discussions</h1>
+        <p class="page-sub">Post anonymized cases, discuss differentials, and collaborate with colleagues worldwide.</p>
+      </div>
+      <div class="forum-header-right">
+        <button class="btn-post-case" onclick="openPostModal()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Post a case
+        </button>
+      </div>
+    </div>
+    <div class="forum-filters">
+      <button class="forum-filter active" data-specialty="all">All</button>
+      <button class="forum-filter" data-specialty="Cornea">Cornea</button>
+      <button class="forum-filter" data-specialty="Glaucoma">Glaucoma</button>
+      <button class="forum-filter" data-specialty="Retina">Retina</button>
+      <button class="forum-filter" data-specialty="Pediatric">Pediatric &amp; BV</button>
+      <button class="forum-filter" data-specialty="Contact Lenses">Contact Lenses</button>
+      <button class="forum-filter" data-specialty="Neuro">Neuro-optometry</button>
+      <button class="forum-filter" data-specialty="General">General</button>
+    </div>
+  </div>
 
-/* STATS */
-.pro-stats {
-  display: flex;
-  gap: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-}
-.pro-stat-num {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 400;
-  color: var(--text-primary);
-  line-height: 1;
-}
-.pro-stat-label {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  margin-top: 3px;
-}
+  <div class="forum-layout">
+    <main class="forum-feed" id="forumFeed">
+      <div class="forum-loading" id="feedLoading">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text">Loading cases...</p>
+      </div>
+    </main>
 
-/* ── CASE PREVIEW CARD ───────────────────── */
-.case-preview-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-}
-.case-preview-header {
-  background: var(--text-primary);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.case-preview-label {
-  font-size: 10px;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.live-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: #4ade80;
-}
-.live-dot-anim {
-  width: 6px;
-  height: 6px;
-  background: #4ade80;
-  border-radius: 50%;
-  animation: livePulse 2s infinite;
-}
-@keyframes livePulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
-}
-.case-preview-body { padding: 16px; }
-.case-preview-title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.35;
-  margin: 8px 0;
-  color: var(--text-primary);
-}
-.case-preview-snippet {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-.case-preview-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-tertiary);
-}
-.avatar-row { display: flex; align-items: center; gap: 4px; }
-.avatar-sm {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
-  font-weight: 500;
-  color: #fff;
-}
-.avatar-more { font-size: 11px; color: var(--text-tertiary); margin-left: 4px; }
-.case-preview-count { font-size: 12px; color: var(--text-tertiary); }
+    <aside class="forum-sidebar">
+      <div class="sidebar-card" id="authCard">
+        <div class="sidebar-card-title">Join the discussion</div>
+        <p class="sidebar-card-body">Sign in with Google to post cases and contribute to peer discussions.</p>
+        <button class="btn-google-signin" onclick="signInWithGoogle()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.68 8.18c0-.57-.05-1.11-.14-1.64H8v3.1h4.3a3.67 3.67 0 0 1-1.59 2.41v2h2.57c1.5-1.39 2.4-3.43 2.4-5.87Z" fill="#4285F4"/><path d="M8 16c2.16 0 3.97-.72 5.3-1.94l-2.58-2a4.8 4.8 0 0 1-7.14-2.52H.96v2.06A8 8 0 0 0 8 16Z" fill="#34A853"/><path d="M3.58 9.54A4.8 4.8 0 0 1 3.33 8c0-.54.09-1.06.25-1.54V4.4H.96A8 8 0 0 0 0 8c0 1.29.31 2.51.96 3.6l2.62-2.06Z" fill="#FBBC05"/><path d="M8 3.18c1.22 0 2.31.42 3.17 1.24l2.38-2.38A8 8 0 0 0 8 0a8 8 0 0 0-7.04 4.4l2.62 2.06A4.77 4.77 0 0 1 8 3.18Z" fill="#EA4335"/></svg>
+          Sign in with Google
+        </button>
+      </div>
 
-/* ── CASE TAGS ───────────────────────────── */
-.case-tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
-.case-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 9px;
-  border-radius: 20px;
-}
-.case-tag-teal   { background: var(--teal-light);  color: var(--teal-dark); }
-.case-tag-blue   { background: var(--blue-light);  color: var(--blue); }
-.case-tag-amber  { background: var(--amber-light); color: var(--amber); }
-.case-tag-green  { background: #dcfce7; color: #166534; }
-.case-tag-purple { background: #f3e8ff; color: #7c3aed; }
+      <div class="sidebar-card hidden" id="userCard">
+        <div class="user-card-inner">
+          <div class="user-avatar" id="userAvatar">--</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">Loading...</div>
+            <div class="user-cred" id="userCred">Eye care professional</div>
+          </div>
+        </div>
+        <button class="btn-signout" onclick="signOut()">Sign out</button>
+      </div>
 
-/* ── PREVIEW SECTION ─────────────────────── */
-.pro-preview-section {
-  padding: 3rem 1.5rem 4rem;
-}
-.pro-preview-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-}
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Browse by specialty</div>
+        <ul class="specialty-list">
+          <li class="specialty-item" onclick="filterBySpecialty('Cornea')"><span>Cornea &amp; anterior segment</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Glaucoma')"><span>Glaucoma</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Retina')"><span>Retina</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Pediatric')"><span>Pediatric &amp; BV</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Contact Lenses')"><span>Contact lenses</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('General')"><span>General</span></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
 
-/* FEATURES */
-.pro-features {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 12px;
-  margin-bottom: 1rem;
-}
-.pro-feature {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-}
-.pro-feature-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.85rem;
-}
-.pro-feature-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.4rem;
-}
-.pro-feature-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
+  <!-- POST CASE MODAL -->
+  <div class="modal-overlay hidden" id="postModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Post a case</h2>
+        <button class="modal-close" onclick="closePostModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Case title</label>
+          <input type="text" id="threadTitle" class="form-input" placeholder="e.g. 34M, progressive corneal thinning — KC or pellucid?" maxlength="200" />
+          <div class="form-hint">Anonymized demographics and key clinical question.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Specialty</label>
+          <select id="threadSpecialty" class="form-input">
+            <option value="Cornea">Cornea &amp; anterior segment</option>
+            <option value="Glaucoma">Glaucoma</option>
+            <option value="Retina">Retina</option>
+            <option value="Pediatric">Pediatric &amp; BV</option>
+            <option value="Contact Lenses">Contact lenses</option>
+            <option value="Neuro">Neuro-optometry</option>
+            <option value="General" selected>General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Case details</label>
+          <textarea id="threadBody" class="form-input form-textarea" placeholder="Chief complaint, relevant history, findings, investigations, and your specific question for discussion..." maxlength="3000"></textarea>
+          <div class="form-hint"><span id="charCount">0</span> / 3000 characters</div>
+        </div>
+        <div class="modal-disclaimer">
+          All patient information must be anonymized. Do not include names, dates of birth, or identifying details.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closePostModal()">Cancel</button>
+        <button class="btn-submit" id="btnSubmitThread" onclick="submitThread()">
+          Post case
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
-/* CASE CARD PREVIEWS */
-.case-cards-preview {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 12px;
-  margin-top: 1rem;
-}
-.case-card-preview {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.1rem 1.25rem;
-  transition: box-shadow var(--transition), transform var(--transition);
-}
-.case-card-preview:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
-}
-.case-card-preview-title {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.35;
-  color: var(--text-primary);
-  margin: 8px 0 6px;
-}
-.case-card-preview-body {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 10px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.case-card-preview-footer {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-}
+  <!-- THREAD VIEW MODAL -->
+  <div class="modal-overlay hidden" id="threadModal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <button class="modal-back" onclick="closeThreadModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to cases
+        </button>
+        <button class="modal-close" onclick="closeThreadModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="threadModalBody"></div>
+    </div>
+  </div>
 
-/* ── RESPONSIVE ──────────────────────────── */
-@media (max-width: 760px) {
-  .pro-hero-inner { grid-template-columns: 1fr; }
-  .pro-hero-right { display: none; }
-  .pro-features { grid-template-columns: 1fr; }
-  .case-cards-preview { grid-template-columns: 1fr; }
-  .pro-stats { gap: 1.5rem; }
-  .waitlist-form { flex-direction: column; }
-}
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ask<span>anoptom</span></a>
+        <p class="footer-tagline">T&T's eye care resource</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">ask a question</a>
+        <a href="resources.html">resources</a>
+        <a href="students.html">for students</a>
+        <a href="professionals.html">for professionals</a>
+      </div>
+      <p class="footer-disclaimer">Forum content is peer discussion only and does not constitute clinical advice.</p>
+      <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
+    </div>
+  </footer>
+
+  <script src="js/forum.js"></script>
+</body>
+</html>
