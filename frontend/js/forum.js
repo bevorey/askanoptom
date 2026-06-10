@@ -1,25 +1,13 @@
 /* =============================================
    ASKANOPTOM.COM — Forum JS
-   =============================================
-   Handles:
-   - Supabase client init
-   - Google OAuth sign in/out
-   - Loading and rendering threads
-   - Posting threads and comments
-   - Specialty filtering
+   Inline expand thread design
    ============================================= */
 
-// ─────────────────────────────────────────────
-// INIT
-// supabase loaded via CDN in HTML — use window.supabase
-// credentials fetched from get-config function
-// ─────────────────────────────────────────────
-let sb = null;
-
+let sb              = null;
 let currentUser     = null;
 let currentSession  = null;
 let activeSpecialty = 'all';
-let activeThreadId  = null;
+let expandedThreadId = null;
 
 // ─────────────────────────────────────────────
 // AUTH
@@ -47,18 +35,20 @@ function renderAuthState(signedIn) {
     const name     = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'You';
     const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
-    authCard.classList.add('hidden');
-    userCard.classList.remove('hidden');
-    document.getElementById('userAvatar').textContent = initials;
-    document.getElementById('userName').textContent   = name;
+    authCard?.classList.add('hidden');
+    userCard?.classList.remove('hidden');
+    const avatarEl = document.getElementById('userAvatar');
+    const nameEl   = document.getElementById('userName');
+    if (avatarEl) avatarEl.textContent = initials;
+    if (nameEl)   nameEl.textContent   = name;
 
-    navAuth.innerHTML = `
+    if (navAuth) navAuth.innerHTML = `
       <div class="nav-auth-avatar">${initials}</div>
       <span class="nav-auth-name">${name.split(' ')[0]}</span>`;
   } else {
-    authCard.classList.remove('hidden');
-    userCard.classList.add('hidden');
-    navAuth.innerHTML = `<button class="nav-signin-btn" onclick="signInWithGoogle()">Sign in</button>`;
+    authCard?.classList.remove('hidden');
+    userCard?.classList.add('hidden');
+    if (navAuth) navAuth.innerHTML = `<button class="nav-signin-btn" onclick="signInWithGoogle()">Sign in</button>`;
   }
 }
 
@@ -82,7 +72,6 @@ async function signOut() {
 async function loadThreads(specialty = 'all') {
   const feed    = document.getElementById('forumFeed');
   const loading = document.getElementById('feedLoading');
-
   if (loading) loading.style.display = 'flex';
 
   try {
@@ -105,8 +94,27 @@ async function loadThreads(specialty = 'all') {
     }
 
     feed.innerHTML = '';
-    data.threads.forEach(thread => {
-      feed.appendChild(renderThreadCard(thread));
+    data.threads.forEach((thread, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'thread-wrapper';
+      wrapper.id = `wrapper-${thread.id}`;
+
+      // Thread card
+      const card = renderThreadCard(thread);
+      wrapper.appendChild(card);
+
+      // Expanded panel (hidden by default)
+      const panel = document.createElement('div');
+      panel.className = 'thread-expand-panel hidden';
+      panel.id = `panel-${thread.id}`;
+      wrapper.appendChild(panel);
+
+      feed.appendChild(wrapper);
+
+      // Auto-expand first thread
+      if (index === 0) {
+        expandThread(thread.id);
+      }
     });
 
   } catch (err) {
@@ -126,7 +134,8 @@ async function loadThreads(specialty = 'all') {
 function renderThreadCard(thread) {
   const card = document.createElement('div');
   card.className = 'thread-card';
-  card.onclick = () => openThread(thread.id);
+  card.id = `card-${thread.id}`;
+  card.onclick = () => toggleThread(thread.id);
 
   const author   = thread.profiles;
   const name     = author?.full_name || 'Anonymous';
@@ -159,93 +168,161 @@ function renderThreadCard(thread) {
 }
 
 // ─────────────────────────────────────────────
-// OPEN THREAD
+// TOGGLE / EXPAND THREAD INLINE
 // ─────────────────────────────────────────────
-async function openThread(threadId) {
-  activeThreadId = threadId;
-  const modal = document.getElementById('threadModal');
-  const body  = document.getElementById('threadModalBody');
-  modal.classList.remove('hidden');
-  body.innerHTML = `
-    <div class="forum-loading" style="padding:2rem 0;">
-      <div class="loading-dots"><span></span><span></span><span></span></div>
-      <p class="loading-text">Loading case...</p>
-    </div>`;
+async function toggleThread(threadId) {
+  const panel = document.getElementById(`panel-${threadId}`);
+  const card  = document.getElementById(`card-${threadId}`);
+  if (!panel) return;
 
-  try {
-    const res  = await fetch(`/.netlify/functions/get-threads?thread_id=${threadId}`);
-    const data = await res.json();
-    renderThreadDetail(data.thread, data.comments || []);
-  } catch (err) {
-    body.innerHTML = `<p style="color:var(--text-secondary);padding:1rem;">Couldn't load this case. Please try again.</p>`;
+  const isOpen = !panel.classList.contains('hidden');
+
+  // Collapse currently expanded thread if different
+  if (expandedThreadId && expandedThreadId !== threadId) {
+    const oldPanel = document.getElementById(`panel-${expandedThreadId}`);
+    const oldCard  = document.getElementById(`card-${expandedThreadId}`);
+    if (oldPanel) oldPanel.classList.add('hidden');
+    if (oldCard)  oldCard.classList.remove('thread-card-active');
+  }
+
+  if (isOpen) {
+    panel.classList.add('hidden');
+    card?.classList.remove('thread-card-active');
+    expandedThreadId = null;
+  } else {
+    expandedThreadId = threadId;
+    card?.classList.add('thread-card-active');
+    panel.classList.remove('hidden');
+    panel.innerHTML = `
+      <div class="forum-loading" style="padding:1.5rem;">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text">Loading discussion...</p>
+      </div>`;
+    await loadThreadDetail(threadId, panel);
   }
 }
 
-function renderThreadDetail(thread, comments) {
-  const body    = document.getElementById('threadModalBody');
+async function expandThread(threadId) {
+  expandedThreadId = threadId;
+  const card  = document.getElementById(`card-${threadId}`);
+  const panel = document.getElementById(`panel-${threadId}`);
+  if (!panel) return;
+  card?.classList.add('thread-card-active');
+  panel.classList.remove('hidden');
+  panel.innerHTML = `
+    <div class="forum-loading" style="padding:1.5rem;">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <p class="loading-text">Loading discussion...</p>
+    </div>`;
+  await loadThreadDetail(threadId, panel);
+}
+
+async function loadThreadDetail(threadId, panel) {
+  try {
+    const res  = await fetch(`/.netlify/functions/get-threads?thread_id=${threadId}`);
+    const data = await res.json();
+    renderThreadDetail(data.thread, data.comments || [], panel);
+  } catch (err) {
+    panel.innerHTML = `<p style="padding:1rem;color:var(--text-tertiary);font-size:13px;">Couldn't load this case. Please try again.</p>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// RENDER THREAD DETAIL (inline panel)
+// matches student discussion style
+// ─────────────────────────────────────────────
+function renderThreadDetail(thread, comments, panel) {
   const author  = thread.profiles;
   const name    = author?.full_name || 'Anonymous';
   const cred    = author?.credential || '';
   const country = author?.country    || '';
   const timeAgo = formatTimeAgo(thread.created_at);
+  const initials = name.substring(0, 2).toUpperCase();
 
   const commentsHtml = comments.length === 0
-    ? '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:1rem;">No replies yet — be the first to contribute.</p>'
+    ? '<p style="font-size:13px;color:var(--text-tertiary);padding:0.5rem 0 1rem;">No replies yet — be the first to contribute.</p>'
     : comments.map(c => {
         const ca      = c.profiles;
         const cn      = ca?.full_name || 'Anonymous';
         const cc      = ca?.credential || '';
         const ccountry = ca?.country  || '';
-        const init    = cn.substring(0, 2).toUpperCase();
+        const ci      = cn.substring(0, 2).toUpperCase();
         return `
-          <div class="comment-item">
-            <div class="comment-avatar">${init}</div>
-            <div class="comment-body">
-              <div class="comment-meta">
-                <span class="comment-author">${escapeHtml(cn)}</span>
-                ${cc ? `<span class="comment-cred">${escapeHtml(cc)}${ccountry ? ' · ' + ccountry : ''}</span>` : ''}
-                <span class="comment-time">${formatTimeAgo(c.created_at)}</span>
+          <div class="expand-reply">
+            <div class="expand-reply-avatar">${ci}</div>
+            <div class="expand-reply-body">
+              <div class="expand-reply-meta">
+                <span class="expand-reply-author">${escapeHtml(cn)}</span>
+                ${cc ? `<span class="expand-reply-cred">${escapeHtml(cc)}${ccountry ? ' · ' + ccountry : ''}</span>` : ''}
+                <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
               </div>
-              <div class="comment-text">${escapeHtml(c.body)}</div>
+              <p class="expand-reply-text">${escapeHtml(c.body)}</p>
             </div>
           </div>`;
       }).join('');
 
-  const replySection = currentUser
-    ? `<div class="comment-input-area">
-        <textarea class="comment-input" id="newComment" rows="2" placeholder="Share your clinical reasoning..."></textarea>
-        <button class="comment-submit" onclick="submitComment()">Reply</button>
+  const replyArea = currentUser
+    ? `<div class="expand-input-row">
+        <div class="expand-input-avatar">${
+          (currentUser.user_metadata?.full_name || currentUser.email || 'You')
+            .substring(0, 2).toUpperCase()
+        }</div>
+        <input type="text" class="expand-input" id="reply-${thread.id}"
+          placeholder="Share your clinical reasoning…" />
+        <button class="expand-reply-btn" onclick="submitInlineComment('${thread.id}', this)">Reply</button>
        </div>`
-    : `<div class="signin-to-comment">
+    : `<div class="expand-signin">
         <button onclick="signInWithGoogle()">Sign in with Google</button> to add your clinical perspective.
        </div>`;
 
-  body.innerHTML = `
-    <div class="thread-detail-tags">
-      <span class="tc-tag tc-tag-teal">${thread.specialty || 'General'}</span>
-      ${thread.is_resolved
-        ? '<span class="tc-tag tc-tag-green">resolved ✓</span>'
-        : '<span class="tc-tag tc-tag-amber">open</span>'}
-    </div>
-    <h2 class="thread-detail-title">${escapeHtml(thread.title)}</h2>
-    <div class="thread-detail-meta">
-      <span class="td-author">${escapeHtml(name)}${cred ? ' · ' + cred : ''}${country ? ' · ' + country : ''}</span>
-      <span>${timeAgo}</span>
-      <span>${comments.length} ${comments.length === 1 ? 'reply' : 'replies'}</span>
-    </div>
-    <div class="thread-detail-body">${escapeHtml(thread.body)}</div>
-    <div class="comments-header">${comments.length} ${comments.length === 1 ? 'reply' : 'replies'}</div>
-    ${commentsHtml}
-    ${replySection}`;
-}
-
-function closeThreadModal() {
-  document.getElementById('threadModal').classList.add('hidden');
-  activeThreadId = null;
+  panel.innerHTML = `
+    <div class="thread-expand-inner">
+      <div class="expand-replies">
+        ${commentsHtml}
+      </div>
+      ${replyArea}
+    </div>`;
 }
 
 // ─────────────────────────────────────────────
-// POST THREAD
+// POST COMMENT (inline)
+// ─────────────────────────────────────────────
+async function submitInlineComment(threadId, btn) {
+  if (!currentUser || !currentSession) return;
+
+  const input = document.getElementById(`reply-${threadId}`);
+  const text  = input?.value.trim();
+  if (!text) { input?.focus(); return; }
+
+  btn.disabled    = true;
+  btn.textContent = 'Posting...';
+
+  try {
+    const res = await fetch('/.netlify/functions/post-comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${currentSession.access_token}`
+      },
+      body: JSON.stringify({ thread_id: threadId, body: text })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to post');
+
+    // reload the panel
+    const panel = document.getElementById(`panel-${threadId}`);
+    if (panel) await loadThreadDetail(threadId, panel);
+
+  } catch (err) {
+    alert('Failed to post comment: ' + err.message);
+    btn.disabled    = false;
+    btn.textContent = 'Reply';
+  }
+}
+
+// ─────────────────────────────────────────────
+// POST THREAD MODAL
 // ─────────────────────────────────────────────
 function openPostModal() {
   if (!currentUser) { signInWithGoogle(); return; }
@@ -288,11 +365,9 @@ async function submitThread() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to post');
 
-    // clear fields and close modal
     titleEl.value = '';
     bodyEl.value  = '';
     closePostModal();
-    // small delay to let modal fully close before touching the feed
     setTimeout(() => loadThreads(activeSpecialty), 300);
 
   } catch (err) {
@@ -302,41 +377,7 @@ async function submitThread() {
 }
 
 // ─────────────────────────────────────────────
-// POST COMMENT
-// ─────────────────────────────────────────────
-async function submitComment() {
-  if (!currentUser || !currentSession || !activeThreadId) return;
-
-  const input = document.getElementById('newComment');
-  const text  = input?.value.trim();
-  if (!text) { input?.focus(); return; }
-
-  const btn = document.querySelector('.comment-submit');
-  if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
-
-  try {
-    const res = await fetch('/.netlify/functions/post-comment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${currentSession.access_token}`
-      },
-      body: JSON.stringify({ thread_id: activeThreadId, body: text })
-    });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Failed to post');
-
-    await openThread(activeThreadId);
-
-  } catch (err) {
-    alert('Failed to post comment: ' + err.message);
-    if (btn) { btn.disabled = false; btn.textContent = 'Reply'; }
-  }
-}
-
-// ─────────────────────────────────────────────
-// FILTER BY SPECIALTY
+// SPECIALTY FILTER
 // ─────────────────────────────────────────────
 function filterBySpecialty(specialty) {
   activeSpecialty = specialty;
@@ -346,32 +387,21 @@ function filterBySpecialty(specialty) {
   loadThreads(specialty);
 }
 
-// ─────────────────────────────────────────────
-// FILTER PILLS
-// ─────────────────────────────────────────────
 document.querySelectorAll('.forum-filter').forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBySpecialty(btn.dataset.specialty);
-  });
+  btn.addEventListener('click', () => filterBySpecialty(btn.dataset.specialty));
 });
 
 // ─────────────────────────────────────────────
-// CHAR COUNTER + MODAL CLOSE ON OVERLAY CLICK
+// CHAR COUNTER + MODAL OVERLAY CLOSE
 // ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   const bodyEl  = document.getElementById('threadBody');
   const counter = document.getElementById('charCount');
   if (bodyEl && counter) {
-    bodyEl.addEventListener('input', () => {
-      counter.textContent = bodyEl.value.length;
-    });
+    bodyEl.addEventListener('input', () => { counter.textContent = bodyEl.value.length; });
   }
-
   document.getElementById('postModal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('postModal')) closePostModal();
-  });
-  document.getElementById('threadModal')?.addEventListener('click', e => {
-    if (e.target === document.getElementById('threadModal')) closeThreadModal();
   });
 });
 
@@ -400,7 +430,7 @@ function escapeHtml(str) {
 }
 
 // ─────────────────────────────────────────────
-// BOOTSTRAP — fetch config then init
+// BOOTSTRAP
 // ─────────────────────────────────────────────
 async function bootstrap() {
   try {
