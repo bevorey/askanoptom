@@ -673,3 +673,31 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+/* ── VOTE BUTTON ─────────────────────────── */
+.vote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--text-tertiary);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.vote-btn:hover {
+  border-color: var(--teal-mid);
+  color: var(--teal-dark);
+  background: var(--teal-light);
+}
+.vote-btn-active {
+  border-color: var(--teal-mid);
+  color: var(--teal-dark);
+  background: var(--teal-light);
+}
+.vote-count { font-weight: 500; }

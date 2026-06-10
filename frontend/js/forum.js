@@ -247,6 +247,7 @@ function renderThreadDetail(thread, comments, panel) {
         const cc      = ca?.credential || '';
         const ccountry = ca?.country  || '';
         const ci      = cn.substring(0, 2).toUpperCase();
+        const votes   = c.upvotes || 0;
         return `
           <div class="expand-reply">
             <div class="expand-reply-avatar">${ci}</div>
@@ -257,6 +258,9 @@ function renderThreadDetail(thread, comments, panel) {
                 <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
               </div>
               <p class="expand-reply-text">${escapeHtml(c.body)}</p>
+              <button class="vote-btn" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
+                👍 <span class="vote-count">${votes}</span>
+              </button>
             </div>
           </div>`;
       }).join('');
@@ -427,6 +431,43 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// ─────────────────────────────────────────────
+// TOGGLE VOTE
+// ─────────────────────────────────────────────
+async function toggleVote(commentId, btn) {
+  if (!currentUser || !currentSession) {
+    signInWithGoogle();
+    return;
+  }
+
+  const countEl = btn.querySelector('.vote-count');
+  const current = parseInt(countEl.textContent) || 0;
+  const voted   = btn.classList.contains('vote-btn-active');
+
+  // Optimistic update
+  btn.classList.toggle('vote-btn-active');
+  countEl.textContent = voted ? current - 1 : current + 1;
+
+  try {
+    const res = await fetch('/.netlify/functions/toggle-vote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${currentSession.access_token}`
+      },
+      body: JSON.stringify({ comment_id: commentId })
+    });
+
+    if (!res.ok) throw new Error('Vote failed');
+
+  } catch (err) {
+    // Revert on failure
+    btn.classList.toggle('vote-btn-active');
+    countEl.textContent = current;
+    console.error('Vote error:', err.message);
+  }
 }
 
 // ─────────────────────────────────────────────
