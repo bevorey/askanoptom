@@ -3,190 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Professionals — AskAnOptom</title>
-  <meta name="description" content="A peer forum for optometrists and eye care professionals. Post cases, discuss differentials, and collaborate with colleagues worldwide." />
+  <title>Professional Forum — AskAnOptom</title>
+  <meta name="description" content="Peer case discussion forum for optometrists and eye care professionals." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/professionals.css" />
+  <link rel="stylesheet" href="css/forum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
       <a href="resources.html">resources</a>
-      <a href="resources.html#students">for students</a>
+      <a href="students.html">for students</a>
       <a href="professionals.html" style="color:var(--teal);">for professionals</a>
     </div>
-    <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+    <div class="nav-auth" id="navAuth"></div>
   </nav>
 
-  <!-- HERO -->
-  <section class="pro-hero">
-    <div class="pro-hero-inner">
-
-      <div class="pro-hero-left">
-        <div class="hero-eyebrow">
-          <span class="eyebrow-dot"></span>
-          coming soon · open to all eye care professionals
-        </div>
-        <h1 class="pro-hero-title">
-          Problem-based learning,<br />
-          <em>reimagined</em> for optometry.
-        </h1>
-        <p class="pro-hero-sub">Post anonymized cases, discuss differentials with colleagues worldwide, and let AI synthesize the discussion — all in one place built for eye care professionals.</p>
-
-        <!-- WAITLIST FORM -->
-        <div class="waitlist-box">
-          <p class="waitlist-label">Join the waitlist — be first when we launch</p>
-          <div class="waitlist-form">
-            <input type="email" id="waitlistEmail" placeholder="your@email.com" class="waitlist-input" />
-            <button class="waitlist-btn" onclick="handleWaitlist()">
-              Join waitlist
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <p class="waitlist-sub" id="waitlistConfirm" style="display:none;">
-            ✓ You're on the list — we'll be in touch.
-          </p>
-        </div>
-
-        <!-- STATS -->
-        <div class="pro-stats">
-          <div class="pro-stat">
-            <div class="pro-stat-num">142</div>
-            <div class="pro-stat-label">Cases posted</div>
-          </div>
-          <div class="pro-stat">
-            <div class="pro-stat-num">38</div>
-            <div class="pro-stat-label">Active this week</div>
-          </div>
-          <div class="pro-stat">
-            <div class="pro-stat-num">19</div>
-            <div class="pro-stat-label">Countries represented</div>
-          </div>
-        </div>
+  <div class="forum-header">
+    <div class="forum-header-inner">
+      <div class="forum-header-left">
+        <div class="page-eyebrow">professional forum</div>
+        <h1 class="page-title">Case discussions</h1>
+        <p class="page-sub">Post anonymized cases, discuss differentials, and collaborate with colleagues worldwide.</p>
       </div>
-
-      <!-- FEATURED CASE PREVIEW -->
-      <div class="pro-hero-right">
-        <div class="case-preview-card">
-          <div class="case-preview-header">
-            <span class="case-preview-label">featured case</span>
-            <span class="live-badge">
-              <span class="live-dot-anim"></span>
-              active discussion
-            </span>
-          </div>
-          <div class="case-preview-body">
-            <div class="case-tag-row">
-              <span class="case-tag case-tag-teal">cornea</span>
-              <span class="case-tag case-tag-amber">open</span>
-              <span class="case-tag case-tag-purple">AI synthesized</span>
-            </div>
-            <h3 class="case-preview-title">34M, unilateral progressive corneal thinning — KC or pellucid?</h3>
-            <p class="case-preview-snippet">Patient presents with BCVA 6/12 OD. Topography shows inferior steepening, Belin-Ambrosio D score 3.2. CXL referral being considered...</p>
-            <div class="case-preview-footer">
-              <div class="avatar-row">
-                <div class="avatar-sm" style="background:var(--teal);">DR</div>
-                <div class="avatar-sm" style="background:var(--text-secondary);">KP</div>
-                <div class="avatar-sm" style="background:var(--amber);">MO</div>
-                <span class="avatar-more">+5 more</span>
-              </div>
-              <span class="case-preview-count">14 comments</span>
-            </div>
-          </div>
-        </div>
+      <div class="forum-header-right">
+        <button class="btn-post-case" onclick="openPostModal()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Post a case
+        </button>
       </div>
-
     </div>
-  </section>
-
-  <!-- PREVIEW SECTION — what the forum looks like -->
-  <section class="pro-preview-section">
-    <div class="pro-preview-inner">
-      <div class="section-label">what to expect</div>
-
-      <div class="pro-features">
-
-        <div class="pro-feature">
-          <div class="pro-feature-icon" style="background:var(--teal-light);color:var(--teal-dark);">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 13a2 2 0 0 1-2 2H6l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="pro-feature-title">Case-based discussion</h3>
-          <p class="pro-feature-desc">Post anonymized clinical cases and get input from optometrists and ophthalmologists across the Caribbean and beyond.</p>
-        </div>
-
-        <div class="pro-feature">
-          <div class="pro-feature-icon" style="background:#f3e8ff;color:#7c3aed;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 5.5H17l-4.5 3.5 1.5 5.5L10 13.5 6 16.5l1.5-5.5L3 7.5h5.5L10 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="pro-feature-title">AI synthesis</h3>
-          <p class="pro-feature-desc">After discussion, our AI summarises the clinical consensus, highlights key differentials, and cites relevant guidelines — automatically.</p>
-        </div>
-
-        <div class="pro-feature">
-          <div class="pro-feature-icon" style="background:var(--blue-light);color:var(--blue);">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M1 17c0-3 2.5-5 6-5M11 17c0-3 2.5-5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="pro-feature-title">Verified community</h3>
-          <p class="pro-feature-desc">Every member is a licensed eye care professional. Know that the clinical reasoning you're reading comes from verified practitioners.</p>
-        </div>
-
-      </div>
-
-      <!-- CASE CARD PREVIEWS (static, for illustration) -->
-      <div class="section-label" style="margin-top:3rem;">sample cases from the forum</div>
-      <div class="case-cards-preview">
-
-        <div class="case-card-preview">
-          <div class="case-tag-row">
-            <span class="case-tag case-tag-teal">retina</span>
-            <span class="case-tag case-tag-amber">open</span>
-          </div>
-          <h4 class="case-card-preview-title">67F, sudden onset floaters and peripheral field loss OD — lattice or RD?</h4>
-          <p class="case-card-preview-body">Dilated fundus exam shows lattice degeneration at 9–11 o'clock OD with a small horseshoe tear. Macula flat on OCT. Seeking input on urgency of referral.</p>
-          <div class="case-card-preview-footer">
-            <span>Dr. A. Singh · Canada</span>
-            <span>8 comments</span>
-          </div>
-        </div>
-
-        <div class="case-card-preview">
-          <div class="case-tag-row">
-            <span class="case-tag case-tag-teal">glaucoma</span>
-            <span class="case-tag case-tag-green">resolved</span>
-          </div>
-          <h4 class="case-card-preview-title">52M, asymmetric disc cupping with normal IOP — NTG workup?</h4>
-          <p class="case-card-preview-body">C/D ratio 0.75 OD vs 0.55 OS. IOPs consistently 14–16 mmHg OU. VF shows early paracentral depression OD. Patient asks if he needs drops if pressure is normal.</p>
-          <div class="case-card-preview-footer">
-            <span>Dr. L. Chen · Singapore</span>
-            <span>19 comments</span>
-          </div>
-        </div>
-
-        <div class="case-card-preview">
-          <div class="case-tag-row">
-            <span class="case-tag case-tag-blue">pediatric</span>
-            <span class="case-tag case-tag-amber">open</span>
-          </div>
-          <h4 class="case-card-preview-title">8Y/O male, intermittent esotropia — surgery vs prism?</h4>
-          <p class="case-card-preview-body">Intermittent esotropia at distance, 18PD. Full cycloplegic Rx for 6 months with partial improvement. Parent resistant to surgical referral.</p>
-          <div class="case-card-preview-footer">
-            <span>Dr. F. Nwosu · Nigeria</span>
-            <span>5 comments</span>
-          </div>
-        </div>
-
-      </div>
-
+    <div class="forum-filters">
+      <button class="forum-filter active" data-specialty="all">All</button>
+      <button class="forum-filter" data-specialty="Cornea">Cornea</button>
+      <button class="forum-filter" data-specialty="Glaucoma">Glaucoma</button>
+      <button class="forum-filter" data-specialty="Retina">Retina</button>
+      <button class="forum-filter" data-specialty="Pediatric">Pediatric &amp; BV</button>
+      <button class="forum-filter" data-specialty="Contact Lenses">Contact Lenses</button>
+      <button class="forum-filter" data-specialty="Neuro">Neuro-optometry</button>
+      <button class="forum-filter" data-specialty="General">General</button>
     </div>
-  </section>
+  </div>
 
-  <!-- FOOTER -->
+  <div class="forum-layout">
+    <main class="forum-feed" id="forumFeed">
+      <div class="forum-loading" id="feedLoading">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text">Loading cases...</p>
+      </div>
+    </main>
+
+    <aside class="forum-sidebar">
+      <div class="sidebar-card" id="authCard">
+        <div class="sidebar-card-title">Join the discussion</div>
+        <p class="sidebar-card-body">Sign in with Google to post cases and contribute to peer discussions.</p>
+        <button class="btn-google-signin" onclick="signInWithGoogle()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.68 8.18c0-.57-.05-1.11-.14-1.64H8v3.1h4.3a3.67 3.67 0 0 1-1.59 2.41v2h2.57c1.5-1.39 2.4-3.43 2.4-5.87Z" fill="#4285F4"/><path d="M8 16c2.16 0 3.97-.72 5.3-1.94l-2.58-2a4.8 4.8 0 0 1-7.14-2.52H.96v2.06A8 8 0 0 0 8 16Z" fill="#34A853"/><path d="M3.58 9.54A4.8 4.8 0 0 1 3.33 8c0-.54.09-1.06.25-1.54V4.4H.96A8 8 0 0 0 0 8c0 1.29.31 2.51.96 3.6l2.62-2.06Z" fill="#FBBC05"/><path d="M8 3.18c1.22 0 2.31.42 3.17 1.24l2.38-2.38A8 8 0 0 0 8 0a8 8 0 0 0-7.04 4.4l2.62 2.06A4.77 4.77 0 0 1 8 3.18Z" fill="#EA4335"/></svg>
+          Sign in with Google
+        </button>
+      </div>
+
+      <div class="sidebar-card hidden" id="userCard">
+        <div class="user-card-inner">
+          <div class="user-avatar" id="userAvatar">--</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">Loading...</div>
+            <div class="user-cred" id="userCred">Eye care professional</div>
+          </div>
+        </div>
+        <button class="btn-signout" onclick="signOut()">Sign out</button>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Browse by specialty</div>
+        <ul class="specialty-list">
+          <li class="specialty-item" onclick="filterBySpecialty('Cornea')"><span>Cornea &amp; anterior segment</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Glaucoma')"><span>Glaucoma</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Retina')"><span>Retina</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Pediatric')"><span>Pediatric &amp; BV</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Contact Lenses')"><span>Contact lenses</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('General')"><span>General</span></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- POST CASE MODAL -->
+  <div class="modal-overlay hidden" id="postModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Post a case</h2>
+        <button class="modal-close" onclick="closePostModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Case title</label>
+          <input type="text" id="threadTitle" class="form-input" placeholder="e.g. 34M, progressive corneal thinning — KC or pellucid?" maxlength="200" />
+          <div class="form-hint">Anonymized demographics and key clinical question.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Specialty</label>
+          <select id="threadSpecialty" class="form-input">
+            <option value="Cornea">Cornea &amp; anterior segment</option>
+            <option value="Glaucoma">Glaucoma</option>
+            <option value="Retina">Retina</option>
+            <option value="Pediatric">Pediatric &amp; BV</option>
+            <option value="Contact Lenses">Contact lenses</option>
+            <option value="Neuro">Neuro-optometry</option>
+            <option value="General" selected>General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Case details</label>
+          <textarea id="threadBody" class="form-input form-textarea" placeholder="Chief complaint, relevant history, findings, investigations, and your specific question for discussion..." maxlength="3000"></textarea>
+          <div class="form-hint"><span id="charCount">0</span> / 3000 characters</div>
+        </div>
+        <div class="modal-disclaimer">
+          All patient information must be anonymized. Do not include names, dates of birth, or identifying details.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closePostModal()">Cancel</button>
+        <button class="btn-submit" id="btnSubmitThread" onclick="submitThread()">
+          Post case
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREAD VIEW MODAL -->
+  <div class="modal-overlay hidden" id="threadModal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <button class="modal-back" onclick="closeThreadModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to cases
+        </button>
+        <button class="modal-close" onclick="closeThreadModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="threadModalBody"></div>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
@@ -196,17 +164,14 @@
       <div class="footer-links">
         <a href="index.html">ask a question</a>
         <a href="resources.html">resources</a>
+        <a href="students.html">for students</a>
         <a href="professionals.html">for professionals</a>
-        <a href="#">about</a>
       </div>
-      <p class="footer-disclaimer">
-        Answers are for informational purposes only and do not constitute medical advice.
-        Always consult a licensed optometrist for clinical decisions.
-      </p>
+      <p class="footer-disclaimer">Forum content is peer discussion only and does not constitute clinical advice.</p>
       <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
     </div>
   </footer>
 
-  <script src="js/professionals.js"></script>
+  <script src="js/forum.js"></script>
 </body>
 </html>
