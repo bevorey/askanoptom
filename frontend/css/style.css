@@ -351,13 +351,12 @@ img { max-width: 100%; }
 
 /* --- AD STRIP --- */
 .ad-strip {
-  margin-top: 2rem; 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   max-width: var(--max-w);
-  margin: 2rem auto 0;
+  margin: 0 auto;
   padding: 1rem 1.5rem;
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
@@ -549,6 +548,7 @@ img { max-width: 100%; }
   .hero { padding: 3rem 1.25rem 2.5rem; }
   .ad-strip { flex-direction: column; align-items: flex-start; }
 }
+
 /* --- STUDENT CONTEXT BAR --- */
 .student-context-bar {
   background: var(--blue-light);
@@ -573,4 +573,155 @@ img { max-width: 100%; }
   text-decoration: underline;
   text-underline-offset: 2px;
   flex-shrink: 0;
+}
+
+/* ── CONSULTATION SECTION ────────────────── */
+.consult-section {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 1.5rem;
+}
+.consult-section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 3rem;
+  align-items: start;
+}
+.consult-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.consult-section-body {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.consult-features {
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.consult-feature {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.consult-feature-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.consult-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.consult-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  padding: 11px 22px;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: background var(--transition);
+}
+.consult-cta-btn:hover { background: var(--teal-dark); }
+.consult-price {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.consult-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  position: sticky;
+  top: 80px;
+}
+.consult-card-icon { font-size: 24px; margin-bottom: 10px; }
+.consult-card-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.consult-card-body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.consult-card-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+}
+.consult-card-link:hover { text-decoration: underline; }
+
+/* ── FAQ SECTION ─────────────────────────── */
+.faq-section { padding-bottom: 1rem; }
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.faq-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.25rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.faq-card:hover {
+  border-color: var(--teal-mid);
+  box-shadow: 0 2px 12px rgba(29,158,117,0.07);
+}
+.faq-q {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 7px;
+  line-height: 1.35;
+}
+.faq-a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.faq-ask {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+}
+.faq-ask:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .consult-section-inner { grid-template-columns: 1fr; }
+  .consult-section-right { display: none; }
+  .faq-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .faq-grid { grid-template-columns: 1fr; }
 }
