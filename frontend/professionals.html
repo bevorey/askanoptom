@@ -48,6 +48,7 @@
     </div>
     <div class="forum-filters">
       <button class="forum-filter active" data-specialty="all">All</button>
+      <button class="forum-filter" data-specialty="Glasses">Glasses &amp; Spectacle Rx</button>
       <button class="forum-filter" data-specialty="Cornea">Cornea</button>
       <button class="forum-filter" data-specialty="Glaucoma">Glaucoma</button>
       <button class="forum-filter" data-specialty="Retina">Retina</button>
@@ -90,11 +91,13 @@
       <div class="sidebar-card">
         <div class="sidebar-card-title">Browse by specialty</div>
         <ul class="specialty-list">
+          <li class="specialty-item" onclick="filterBySpecialty('Glasses')"><span>Glasses &amp; Spectacle Rx</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('Cornea')"><span>Cornea &amp; anterior segment</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('Glaucoma')"><span>Glaucoma</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('Retina')"><span>Retina</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('Pediatric')"><span>Pediatric &amp; BV</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('Contact Lenses')"><span>Contact lenses</span></li>
+          <li class="specialty-item" onclick="filterBySpecialty('Neuro')"><span>Neuro-optometry</span></li>
           <li class="specialty-item" onclick="filterBySpecialty('General')"><span>General</span></li>
         </ul>
       </div>
