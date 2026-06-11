@@ -159,10 +159,15 @@ function renderThreadCard(thread) {
         <span class="tc-author">${escapeHtml(name)}${escapeHtml(cred)}${escapeHtml(country)}</span>
         <span>${timeAgo}</span>
       </div>
-      <span class="tc-comments">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 1H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2l2 3 2-3h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-        ${comments}
-      </span>
+      <div style="display:flex;align-items:center;gap:10px;">
+        ${currentUser?.id === thread.author_id ? `
+          <button class="tc-edit-btn" onclick="event.stopPropagation();openThreadEdit('${thread.id}')">edit</button>
+        ` : ''}
+        <span class="tc-comments">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 1H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2l2 3 2-3h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+          ${comments}
+        </span>
+      </div>
     </div>`;
   return card;
 }
@@ -269,10 +274,15 @@ function renderThreadDetail(thread, comments, panel) {
                 ${cc ? `<span class="expand-reply-cred">${escapeHtml(cc)}${ccountry ? ' · ' + ccountry : ''}</span>` : ''}
                 <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
               </div>
-              <p class="expand-reply-text">${escapeHtml(c.body)}</p>
-              <button class="vote-btn ${voted}" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
-                ▲ <span class="vote-count">${votes}</span>
-              </button>
+              <p class="expand-reply-text" id="comment-text-${c.id}">${escapeHtml(c.body)}</p>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <button class="vote-btn ${voted}" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
+                  ▲ <span class="vote-count">${votes}</span>
+                </button>
+                ${currentUser?.id === c.author_id ? `
+                  <button class="tc-edit-btn" onclick="openCommentEdit('${c.id}')">edit</button>
+                ` : ''}
+              </div>
             </div>
           </div>`;
       }).join('');
@@ -455,6 +465,106 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// ─────────────────────────────────────────────
+// EDIT THREAD
+// ─────────────────────────────────────────────
+function openThreadEdit(threadId) {
+  const card = document.getElementById(`card-${threadId}`);
+  const titleEl = card?.querySelector('.thread-card-title');
+  const bodyEl  = card?.querySelector('.thread-card-preview');
+  if (!titleEl || !bodyEl) return;
+
+  const currentTitle = titleEl.textContent;
+  const currentBody  = bodyEl.textContent;
+
+  titleEl.innerHTML = `<input class="inline-edit-input" id="edit-title-${threadId}" value="${escapeHtml(currentTitle)}" />`;
+  bodyEl.innerHTML  = `<textarea class="inline-edit-textarea" id="edit-body-${threadId}">${escapeHtml(currentBody)}</textarea>`;
+  bodyEl.classList.add('thread-card-expanded');
+
+  // Swap edit button to save/cancel
+  const editBtn = card.querySelector('.tc-edit-btn');
+  if (editBtn) {
+    editBtn.outerHTML = `
+      <button class="tc-save-btn" onclick="event.stopPropagation();saveThreadEdit('${threadId}')">save</button>
+      <button class="tc-cancel-btn" onclick="event.stopPropagation();cancelThreadEdit('${threadId}', '${escapeHtml(currentTitle)}', '${escapeHtml(currentBody)}')">cancel</button>`;
+  }
+}
+
+async function saveThreadEdit(threadId) {
+  const title   = document.getElementById(`edit-title-${threadId}`)?.value.trim();
+  const content = document.getElementById(`edit-body-${threadId}`)?.value.trim();
+  if (!title || !content) return;
+
+  try {
+    const res = await fetch('/.netlify/functions/edit-post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${currentSession.access_token}`
+      },
+      body: JSON.stringify({ type: 'thread', id: threadId, title, content })
+    });
+    if (!res.ok) throw new Error('Failed to save');
+    setTimeout(() => loadThreads(activeSpecialty), 300);
+  } catch (err) {
+    alert('Failed to save: ' + err.message);
+  }
+}
+
+function cancelThreadEdit(threadId, originalTitle, originalBody) {
+  const card    = document.getElementById(`card-${threadId}`);
+  const titleEl = card?.querySelector('.thread-card-title');
+  const bodyEl  = card?.querySelector('.thread-card-preview');
+  if (titleEl) titleEl.textContent = originalTitle;
+  if (bodyEl)  bodyEl.textContent  = originalBody;
+  setTimeout(() => loadThreads(activeSpecialty), 100);
+}
+
+// ─────────────────────────────────────────────
+// EDIT COMMENT
+// ─────────────────────────────────────────────
+function openCommentEdit(commentId) {
+  const textEl = document.getElementById(`comment-text-${commentId}`);
+  if (!textEl) return;
+  const current = textEl.textContent;
+
+  textEl.outerHTML = `
+    <textarea class="inline-edit-textarea" id="edit-comment-${commentId}">${escapeHtml(current)}</textarea>
+    <div style="display:flex;gap:6px;margin-top:6px;">
+      <button class="tc-save-btn" onclick="saveCommentEdit('${commentId}')">save</button>
+      <button class="tc-cancel-btn" onclick="cancelCommentEdit('${commentId}', '${escapeHtml(current)}')">cancel</button>
+    </div>`;
+}
+
+async function saveCommentEdit(commentId) {
+  const content = document.getElementById(`edit-comment-${commentId}`)?.value.trim();
+  if (!content) return;
+
+  try {
+    const res = await fetch('/.netlify/functions/edit-post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${currentSession.access_token}`
+      },
+      body: JSON.stringify({ type: 'comment', id: commentId, content })
+    });
+    if (!res.ok) throw new Error('Failed to save');
+
+    // Reload the expanded thread panel
+    const panel = document.getElementById(`panel-${expandedThreadId}`);
+    if (panel && expandedThreadId) await loadThreadDetail(expandedThreadId, panel);
+
+  } catch (err) {
+    alert('Failed to save: ' + err.message);
+  }
+}
+
+function cancelCommentEdit(commentId, originalText) {
+  const panel = document.getElementById(`panel-${expandedThreadId}`);
+  if (panel && expandedThreadId) loadThreadDetail(expandedThreadId, panel);
 }
 
 // ─────────────────────────────────────────────
