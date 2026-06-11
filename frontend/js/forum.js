@@ -34,6 +34,7 @@ function renderAuthState(signedIn) {
   if (signedIn && currentUser) {
     const name     = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'You';
     const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const displayName = 'Dr. ' + (name.trim().split(' ')[0]?.[0]?.toUpperCase() || '?');
 
     authCard?.classList.add('hidden');
     userCard?.classList.remove('hidden');
@@ -44,7 +45,7 @@ function renderAuthState(signedIn) {
 
     if (navAuth) navAuth.innerHTML = `
       <div class="nav-auth-avatar">${initials}</div>
-      <span class="nav-auth-name">${name.split(' ')[0]}</span>`;
+      <span class="nav-auth-name">${displayName}</span>`;
   } else {
     authCard?.classList.remove('hidden');
     userCard?.classList.add('hidden');
@@ -136,7 +137,7 @@ function renderThreadCard(thread) {
   card.onclick = () => toggleThread(thread.id);
 
   const author   = thread.profiles;
-  const name     = author?.full_name || 'Anonymous';
+  const name     = formatAuthorName(author);
   const cred     = author?.credential ? ` · ${author.credential}` : '';
   const country  = author?.country    ? ` · ${author.country}`    : '';
   const timeAgo  = formatTimeAgo(thread.created_at);
@@ -240,20 +241,20 @@ async function loadThreadDetail(threadId, panel) {
 // ─────────────────────────────────────────────
 function renderThreadDetail(thread, comments, panel) {
   const author  = thread.profiles;
-  const name    = author?.full_name || 'Anonymous';
+  const name    = formatAuthorName(author);
   const cred    = author?.credential || '';
   const country = author?.country    || '';
   const timeAgo = formatTimeAgo(thread.created_at);
-  const initials = name.substring(0, 2).toUpperCase();
+  const initials = name.replace(/[^A-Z]/g, '').substring(0, 2) || 'DR';
 
   const commentsHtml = comments.length === 0
     ? '<p style="font-size:13px;color:var(--text-tertiary);padding:0.5rem 0 1rem;">No replies yet — be the first to contribute.</p>'
     : comments.map(c => {
         const ca      = c.profiles;
-        const cn      = ca?.full_name || 'Anonymous';
+        const cn      = formatAuthorName(ca);
         const cc      = ca?.credential || '';
         const ccountry = ca?.country  || '';
-        const ci      = cn.substring(0, 2).toUpperCase();
+        const ci      = cn.replace(/[^A-Z]/g, '').substring(0, 2) || 'DR';
         const votes   = c.upvotes || 0;
         const voted   = c.user_has_voted ? 'vote-btn-active' : '';
         return `
@@ -416,6 +417,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('postModal')) closePostModal();
   });
 });
+
+// ─────────────────────────────────────────────
+// FORMAT AUTHOR NAME
+// Shows "Dr. K" for privacy — first initial only
+// ─────────────────────────────────────────────
+function formatAuthorName(profile) {
+  if (!profile) return 'Anonymous';
+  const name     = profile.full_name || '';
+  const cred     = profile.credential || '';
+  const first    = name.trim().split(' ')[0] || '';
+  const initial  = first[0]?.toUpperCase() || '?';
+  const isDoc    = cred.toLowerCase().includes('od') ||
+                   cred.toLowerCase().includes('dr') ||
+                   cred.toLowerCase().includes('mbbs') ||
+                   cred.toLowerCase().includes('md');
+  return isDoc ? `Dr. ${initial}` : initial + '.';
+}
 
 // ─────────────────────────────────────────────
 // UTILITIES
