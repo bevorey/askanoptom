@@ -34,7 +34,8 @@ function renderAuthState(signedIn) {
   if (signedIn && currentUser) {
     const name     = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'You';
     const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-    const displayName = 'Dr. ' + (name.trim().split(' ')[0]?.[0]?.toUpperCase() || '?');
+    const parts    = name.trim().split(' ');
+    const displayName = parts[0] + (parts[1]?.[0] ? ' ' + parts[1][0].toUpperCase() + '.' : '');
 
     authCard?.classList.add('hidden');
     userCard?.classList.remove('hidden');
@@ -245,7 +246,8 @@ function renderThreadDetail(thread, comments, panel) {
   const cred    = author?.credential || '';
   const country = author?.country    || '';
   const timeAgo = formatTimeAgo(thread.created_at);
-  const initials = name.replace(/[^A-Z]/g, '').substring(0, 2) || 'DR';
+  const rawParts = (author?.full_name || '').trim().split(' ');
+  const initials = ((rawParts[0]?.[0] || '') + (rawParts[1]?.[0] || '')).toUpperCase() || 'AN';
 
   const commentsHtml = comments.length === 0
     ? '<p style="font-size:13px;color:var(--text-tertiary);padding:0.5rem 0 1rem;">No replies yet — be the first to contribute.</p>'
@@ -254,7 +256,8 @@ function renderThreadDetail(thread, comments, panel) {
         const cn      = formatAuthorName(ca);
         const cc      = ca?.credential || '';
         const ccountry = ca?.country  || '';
-        const ci      = cn.replace(/[^A-Z]/g, '').substring(0, 2) || 'DR';
+        const cParts  = (ca?.full_name || '').trim().split(' ');
+        const ci      = ((cParts[0]?.[0] || '') + (cParts[1]?.[0] || '')).toUpperCase() || 'AN';
         const votes   = c.upvotes || 0;
         const voted   = c.user_has_voted ? 'vote-btn-active' : '';
         return `
@@ -424,15 +427,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─────────────────────────────────────────────
 function formatAuthorName(profile) {
   if (!profile) return 'Anonymous';
-  const name     = profile.full_name || '';
-  const cred     = profile.credential || '';
-  const first    = name.trim().split(' ')[0] || '';
-  const initial  = first[0]?.toUpperCase() || '?';
-  const isDoc    = cred.toLowerCase().includes('od') ||
-                   cred.toLowerCase().includes('dr') ||
-                   cred.toLowerCase().includes('mbbs') ||
-                   cred.toLowerCase().includes('md');
-  return isDoc ? `Dr. ${initial}` : initial + '.';
+  const parts   = (profile.full_name || '').trim().split(' ');
+  const first   = parts[0] || 'Anonymous';
+  const lastInit = parts[1]?.[0]?.toUpperCase();
+  return lastInit ? `${first} ${lastInit}.` : first;
 }
 
 // ─────────────────────────────────────────────
