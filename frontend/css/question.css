@@ -138,3 +138,89 @@
 .answer-content {
   animation: fadeIn 0.4s ease both;
 }
+
+/* ── ANSWER ACTIONS ──────────────────────── */
+.answer-actions {
+  display: flex;
+  gap: 10px;
+  margin: 1.5rem 0 1rem;
+  flex-wrap: wrap;
+}
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.action-save {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-mid);
+}
+.action-save:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+.action-consult {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+}
+.action-consult:hover { background: var(--teal-dark); }
+
+/* ── CONSULT BANNER ──────────────────────── */
+.consult-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(135deg, #f0faf6 0%, #e6f7f2 100%);
+  border: 1px solid var(--teal-mid);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  flex-wrap: wrap;
+}
+.consult-banner-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+.consult-banner-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.consult-banner-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.consult-banner-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.consult-banner-btn {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  padding: 9px 18px;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--transition);
+  flex-shrink: 0;
+}
+.consult-banner-btn:hover { background: var(--teal-dark); }

@@ -7,31 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5901470620840862"
-     crossorigin="anonymous"></script>
-
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/question.css" />
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="#">resources</a>
-      <a href="#">for students</a>
-      <a href="#">for professionals</a>
+      <a href="resources.html">resources</a>
+      <a href="students.html">for students</a>
+      <a href="professionals.html">for professionals</a>
     </div>
     <a href="index.html" class="nav-cta">ask a question</a>
   </nav>
 
-  <!-- QUESTION PAGE BODY -->
   <main class="q-page">
 
-    <!-- INLINE SEARCH (smaller) -->
+    <!-- INLINE SEARCH -->
     <div class="q-search-wrap">
       <div class="search-box" id="searchBox">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 18 18" fill="none">
@@ -46,58 +39,65 @@
       </div>
     </div>
 
-    <!-- ANSWER AREA -->
     <div class="q-body">
 
-      <!-- Loading state (shown while AI is thinking) -->
+      <!-- Loading -->
       <div class="loading-state" id="loadingState">
-        <div class="loading-dots">
-          <span></span><span></span><span></span>
-        </div>
+        <div class="loading-dots"><span></span><span></span><span></span></div>
         <p class="loading-text">Searching the knowledge base...</p>
       </div>
 
-      <!-- Answer content (hidden until loaded) -->
+      <!-- Answer -->
       <div class="answer-content" id="answerContent" style="display:none;">
 
-        <div class="q-meta" id="qMeta">
-          <!-- Tags injected by JS -->
-        </div>
-
-        <h1 class="q-title" id="qTitle">
-          <!-- Question injected by JS -->
-        </h1>
-
-        <div class="q-answer-body" id="qAnswerBody">
-          <!-- Answer injected by JS -->
-        </div>
+        <div class="q-meta" id="qMeta"></div>
+        <h1 class="q-title" id="qTitle"></h1>
+        <div class="q-answer-body" id="qAnswerBody"></div>
 
         <div class="answer-sources" id="qSources">
           <span class="sources-label">sources</span>
-          <!-- Sources injected by JS -->
+        </div>
+
+        <!-- SAVE + CONSULT ACTIONS -->
+        <div class="answer-actions" id="answerActions">
+          <button class="action-btn action-save" onclick="saveQuestion()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Save this answer
+          </button>
+          <a href="https://calendly.com" target="_blank" class="action-btn action-consult">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1a6 6 0 1 1 0 12A6 6 0 0 1 7 1Zm0 3v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Book a consultation
+          </a>
+        </div>
+
+        <!-- CONSULT BANNER -->
+        <div class="consult-banner">
+          <div class="consult-banner-left">
+            <div class="consult-banner-icon">👁️</div>
+            <div>
+              <div class="consult-banner-title">Still have questions? Talk to a real optometrist.</div>
+              <div class="consult-banner-sub">Book a one-on-one consultation — no eye exam pressure, just answers. Flat fee of $39.99 USD.</div>
+            </div>
+          </div>
+          <a href="https://calendly.com" target="_blank" class="consult-banner-btn">Book now</a>
         </div>
 
       </div>
 
-      <!-- AD SLOT — swap <ins> block for sponsor card when ready -->
-      <div class="sponsored-slot">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-gw-3+1f-3d+2z"
-             data-ad-client="ca-pub-5901470620840862"
-             data-ad-slot="6244520937"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+      <!-- AD STRIP -->
+      <div class="ad-strip" style="margin: 2rem 0; max-width: 100%;">
+        <div class="ad-inner">
+          <span class="ad-label">sponsored</span>
+          <p class="ad-text">Need a comprehensive eye exam in Trinidad?</p>
+          <p class="ad-sub">Book with The Optometrist Company — Chaguanas, opening 2026</p>
+        </div>
+        <a href="#" class="ad-btn">learn more</a>
       </div>
 
       <!-- RELATED QUESTIONS -->
       <div class="related-section" id="relatedSection" style="display:none;">
         <div class="section-label">related questions</div>
-        <div class="related-chips" id="relatedChips">
-          <!-- Injected by JS -->
-        </div>
+        <div class="related-chips" id="relatedChips"></div>
       </div>
 
     </div>
@@ -111,17 +111,32 @@
       </div>
       <div class="footer-links">
         <a href="index.html">home</a>
-        <a href="#">resources</a>
-        <a href="#">about</a>
+        <a href="resources.html">resources</a>
+        <a href="professionals.html">for professionals</a>
       </div>
       <p class="footer-disclaimer">
         Answers are for informational purposes only and do not constitute medical advice.
         Always consult a licensed optometrist for clinical decisions.
+        For personalised advice, <a href="https://calendly.com" target="_blank" style="color:var(--teal);text-decoration:underline;">book a consultation</a> with a real optometrist.
       </p>
       <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
     </div>
   </footer>
 
   <script src="js/question.js"></script>
+  <script>
+    function saveQuestion() {
+      const title  = document.getElementById('qTitle')?.textContent || '';
+      const answer = document.getElementById('qAnswerBody')?.textContent || '';
+      const text   = `Question: ${title}\n\nAnswer:\n${answer}\n\nSource: askanoptom.com`;
+      const blob   = new Blob([text], { type: 'text/plain' });
+      const url    = URL.createObjectURL(blob);
+      const a      = document.createElement('a');
+      a.href       = url;
+      a.download   = 'eye-care-answer.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
