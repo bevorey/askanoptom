@@ -151,7 +151,8 @@ function renderThreadCard(thread) {
         : '<span class="tc-tag tc-tag-amber">open</span>'}
     </div>
     <div class="thread-card-title">${escapeHtml(thread.title)}</div>
-    <div class="thread-card-body">${escapeHtml(thread.body)}</div>
+    <div class="thread-card-body thread-card-preview">${escapeHtml(thread.body)}</div>
+    <div class="thread-card-body thread-card-full" style="display:none;">${escapeHtml(thread.body)}</div>
     <div class="thread-card-footer">
       <div class="thread-card-meta">
         <span class="tc-author">${escapeHtml(name)}${escapeHtml(cred)}${escapeHtml(country)}</span>
@@ -180,16 +181,26 @@ async function toggleThread(threadId) {
     const oldPanel = document.getElementById(`panel-${expandedThreadId}`);
     const oldCard  = document.getElementById(`card-${expandedThreadId}`);
     if (oldPanel) oldPanel.classList.add('hidden');
-    if (oldCard)  oldCard.classList.remove('thread-card-active');
+    if (oldCard) {
+      oldCard.classList.remove('thread-card-active');
+      oldCard.querySelector('.thread-card-preview')?.style.setProperty('display', '');
+      oldCard.querySelector('.thread-card-full')?.style.setProperty('display', 'none');
+    }
   }
 
   if (isOpen) {
     panel.classList.add('hidden');
     card?.classList.remove('thread-card-active');
+    // restore preview
+    card?.querySelector('.thread-card-preview')?.style.setProperty('display', '');
+    card?.querySelector('.thread-card-full')?.style.setProperty('display', 'none');
     expandedThreadId = null;
   } else {
     expandedThreadId = threadId;
     card?.classList.add('thread-card-active');
+    // show full body in card
+    card?.querySelector('.thread-card-preview')?.style.setProperty('display', 'none');
+    card?.querySelector('.thread-card-full')?.style.setProperty('display', '');
     panel.classList.remove('hidden');
     panel.innerHTML = `
       <div class="forum-loading" style="padding:1.5rem;">
@@ -206,6 +217,8 @@ async function expandThread(threadId) {
   const panel = document.getElementById(`panel-${threadId}`);
   if (!panel) return;
   card?.classList.add('thread-card-active');
+  card?.querySelector('.thread-card-preview')?.style.setProperty('display', 'none');
+  card?.querySelector('.thread-card-full')?.style.setProperty('display', '');
   panel.classList.remove('hidden');
   panel.innerHTML = `
     <div class="forum-loading" style="padding:1.5rem;">
@@ -284,7 +297,6 @@ function renderThreadDetail(thread, comments, panel) {
 
   panel.innerHTML = `
     <div class="thread-expand-inner">
-      <div class="thread-expand-body">${escapeHtml(thread.body)}</div>
       <div class="expand-replies">
         ${commentsHtml}
       </div>
