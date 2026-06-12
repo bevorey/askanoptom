@@ -653,8 +653,6 @@ img { max-width: 100%; }
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 1.5rem;
-  position: sticky;
-  top: 80px;
 }
 .consult-card-icon { font-size: 24px; margin-bottom: 10px; }
 .consult-card-title {
@@ -748,4 +746,50 @@ img { max-width: 100%; }
   border-radius: 50%;
   background: var(--teal);
   flex-shrink: 0;
+}
+
+/* ── FAQ ACCORDION ───────────────────────── */
+.faq-accordion {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+  gap: 12px;
+  transition: color var(--transition);
+}
+.faq-trigger:hover { color: var(--teal); }
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  transition: transform 0.2s ease;
+}
+.faq-open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
+.faq-open .faq-trigger { color: var(--teal); }
+.faq-body {
+  display: none;
+  padding-bottom: 1rem;
+}
+.faq-open .faq-body { display: block; }
+.faq-body p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
 }
