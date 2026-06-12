@@ -793,3 +793,61 @@ img { max-width: 100%; }
   line-height: 1.7;
   margin-bottom: 8px;
 }
+
+/* ── THOUGHT BUBBLE FAQ ──────────────────── */
+.bubbles-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+.bub {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+  font-family: var(--font-body);
+}
+.bub:hover {
+  border-color: var(--teal-mid);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+.bub.bub-active {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+.bub-answer {
+  display: none;
+  width: 100%;
+  order: 99;
+  background: #fff;
+  border: 1px solid var(--teal-mid);
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+  padding: 1rem 1.25rem;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 4px;
+  animation: expandDown 0.15s ease;
+}
+.bub-answer.show { display: block; }
+.bub-answer a {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+}
+.bub-answer a:hover { text-decoration: underline; }
