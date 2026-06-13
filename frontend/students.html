@@ -17,12 +17,35 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="resources.html">resources</a>
-      <a href="students.html" style="color:var(--teal);">for students</a>
-      <a href="professionals.html">for professionals</a>
+      <a href="for-patients.html">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:4px;"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>for patients
+      </a>
+      <a href="students.html" style="color:var(--teal);">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:4px;"><path d="M8 2L1 6l7 4 7-4-7-4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M4 8v4c0 1.105 1.79 2 4 2s4-.895 4-2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>for students
+      </a>
+      <a href="professionals.html">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:4px;"><path d="M5 3h6M8 3v4M5 7c0 1.657 1.343 3 3 3s3-1.343 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M3 13c0-1.5 2-2.5 5-2.5s5 1 5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>for professionals
+      </a>
     </div>
     <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-header">
+      <a href="index.html" class="logo">ask<span>anoptom</span></a>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" onclick="closeDrawer()">Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">For patients</a>
+      <a href="students.html" onclick="closeDrawer()">For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">For professionals</a>
+    </div>
+    <a href="https://calendly.com" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
+  </div>
 
   <!-- HERO -->
   <section class="stu-hero">
@@ -353,5 +376,17 @@
   </footer>
 
   <script src="js/students.js"></script>
+  <script>
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  </script>
 </body>
 </html>
