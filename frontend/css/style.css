@@ -851,3 +851,91 @@ img { max-width: 100%; }
   text-decoration: none;
 }
 .bub-answer a:hover { text-decoration: underline; }
+
+/* ── HAMBURGER + MOBILE DRAWER ───────────── */
+.nav-hamburger {
+  display: none;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 4px 8px;
+  margin-left: auto;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  background: #fff;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+  animation: slideInRight 0.2s ease;
+}
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+.drawer.hidden, .drawer-overlay.hidden { display: none; }
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-close {
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  padding: 4px;
+}
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  flex: 1;
+}
+.drawer-links a {
+  font-size: 15px;
+  color: var(--text-primary);
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drawer-links a:hover { background: var(--bg-secondary); }
+.drawer-cta {
+  display: block;
+  margin: 1.5rem;
+  padding: 12px;
+  background: var(--teal);
+  color: #fff !important;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+.drawer-cta:hover { background: var(--teal-dark) !important; }
+
+@media (max-width: 680px) {
+  .nav-links { display: none; }
+  .nav-cta   { display: none; }
+  .nav-hamburger { display: block; margin-left: auto; }
+}

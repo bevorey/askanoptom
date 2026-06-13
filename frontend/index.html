@@ -16,12 +16,29 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="resources.html">resources</a>
-      <a href="students.html">for students</a>
-      <a href="professionals.html">for professionals</a>
+      <a href="for-patients.html">👁️ for patients</a>
+      <a href="students.html">🎓 for students</a>
+      <a href="professionals.html">🩺 for professionals</a>
     </div>
     <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-header">
+      <a href="index.html" class="logo">ask<span>anoptom</span></a>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">👁️ For patients</a>
+      <a href="students.html" onclick="closeDrawer()">🎓 For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">🩺 For professionals</a>
+    </div>
+    <a href="https://calendly.com" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -231,6 +248,16 @@
 
   <script src="js/main.js"></script>
   <script>
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
     function selectBub(el, id) {
       const wasActive = el.classList.contains('bub-active');
       document.querySelectorAll('.bub.bub-active').forEach(b => b.classList.remove('bub-active'));
