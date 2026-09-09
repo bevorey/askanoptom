@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/students.css" />
   <link rel="stylesheet" href="css/forum.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -190,75 +191,6 @@
     </div>
   </section>
 
-  <!-- STUDENT DISCUSSION SECTION -->
-  <section class="section discussion-section">
-    <div class="section-header">
-      <div class="section-label">student discussion</div>
-      <span class="coming-soon-badge">beta</span>
-    </div>
-    <p class="discussion-intro">Stuck on a concept or a clinical question? Post it here and get input from peers and supervising optometrists.</p>
-
-    <!-- DISCUSSION THREADS -->
-    <div class="discussion-feed">
-
-      <!-- THREAD 1 — expanded -->
-      <div class="thread thread-expanded">
-        <div class="thread-header">
-          <div class="thread-avatar" style="background:var(--teal);">AK</div>
-          <div class="thread-meta">
-            <span class="thread-author">Anika K.</span>
-            <span class="thread-cred">3rd year · UWI optometry</span>
-            <span class="thread-time">2 hours ago</span>
-          </div>
-          <div class="thread-tag-row">
-            <span class="thread-tag thread-tag-blue">slit lamp</span>
-            <span class="thread-tag thread-tag-amber">technique</span>
-          </div>
-        </div>
-        <div class="thread-body">
-          <h4 class="thread-title">Struggling with slit lamp illumination techniques — when do I use each one?</h4>
-          <p class="thread-text">I get confused between diffuse illumination, direct focal, and indirect illumination. My supervisor keeps telling me to use indirect for corneal stromal lesions but I don't understand why. Can someone explain the logic?</p>
-        </div>
-
-        <!-- REPLIES -->
-        <div class="thread-replies">
-
-          <div class="reply">
-            <div class="reply-avatar" style="background:var(--blue);">BR</div>
-            <div class="reply-body">
-              <div class="reply-meta">
-                <span class="reply-author">Dr. B. Reyaz</span>
-                <span class="reply-cred">OD · Supervising optometrist</span>
-                <span class="reply-time">1h ago</span>
-              </div>
-              <p class="reply-text">Great question. Think of it this way — <strong>direct focal illumination</strong> places the light and microscope focus on the same point, giving you maximum detail on surface lesions (epithelial defects, keratic precipitates). <strong>Indirect illumination</strong> displaces the beam slightly to one side so the lesion is lit from the side — this makes <em>stromal</em> lesions scatter light and become visible. It's the same principle as why dust in a room is only visible when light shines through it at an angle.</p>
-              <button class="reply-upvote" onclick="upvote(this)">▲ 8</button>
-            </div>
-          </div>
-
-          <div class="reply">
-            <div class="reply-avatar" style="background:var(--text-secondary);">MJ</div>
-            <div class="reply-body">
-              <div class="reply-meta">
-                <span class="reply-author">Marcus J.</span>
-                <span class="reply-cred">Final year · UWI optometry</span>
-                <span class="reply-time">45m ago</span>
-              </div>
-              <p class="reply-text">Also worth knowing — <strong>retroillumination</strong> (using the fundal reflex as your light source) is the one to use for lens opacities and corneal scars. Made a massive difference in my OSCE when I stopped trying to use direct illumination for cataracts.</p>
-              <button class="reply-upvote" onclick="upvote(this)">▲ 4</button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- REPLY INPUT -->
-        <div class="reply-input-row">
-          <div class="reply-avatar-sm" style="background:var(--teal);">You</div>
-          <input type="text" class="reply-input" placeholder="Add your thoughts or a follow-up question…" />
-          <button class="reply-btn" onclick="handleReply(this)">Reply</button>
-        </div>
-      </div>
-
   <!-- STUDENT FORUM -->
   <section class="section" style="padding-top:0;">
     <div class="section-header">
@@ -345,11 +277,11 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="index.html" class="logo">ask<span>anoptom</span></a>
-        <p class="footer-tagline">T&T's eye care resource</p>
+        <p class="footer-tagline">have an eye care question? askanoptom</p>
       </div>
       <div class="footer-links">
-        <a href="index.html">ask a question</a>
-        <a href="resources.html">resources</a>
+        <a href="index.html">home</a>
+        <a href="for-patients.html">for patients</a>
         <a href="students.html">for students</a>
         <a href="professionals.html">for professionals</a>
       </div>
