@@ -397,11 +397,11 @@
   font-weight: 500;
   font-family: var(--font-body);
   padding: 10px 20px;
-  background: var(--blue);
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   transition: background var(--transition);
 }
-.stu-post-btn:hover { background: #1560a8; }
+.stu-post-btn:hover { background: var(--teal-dark); }

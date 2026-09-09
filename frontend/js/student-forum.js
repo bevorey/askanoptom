@@ -131,7 +131,7 @@ function renderStuThreadCard(thread) {
 
   card.innerHTML = `
     <div class="thread-card-tags">
-      <span class="tc-tag tc-tag-blue">${thread.specialty || 'General'}</span>
+      <span class="tc-tag tc-tag-teal">${thread.specialty || 'General'}</span>
       ${thread.is_resolved
         ? '<span class="tc-tag tc-tag-green">resolved ✓</span>'
         : '<span class="tc-tag tc-tag-amber">open</span>'}
@@ -140,7 +140,7 @@ function renderStuThreadCard(thread) {
     <div class="thread-card-body thread-card-preview">${escapeHtml(thread.body)}</div>
     <div class="thread-card-footer">
       <div class="thread-card-meta">
-        <span class="tc-author" style="color:var(--blue);">${escapeHtml(name)}</span>
+        <span class="tc-author">${escapeHtml(name)}</span>
         <span>${timeAgo}</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -227,11 +227,11 @@ function renderStuThreadDetail(thread, comments, panel) {
         const voted = c.user_has_voted ? 'vote-btn-active' : '';
         return `
           <div class="expand-reply">
-            <div class="expand-reply-avatar" style="background:var(--blue);">${ci}</div>
+            <div class="expand-reply-avatar">${ci}</div>
             <div class="expand-reply-body">
               <div class="expand-reply-meta">
                 <span class="expand-reply-author">${escapeHtml(cn)}</span>
-                ${cc ? `<span class="expand-reply-cred" style="color:var(--blue);">${escapeHtml(cc)}</span>` : ''}
+                ${cc ? `<span class="expand-reply-cred">${escapeHtml(cc)}</span>` : ''}
                 <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
               </div>
               <p class="expand-reply-text" id="stu-comment-text-${c.id}">${escapeHtml(c.body)}</p>
@@ -249,11 +249,11 @@ function renderStuThreadDetail(thread, comments, panel) {
 
   const replyArea = currentUser
     ? `<div class="expand-input-row">
-        <div class="expand-input-avatar" style="background:var(--blue);">${
+        <div class="expand-input-avatar">${
           (currentUser.user_metadata?.full_name || 'You').substring(0, 2).toUpperCase()
         }</div>
         <input type="text" class="expand-input" id="stu-reply-${thread.id}" placeholder="Add your thoughts or a follow-up question…" />
-        <button class="expand-reply-btn" style="background:var(--blue);" onclick="submitStuComment('${thread.id}', this)">Reply</button>
+        <button class="expand-reply-btn" onclick="submitStuComment('${thread.id}', this)">Reply</button>
        </div>`
     : `<div class="expand-signin">
         <button onclick="stuSignIn()">Sign in with Google</button> to join the discussion.
