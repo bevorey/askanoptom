@@ -30,7 +30,7 @@ export const handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request body' }) };
   }
 
-  const { title, specialty, body: threadBody } = body;
+  const { title, specialty, body: threadBody, source } = body;
 
   if (!title?.trim() || !threadBody?.trim()) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Title and body are required' }) };
@@ -69,7 +69,8 @@ export const handler = async (event) => {
         author_id: user.id,
         title: title.trim(),
         specialty: specialty || 'General',
-        body: threadBody.trim()
+        body: threadBody.trim(),
+        source: source || 'professional'
       })
       .select()
       .single();

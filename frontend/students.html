@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/students.css" />
+  <link rel="stylesheet" href="css/forum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -17,9 +18,9 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="for-patients.html"><i class="ti ti-user-heart" aria-hidden="true"></i> for patients</a>
-      <a href="students.html" style="color:var(--teal);"><i class="ti ti-pencil" aria-hidden="true"></i> for students</a>
-      <a href="professionals.html"><i class="ti ti-eye" aria-hidden="true"></i> for professionals</a>
+      <a href="for-patients.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <a href="students.html" style="color:var(--teal);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
+      <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
     </div>
     <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
     <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
@@ -258,95 +259,86 @@
         </div>
       </div>
 
-      <!-- THREAD 2 -->
-      <div class="thread">
-        <div class="thread-header">
-          <div class="thread-avatar" style="background:var(--amber);">RP</div>
-          <div class="thread-meta">
-            <span class="thread-author">Rishi P.</span>
-            <span class="thread-cred">2nd year · optometry student</span>
-            <span class="thread-time">5 hours ago</span>
-          </div>
-          <div class="thread-tag-row">
-            <span class="thread-tag thread-tag-teal">retinoscopy</span>
-            <span class="thread-tag thread-tag-amber">technique</span>
-          </div>
-        </div>
-        <div class="thread-body">
-          <h4 class="thread-title">Retinoscopy — when do I know I've reached neutralisation?</h4>
-          <p class="thread-text">I know I'm looking for "with" or "against" movement but I keep second-guessing myself at neutralisation. Is there a specific sign to look for, or is it just experience?</p>
-        </div>
-        <div class="thread-footer">
-          <span class="thread-replies-count">6 replies</span>
-          <button class="thread-expand-btn" onclick="expandThread(this)">View discussion →</button>
-        </div>
-      </div>
-
-      <!-- THREAD 3 -->
-      <div class="thread">
-        <div class="thread-header">
-          <div class="thread-avatar" style="background:#7c3aed;">SL</div>
-          <div class="thread-meta">
-            <span class="thread-author">Samara L.</span>
-            <span class="thread-cred">Final year · optometry student</span>
-            <span class="thread-time">1 day ago</span>
-          </div>
-          <div class="thread-tag-row">
-            <span class="thread-tag thread-tag-blue">visual fields</span>
-            <span class="thread-tag thread-tag-amber">interpretation</span>
-          </div>
-        </div>
-        <div class="thread-body">
-          <h4 class="thread-title">How do I tell apart a glaucomatous field defect from a neurological one?</h4>
-          <p class="thread-text">On my mock OSCE I got marked down for not identifying the hemianopia pattern. What's the systematic approach to VF interpretation I should be using?</p>
-        </div>
-        <div class="thread-footer">
-          <span class="thread-replies-count">11 replies</span>
-          <button class="thread-expand-btn" onclick="expandThread(this)">View discussion →</button>
-        </div>
-      </div>
-
-      <!-- THREAD 4 -->
-      <div class="thread">
-        <div class="thread-header">
-          <div class="thread-avatar" style="background:#1a6fa8;">TN</div>
-          <div class="thread-meta">
-            <span class="thread-author">Tara N.</span>
-            <span class="thread-cred">3rd year · optometry student</span>
-            <span class="thread-time">2 days ago</span>
-          </div>
-          <div class="thread-tag-row">
-            <span class="thread-tag thread-tag-teal">Volk</span>
-            <span class="thread-tag thread-tag-amber">posterior segment</span>
-          </div>
-        </div>
-        <div class="thread-body">
-          <h4 class="thread-title">Tips for getting a clear view with the 90D Volk lens?</h4>
-          <p class="thread-text">My fundus view keeps breaking up and I can't hold steady enough to examine the disc properly. What am I doing wrong?</p>
-        </div>
-        <div class="thread-footer">
-          <span class="thread-replies-count">9 replies</span>
-          <button class="thread-expand-btn" onclick="expandThread(this)">View discussion →</button>
-        </div>
-      </div>
-
+  <!-- STUDENT FORUM -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="section-label">student discussion</div>
+      <div class="nav-auth" id="navAuth"></div>
     </div>
 
-    <!-- POST A QUESTION CTA -->
-    <div class="post-question-box">
-      <h3 class="post-question-title">Have a clinical question?</h3>
-      <p class="post-question-sub">Post it here and get input from peers and supervising optometrists. Coming soon — join the waitlist.</p>
-      <div class="waitlist-form" style="max-width:420px;">
-        <input type="email" id="stuWaitlistEmail" class="waitlist-input" placeholder="your@email.com" />
-        <button class="waitlist-btn" onclick="handleStuWaitlist()">
-          Join waitlist
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+    <!-- FORUM FILTERS -->
+    <div class="stu-forum-filters">
+      <button class="stu-filter active" data-specialty="all">All</button>
+      <button class="stu-filter" data-specialty="Refraction">Refraction</button>
+      <button class="stu-filter" data-specialty="Examination">Examination</button>
+      <button class="stu-filter" data-specialty="Ocular Disease">Ocular Disease</button>
+      <button class="stu-filter" data-specialty="Pharmacology">Pharmacology</button>
+      <button class="stu-filter" data-specialty="Binocular Vision">Binocular Vision</button>
+      <button class="stu-filter" data-specialty="OSCE Prep">OSCE Prep</button>
+      <button class="stu-filter" data-specialty="General">General</button>
+    </div>
+
+    <!-- FEED -->
+    <div id="stuForumFeed">
+      <div class="forum-loading" id="stuFeedLoading">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text">Loading discussions...</p>
       </div>
-      <p id="stuWaitlistConfirm" style="display:none;font-size:13px;color:var(--teal-dark);margin-top:0.5rem;">✓ You're on the list — we'll be in touch.</p>
+    </div>
+
+    <!-- POST BUTTON -->
+    <div class="post-question-box" id="stuPostBox">
+      <h3 class="post-question-title">Have a clinical question?</h3>
+      <p class="post-question-sub">Post it to the student discussion — get input from peers and supervising optometrists.</p>
+      <button class="stu-post-btn" onclick="openStuPostModal()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Post a question
+      </button>
     </div>
 
   </section>
+
+  <!-- POST MODAL -->
+  <div class="modal-overlay hidden" id="stuPostModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Post a question</h2>
+        <button class="modal-close" onclick="closeStuPostModal()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Question title</label>
+          <input type="text" id="stuThreadTitle" class="form-input" placeholder="e.g. When do I know I've reached neutralisation in retinoscopy?" maxlength="200" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Topic</label>
+          <select id="stuThreadSpecialty" class="form-input">
+            <option value="Refraction">Refraction</option>
+            <option value="Examination">Examination</option>
+            <option value="Ocular Disease">Ocular Disease</option>
+            <option value="Pharmacology">Pharmacology</option>
+            <option value="Binocular Vision">Binocular Vision</option>
+            <option value="OSCE Prep">OSCE Prep</option>
+            <option value="General" selected>General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Details</label>
+          <textarea id="stuThreadBody" class="form-input form-textarea" placeholder="Describe what you're struggling with, what you've tried, and what specifically you need help with..." maxlength="3000"></textarea>
+          <div class="form-hint"><span id="stuCharCount">0</span> / 3000 characters</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeStuPostModal()">Cancel</button>
+        <button class="btn-submit" id="stuBtnSubmit" onclick="submitStuThread()">
+          Post question
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -370,6 +362,7 @@
   </footer>
 
   <script src="js/students.js"></script>
+  <script src="js/student-forum.js"></script>
   <script>
     function openDrawer() {
       document.getElementById('drawer').classList.remove('hidden');

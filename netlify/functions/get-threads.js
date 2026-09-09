@@ -14,6 +14,7 @@ export const handler = async (event) => {
 
   const specialty = event.queryStringParameters?.specialty || null;
   const thread_id = event.queryStringParameters?.thread_id || null;
+  const source    = event.queryStringParameters?.source || 'professional';
 
   try {
     // Single thread with comments
@@ -68,6 +69,7 @@ export const handler = async (event) => {
     let query = supabase
       .from('threads')
       .select(`*, profiles(full_name, credential, country, avatar_initials)`)
+      .eq('source', source)
       .order('created_at', { ascending: false })
       .limit(20);
 

@@ -366,3 +366,42 @@
   .thread-tag-row { display: none; }
   .waitlist-form { flex-direction: column; }
 }
+
+/* ── STUDENT FORUM ───────────────────────── */
+.stu-forum-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.stu-filter {
+  font-size: 12px;
+  font-weight: 400;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.stu-filter:hover { border-color: var(--blue); color: var(--blue); }
+.stu-filter.active { background: var(--blue-light); border-color: var(--blue); color: var(--blue); font-weight: 500; }
+
+.stu-post-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  padding: 10px 20px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.stu-post-btn:hover { background: #1560a8; }

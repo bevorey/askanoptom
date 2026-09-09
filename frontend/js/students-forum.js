@@ -1,0 +1,485 @@
+/* =============================================
+   ASKANOPTOM — Student Forum JS
+   Same stack as professional forum
+   source=student keeps threads separate
+   ============================================= */
+
+let sb              = null;
+let currentUser     = null;
+let currentSession  = null;
+let stuActiveSpec   = 'all';
+let stuExpandedId   = null;
+
+// ─────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────
+async function initStuAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    currentSession = session;
+    currentUser    = session.user;
+    renderStuAuthState(true);
+  }
+  sb.auth.onAuthStateChange((_event, session) => {
+    currentSession = session;
+    currentUser    = session?.user || null;
+    renderStuAuthState(!!session);
+  });
+}
+
+function renderStuAuthState(signedIn) {
+  const navAuth = document.getElementById('navAuth');
+  if (!navAuth) return;
+  if (signedIn && currentUser) {
+    const name     = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'You';
+    const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    navAuth.innerHTML = `
+      <div class="nav-auth-avatar">${initials}</div>
+      <span class="nav-auth-name" style="font-size:13px;color:var(--text-secondary);">${name.split(' ')[0]}</span>
+      <button onclick="stuSignOut()" style="font-size:12px;color:var(--text-tertiary);background:none;border:none;cursor:pointer;text-decoration:underline;margin-left:4px;">Sign out</button>`;
+  } else {
+    navAuth.innerHTML = `<button class="nav-signin-btn" onclick="stuSignIn()">Sign in</button>`;
+  }
+}
+
+async function stuSignIn() {
+  await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+}
+
+async function stuSignOut() {
+  await sb.auth.signOut();
+  currentUser = null; currentSession = null;
+  renderStuAuthState(false);
+}
+
+// ─────────────────────────────────────────────
+// LOAD THREADS
+// ─────────────────────────────────────────────
+async function loadStuThreads(specialty = 'all') {
+  const feed    = document.getElementById('stuForumFeed');
+  const loading = document.getElementById('stuFeedLoading');
+  if (loading) loading.style.display = 'flex';
+
+  try {
+    let url = '/.netlify/functions/get-threads?source=student';
+    if (specialty !== 'all') url += `&specialty=${encodeURIComponent(specialty)}`;
+
+    const headers = {};
+    if (currentSession?.access_token) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
+
+    const res  = await fetch(url, { headers });
+    const data = await res.json();
+
+    if (loading) loading.style.display = 'none';
+
+    if (!data.threads || data.threads.length === 0) {
+      feed.innerHTML = `
+        <div class="forum-empty">
+          <div class="forum-empty-title">No questions yet${specialty !== 'all' ? ' in ' + specialty : ''}</div>
+          <div class="forum-empty-sub">Be the first to post a clinical question.</div>
+        </div>`;
+      return;
+    }
+
+    feed.innerHTML = '';
+    data.threads.forEach((thread, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'thread-wrapper';
+      wrapper.id = `stu-wrapper-${thread.id}`;
+
+      const card = renderStuThreadCard(thread);
+      wrapper.appendChild(card);
+
+      const panel = document.createElement('div');
+      panel.className = 'thread-expand-panel hidden';
+      panel.id = `stu-panel-${thread.id}`;
+      wrapper.appendChild(panel);
+
+      feed.appendChild(wrapper);
+
+      if (index === 0) {
+        setTimeout(() => expandStuThread(thread.id), 300);
+      }
+    });
+
+  } catch (err) {
+    if (loading) loading.style.display = 'none';
+    feed.innerHTML = `
+      <div class="forum-empty">
+        <div class="forum-empty-title">Couldn't load discussions</div>
+        <div class="forum-empty-sub">Check your connection and try again.</div>
+      </div>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// RENDER THREAD CARD
+// ─────────────────────────────────────────────
+function renderStuThreadCard(thread) {
+  const card = document.createElement('div');
+  card.className = 'thread-card';
+  card.id = `stu-card-${thread.id}`;
+  card.onclick = () => toggleStuThread(thread.id);
+
+  const author   = thread.profiles;
+  const name     = formatStuAuthorName(author);
+  const timeAgo  = formatTimeAgo(thread.created_at);
+  const comments = thread.comment_count || 0;
+
+  card.innerHTML = `
+    <div class="thread-card-tags">
+      <span class="tc-tag tc-tag-blue">${thread.specialty || 'General'}</span>
+      ${thread.is_resolved
+        ? '<span class="tc-tag tc-tag-green">resolved ✓</span>'
+        : '<span class="tc-tag tc-tag-amber">open</span>'}
+    </div>
+    <div class="thread-card-title">${escapeHtml(thread.title)}</div>
+    <div class="thread-card-body thread-card-preview">${escapeHtml(thread.body)}</div>
+    <div class="thread-card-footer">
+      <div class="thread-card-meta">
+        <span class="tc-author" style="color:var(--blue);">${escapeHtml(name)}</span>
+        <span>${timeAgo}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        ${currentUser?.id === thread.author_id ? `
+          <button class="tc-edit-btn" onclick="event.stopPropagation();openStuThreadEdit('${thread.id}')">edit</button>
+        ` : ''}
+        <span class="tc-comments">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 1H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2l2 3 2-3h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+          ${comments}
+        </span>
+      </div>
+    </div>`;
+  return card;
+}
+
+// ─────────────────────────────────────────────
+// TOGGLE / EXPAND
+// ─────────────────────────────────────────────
+async function toggleStuThread(threadId) {
+  const panel = document.getElementById(`stu-panel-${threadId}`);
+  const card  = document.getElementById(`stu-card-${threadId}`);
+  if (!panel) return;
+
+  const isOpen = !panel.classList.contains('hidden');
+
+  if (stuExpandedId && stuExpandedId !== threadId) {
+    const oldPanel = document.getElementById(`stu-panel-${stuExpandedId}`);
+    const oldCard  = document.getElementById(`stu-card-${stuExpandedId}`);
+    if (oldPanel) oldPanel.classList.add('hidden');
+    if (oldCard) {
+      oldCard.classList.remove('thread-card-active');
+      oldCard.querySelector('.thread-card-preview')?.classList.remove('thread-card-expanded');
+    }
+  }
+
+  if (isOpen) {
+    panel.classList.add('hidden');
+    card?.classList.remove('thread-card-active');
+    card?.querySelector('.thread-card-preview')?.classList.remove('thread-card-expanded');
+    stuExpandedId = null;
+  } else {
+    stuExpandedId = threadId;
+    card?.classList.add('thread-card-active');
+    card?.querySelector('.thread-card-preview')?.classList.add('thread-card-expanded');
+    panel.classList.remove('hidden');
+    panel.innerHTML = `<div class="forum-loading" style="padding:1.5rem;"><div class="loading-dots"><span></span><span></span><span></span></div><p class="loading-text">Loading...</p></div>`;
+    await loadStuThreadDetail(threadId, panel);
+  }
+}
+
+async function expandStuThread(threadId) {
+  stuExpandedId = threadId;
+  const card  = document.getElementById(`stu-card-${threadId}`);
+  const panel = document.getElementById(`stu-panel-${threadId}`);
+  if (!panel) return;
+  card?.classList.add('thread-card-active');
+  card?.querySelector('.thread-card-preview')?.classList.add('thread-card-expanded');
+  panel.classList.remove('hidden');
+  panel.innerHTML = `<div class="forum-loading" style="padding:1.5rem;"><div class="loading-dots"><span></span><span></span><span></span></div><p class="loading-text">Loading...</p></div>`;
+  await loadStuThreadDetail(threadId, panel);
+}
+
+async function loadStuThreadDetail(threadId, panel) {
+  try {
+    const headers = {};
+    if (currentSession?.access_token) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
+    const res  = await fetch(`/.netlify/functions/get-threads?thread_id=${threadId}`, { headers });
+    const data = await res.json();
+    renderStuThreadDetail(data.thread, data.comments || [], panel);
+  } catch {
+    panel.innerHTML = `<p style="padding:1rem;color:var(--text-tertiary);font-size:13px;">Couldn't load this thread.</p>`;
+  }
+}
+
+function renderStuThreadDetail(thread, comments, panel) {
+  const commentsHtml = comments.length === 0
+    ? '<p style="font-size:13px;color:var(--text-tertiary);padding:0.5rem 0 1rem;">No replies yet — be the first.</p>'
+    : comments.map(c => {
+        const ca   = c.profiles;
+        const cn   = formatStuAuthorName(ca);
+        const cc   = ca?.credential || '';
+        const ci   = (ca?.full_name || 'AN').substring(0, 2).toUpperCase();
+        const votes = c.upvotes || 0;
+        const voted = c.user_has_voted ? 'vote-btn-active' : '';
+        return `
+          <div class="expand-reply">
+            <div class="expand-reply-avatar" style="background:var(--blue);">${ci}</div>
+            <div class="expand-reply-body">
+              <div class="expand-reply-meta">
+                <span class="expand-reply-author">${escapeHtml(cn)}</span>
+                ${cc ? `<span class="expand-reply-cred" style="color:var(--blue);">${escapeHtml(cc)}</span>` : ''}
+                <span class="expand-reply-time">${formatTimeAgo(c.created_at)}</span>
+              </div>
+              <p class="expand-reply-text" id="stu-comment-text-${c.id}">${escapeHtml(c.body)}</p>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <button class="vote-btn ${voted}" id="vote-${c.id}" onclick="toggleVote('${c.id}', this)">
+                  ▲ <span class="vote-count">${votes}</span>
+                </button>
+                ${currentUser?.id === c.author_id ? `
+                  <button class="tc-edit-btn" onclick="openStuCommentEdit('${c.id}')">edit</button>
+                ` : ''}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+  const replyArea = currentUser
+    ? `<div class="expand-input-row">
+        <div class="expand-input-avatar" style="background:var(--blue);">${
+          (currentUser.user_metadata?.full_name || 'You').substring(0, 2).toUpperCase()
+        }</div>
+        <input type="text" class="expand-input" id="stu-reply-${thread.id}" placeholder="Add your thoughts or a follow-up question…" />
+        <button class="expand-reply-btn" style="background:var(--blue);" onclick="submitStuComment('${thread.id}', this)">Reply</button>
+       </div>`
+    : `<div class="expand-signin">
+        <button onclick="stuSignIn()">Sign in with Google</button> to join the discussion.
+       </div>`;
+
+  panel.innerHTML = `
+    <div class="thread-expand-inner">
+      <div class="expand-replies">${commentsHtml}</div>
+      ${replyArea}
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
+// POST COMMENT
+// ─────────────────────────────────────────────
+async function submitStuComment(threadId, btn) {
+  if (!currentUser || !currentSession) return;
+  const input = document.getElementById(`stu-reply-${threadId}`);
+  const text  = input?.value.trim();
+  if (!text) { input?.focus(); return; }
+  btn.disabled = true; btn.textContent = 'Posting...';
+  try {
+    const res = await fetch('/.netlify/functions/post-comment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${currentSession.access_token}` },
+      body: JSON.stringify({ thread_id: threadId, body: text })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    const panel = document.getElementById(`stu-panel-${threadId}`);
+    if (panel) await loadStuThreadDetail(threadId, panel);
+  } catch (err) {
+    alert('Failed to post: ' + err.message);
+    btn.disabled = false; btn.textContent = 'Reply';
+  }
+}
+
+// ─────────────────────────────────────────────
+// POST THREAD
+// ─────────────────────────────────────────────
+function openStuPostModal() {
+  if (!currentUser) { stuSignIn(); return; }
+  document.getElementById('stuPostModal').classList.remove('hidden');
+}
+function closeStuPostModal() {
+  document.getElementById('stuPostModal').classList.add('hidden');
+}
+
+async function submitStuThread() {
+  if (!currentUser || !currentSession) { stuSignIn(); return; }
+  const titleEl    = document.getElementById('stuThreadTitle');
+  const specEl     = document.getElementById('stuThreadSpecialty');
+  const bodyEl     = document.getElementById('stuThreadBody');
+  const btn        = document.getElementById('stuBtnSubmit');
+  const title      = titleEl.value.trim();
+  const specialty  = specEl.value;
+  const body       = bodyEl.value.trim();
+  if (!title || !body) { alert('Please fill in the title and details.'); return; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Posting...'; }
+  try {
+    const res = await fetch('/.netlify/functions/post-thread', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${currentSession.access_token}` },
+      body: JSON.stringify({ title, specialty, body, source: 'student' })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    titleEl.value = ''; bodyEl.value = '';
+    closeStuPostModal();
+    setTimeout(() => loadStuThreads(stuActiveSpec), 300);
+  } catch (err) {
+    alert('Failed to post: ' + err.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Post question'; }
+  }
+}
+
+// ─────────────────────────────────────────────
+// EDIT COMMENT
+// ─────────────────────────────────────────────
+function openStuCommentEdit(commentId) {
+  const textEl = document.getElementById(`stu-comment-text-${commentId}`);
+  if (!textEl) return;
+  const current = textEl.textContent;
+  textEl.outerHTML = `
+    <textarea class="inline-edit-textarea" id="stu-edit-comment-${commentId}">${escapeHtml(current)}</textarea>
+    <div style="display:flex;gap:6px;margin-top:6px;">
+      <button class="tc-save-btn" onclick="saveStuCommentEdit('${commentId}')">save</button>
+      <button class="tc-cancel-btn" onclick="loadStuThreadDetail('${stuExpandedId}', document.getElementById('stu-panel-${stuExpandedId}'))">cancel</button>
+    </div>`;
+}
+
+async function saveStuCommentEdit(commentId) {
+  const content = document.getElementById(`stu-edit-comment-${commentId}`)?.value.trim();
+  if (!content) return;
+  try {
+    const res = await fetch('/.netlify/functions/edit-post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${currentSession.access_token}` },
+      body: JSON.stringify({ type: 'comment', id: commentId, content })
+    });
+    if (!res.ok) throw new Error('Failed to save');
+    const panel = document.getElementById(`stu-panel-${stuExpandedId}`);
+    if (panel) await loadStuThreadDetail(stuExpandedId, panel);
+  } catch (err) { alert('Failed to save: ' + err.message); }
+}
+
+// ─────────────────────────────────────────────
+// EDIT THREAD
+// ─────────────────────────────────────────────
+function openStuThreadEdit(threadId) {
+  const card    = document.getElementById(`stu-card-${threadId}`);
+  const titleEl = card?.querySelector('.thread-card-title');
+  const bodyEl  = card?.querySelector('.thread-card-preview');
+  if (!titleEl || !bodyEl) return;
+  const currentTitle = titleEl.textContent;
+  const currentBody  = bodyEl.textContent;
+  titleEl.innerHTML = `<input class="inline-edit-input" id="stu-edit-title-${threadId}" value="${escapeHtml(currentTitle)}" />`;
+  bodyEl.innerHTML  = `<textarea class="inline-edit-textarea" id="stu-edit-body-${threadId}">${escapeHtml(currentBody)}</textarea>`;
+  bodyEl.classList.add('thread-card-expanded');
+  const editBtn = card.querySelector('.tc-edit-btn');
+  if (editBtn) editBtn.outerHTML = `
+    <button class="tc-save-btn" onclick="event.stopPropagation();saveStuThreadEdit('${threadId}')">save</button>
+    <button class="tc-cancel-btn" onclick="event.stopPropagation();loadStuThreads(stuActiveSpec)">cancel</button>`;
+}
+
+async function saveStuThreadEdit(threadId) {
+  const title   = document.getElementById(`stu-edit-title-${threadId}`)?.value.trim();
+  const content = document.getElementById(`stu-edit-body-${threadId}`)?.value.trim();
+  if (!title || !content) return;
+  try {
+    const res = await fetch('/.netlify/functions/edit-post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${currentSession.access_token}` },
+      body: JSON.stringify({ type: 'thread', id: threadId, title, content })
+    });
+    if (!res.ok) throw new Error('Failed to save');
+    setTimeout(() => loadStuThreads(stuActiveSpec), 300);
+  } catch (err) { alert('Failed to save: ' + err.message); }
+}
+
+// ─────────────────────────────────────────────
+// FILTER
+// ─────────────────────────────────────────────
+document.querySelectorAll('.stu-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    stuActiveSpec = btn.dataset.specialty;
+    document.querySelectorAll('.stu-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadStuThreads(stuActiveSpec);
+  });
+});
+
+// ─────────────────────────────────────────────
+// CHAR COUNTER + MODAL CLOSE
+// ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const bodyEl  = document.getElementById('stuThreadBody');
+  const counter = document.getElementById('stuCharCount');
+  if (bodyEl && counter) bodyEl.addEventListener('input', () => { counter.textContent = bodyEl.value.length; });
+  document.getElementById('stuPostModal')?.addEventListener('click', e => {
+    if (e.target === document.getElementById('stuPostModal')) closeStuPostModal();
+  });
+});
+
+// ─────────────────────────────────────────────
+// UTILITIES
+// ─────────────────────────────────────────────
+function formatStuAuthorName(profile) {
+  if (!profile) return 'Anonymous';
+  const parts    = (profile.full_name || '').trim().split(' ');
+  const first    = parts[0] || 'Anonymous';
+  const lastInit = parts[1]?.[0]?.toUpperCase();
+  return lastInit ? `${first} ${lastInit}.` : first;
+}
+
+function formatTimeAgo(iso) {
+  const diff  = Date.now() - new Date(iso).getTime();
+  const mins  = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days  = Math.floor(diff / 86400000);
+  if (mins  < 1)  return 'just now';
+  if (mins  < 60) return `${mins}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days  < 7)  return `${days}d ago`;
+  return new Date(iso).toLocaleDateString();
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleVote(commentId, btn) {
+  if (!currentUser || !currentSession) { stuSignIn(); return; }
+  const countEl = btn.querySelector('.vote-count');
+  const current = parseInt(countEl.textContent) || 0;
+  const voted   = btn.classList.contains('vote-btn-active');
+  btn.classList.toggle('vote-btn-active');
+  countEl.textContent = voted ? Math.max(current - 1, 0) : current + 1;
+  btn.disabled = true;
+  fetch('/.netlify/functions/toggle-vote', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${currentSession.access_token}` },
+    body: JSON.stringify({ comment_id: commentId })
+  }).then(res => res.json()).then(data => {
+    if (typeof data.upvotes === 'number') countEl.textContent = data.upvotes;
+  }).catch(() => {
+    btn.classList.toggle('vote-btn-active');
+    countEl.textContent = current;
+  }).finally(() => { btn.disabled = false; });
+}
+
+// ─────────────────────────────────────────────
+// BOOTSTRAP
+// ─────────────────────────────────────────────
+async function stuBootstrap() {
+  try {
+    const res    = await fetch('/.netlify/functions/get-config');
+    const config = await res.json();
+    sb = window.supabase.createClient(config.supabaseUrl, config.supabaseAnon);
+  } catch (err) {
+    console.error('Failed to load config:', err);
+    return;
+  }
+  await initStuAuth();
+  await loadStuThreads();
+}
+
+stuBootstrap();
