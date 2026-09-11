@@ -16,15 +16,14 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="for-patients.html" style="color:var(--teal);"><i class="ti ti-user-heart" aria-hidden="true"></i> for patients</a>
-      <a href="students.html"><i class="ti ti-pencil" aria-hidden="true"></i> for students</a>
-      <a href="professionals.html"><i class="ti ti-eye" aria-hidden="true"></i> for professionals</a>
+      <a href="for-patients.html" style="color:var(--teal);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <a href="students.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
+      <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
     </div>
     <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
     <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
   </nav>
 
-  <!-- MOBILE DRAWER -->
   <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
   <div class="drawer hidden" id="drawer">
     <div class="drawer-header">
@@ -32,10 +31,10 @@
       <button class="drawer-close" onclick="closeDrawer()">✕</button>
     </div>
     <div class="drawer-links">
-      <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
-      <a href="for-patients.html" onclick="closeDrawer()" style="color:var(--teal);">👁️ For patients</a>
-      <a href="students.html" onclick="closeDrawer()">🎓 For students</a>
-      <a href="professionals.html" onclick="closeDrawer()">🩺 For professionals</a>
+      <a href="index.html" onclick="closeDrawer()">Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">For patients</a>
+      <a href="students.html" onclick="closeDrawer()">For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">For professionals</a>
     </div>
     <a href="https://calendly.com" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
   </div>
@@ -43,21 +42,16 @@
   <!-- PAGE HEADER -->
   <div class="patients-header">
     <div class="patients-header-inner">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-dot"></span>
-        for patients
-      </div>
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span>for patients</div>
       <h1 class="hero-title" style="font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:0.75rem;">
         Eye care <em>guidance</em><br>you can use at home
       </h1>
-      <p class="page-sub" style="max-width:520px;">
-        Everything your optometrist wishes they had more time to explain. Curated by licensed optometrists, written for patients.
-      </p>
+      <p class="page-sub" style="max-width:520px;">Everything your optometrist wishes they had more time to explain. Curated by licensed optometrists, written for patients.</p>
     </div>
   </div>
 
-  <!-- TAB NAV -->
-  <div class="tab-bar" id="tabBar">
+  <!-- TAB BAR -->
+  <div class="tab-bar">
     <div class="tab-bar-inner">
       <button class="tab-btn active" onclick="switchTab('dry-eye', this)">💧 Dry Eye</button>
       <button class="tab-btn" onclick="switchTab('contacts', this)">👁️ Contact Lenses</button>
@@ -76,47 +70,81 @@
         <h2 class="topic-title">Dry Eye</h2>
         <p class="topic-intro">Dry eye is one of the most common conditions optometrists treat. Here's what you need to know and how to manage it at home.</p>
       </div>
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-card-icon">💧</div>
-          <h3 class="info-card-title">How to apply eye drops correctly</h3>
-          <ol class="info-list">
-            <li>Wash your hands thoroughly before touching your eyes.</li>
-            <li>Tilt your head back and look up at the ceiling.</li>
-            <li>Gently pull down your lower eyelid to create a small pocket.</li>
-            <li>Hold the bottle above the eye — do not let the tip touch your eye or lashes.</li>
-            <li>Squeeze one drop into the pocket of your lower lid.</li>
-            <li>Close your eye gently for 1–2 minutes. Do not blink rapidly.</li>
-            <li>Press lightly on the inner corner of your eye (the tear duct) to prevent drainage.</li>
-            <li>If using more than one drop, wait at least 5 minutes between drops.</li>
-          </ol>
-          <a href="question.html?q=How+do+I+apply+eye+drops+correctly%3F" class="info-card-link">Ask AI more →</a>
+      <div class="pat-stack">
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">💧</span>
+              <div>
+                <div class="pat-title">How to apply eye drops correctly</div>
+                <div class="pat-preview">Wash your hands, tilt your head back, and pull down your lower eyelid…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ol class="pat-list">
+              <li>Wash your hands thoroughly before touching your eyes.</li>
+              <li>Tilt your head back and look up at the ceiling.</li>
+              <li>Gently pull down your lower eyelid to create a small pocket.</li>
+              <li>Hold the bottle above the eye — do not let the tip touch your eye or lashes.</li>
+              <li>Squeeze one drop into the pocket of your lower lid.</li>
+              <li>Close your eye gently for 1–2 minutes. Do not blink rapidly.</li>
+              <li>Press lightly on the inner corner of your eye (the tear duct) to prevent drainage.</li>
+              <li>If using more than one drop, wait at least 5 minutes between drops.</li>
+            </ol>
+            <a href="question.html?q=How+do+I+apply+eye+drops+correctly%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">🌡️</div>
-          <h3 class="info-card-title">Warm compresses for dry eye</h3>
-          <ol class="info-list">
-            <li>Soak a clean cloth in warm (not hot) water.</li>
-            <li>Wring it out and place it over your closed eyelids.</li>
-            <li>Hold for 10 minutes — reheat as needed to maintain warmth.</li>
-            <li>After removing, gently massage your closed eyelids in a circular motion for 30 seconds.</li>
-            <li>Follow immediately with a lid scrub if recommended by your optometrist.</li>
-            <li>Repeat once or twice daily for best results.</li>
-          </ol>
-          <a href="question.html?q=How+do+warm+compresses+help+dry+eye%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🌡️</span>
+              <div>
+                <div class="pat-title">Warm compresses for dry eye</div>
+                <div class="pat-preview">Soak a clean cloth in warm water and place over your closed eyelids…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ol class="pat-list">
+              <li>Soak a clean cloth in warm (not hot) water.</li>
+              <li>Wring it out and place it over your closed eyelids.</li>
+              <li>Hold for 10 minutes — reheat as needed to maintain warmth.</li>
+              <li>After removing, gently massage your closed eyelids in a circular motion for 30 seconds.</li>
+              <li>Follow immediately with a lid scrub if recommended by your optometrist.</li>
+              <li>Repeat once or twice daily for best results.</li>
+            </ol>
+            <a href="question.html?q=How+do+warm+compresses+help+dry+eye%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">⚠️</div>
-          <h3 class="info-card-title">When to seek care</h3>
-          <ul class="info-list">
-            <li>Sudden change in vision alongside dryness</li>
-            <li>Severe pain or significant redness</li>
-            <li>Sensitivity to light (photophobia)</li>
-            <li>No improvement after 2 weeks of consistent drops</li>
-            <li>Discharge or crusting around the eyes</li>
-          </ul>
-          <a href="question.html?q=When+should+I+see+an+optometrist+for+dry+eyes%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">⚠️</span>
+              <div>
+                <div class="pat-title">When to seek care</div>
+                <div class="pat-preview">Sudden change in vision, severe pain, or no improvement after 2 weeks…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li>Sudden change in vision alongside dryness</li>
+              <li>Severe pain or significant redness</li>
+              <li>Sensitivity to light (photophobia)</li>
+              <li>No improvement after 2 weeks of consistent drops</li>
+              <li>Discharge or crusting around the eyes</li>
+            </ul>
+            <a href="question.html?q=When+should+I+see+an+optometrist+for+dry+eyes%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -126,47 +154,83 @@
         <h2 class="topic-title">Contact Lenses</h2>
         <p class="topic-intro">Contact lenses are medical devices. Proper care is essential for keeping your eyes healthy.</p>
       </div>
-      <div class="info-grid">
-        <div class="info-card info-card-green">
-          <div class="info-card-icon">✅</div>
-          <h3 class="info-card-title">Do's</h3>
-          <ul class="info-list">
-            <li>Always wash and dry your hands before handling lenses.</li>
-            <li>Follow the replacement schedule your optometrist prescribed — daily, bi-weekly, or monthly.</li>
-            <li>Use only contact lens solution recommended by your optometrist.</li>
-            <li>Clean your lens case daily and replace it every 3 months.</li>
-            <li>Remove lenses before swimming, showering, or using a hot tub.</li>
-            <li>Store lenses in fresh solution — never top up old solution.</li>
-            <li>Remove lenses if your eyes become red, irritated, or your vision changes.</li>
-            <li>Attend all scheduled contact lens check-ups.</li>
-          </ul>
+      <div class="pat-stack">
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">✅</span>
+              <div>
+                <div class="pat-title">Contact lens do's</div>
+                <div class="pat-preview">Always wash and dry your hands before handling lenses…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li>Always wash and dry your hands before handling lenses.</li>
+              <li>Follow the replacement schedule your optometrist prescribed — daily, bi-weekly, or monthly.</li>
+              <li>Use only contact lens solution recommended by your optometrist.</li>
+              <li>Clean your lens case daily and replace it every 3 months.</li>
+              <li>Remove lenses before swimming, showering, or using a hot tub.</li>
+              <li>Store lenses in fresh solution — never top up old solution.</li>
+              <li>Remove lenses if your eyes become red, irritated, or your vision changes.</li>
+              <li>Attend all scheduled contact lens check-ups.</li>
+            </ul>
+            <a href="question.html?q=How+do+I+care+for+my+contact+lenses%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card info-card-red">
-          <div class="info-card-icon">❌</div>
-          <h3 class="info-card-title">Don'ts</h3>
-          <ul class="info-list">
-            <li>Never sleep in lenses unless specifically prescribed for overnight wear.</li>
-            <li>Never rinse lenses or cases with tap water — it contains microorganisms that can cause serious infection.</li>
-            <li>Never wear lenses past their expiry date.</li>
-            <li>Never share lenses with anyone else.</li>
-            <li>Never use saliva to wet your lenses.</li>
-            <li>Never ignore pain, redness, or blurred vision while wearing lenses — remove them immediately.</li>
-            <li>Never wear cosmetic lenses bought without a prescription.</li>
-          </ul>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">❌</span>
+              <div>
+                <div class="pat-title">Contact lens don'ts</div>
+                <div class="pat-preview">Never sleep in lenses unless prescribed for overnight wear…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li>Never sleep in lenses unless specifically prescribed for overnight wear.</li>
+              <li>Never rinse lenses or cases with tap water — it contains microorganisms that can cause serious infection.</li>
+              <li>Never wear lenses past their expiry date.</li>
+              <li>Never share lenses with anyone else.</li>
+              <li>Never use saliva to wet your lenses.</li>
+              <li>Never ignore pain, redness, or blurred vision while wearing lenses — remove them immediately.</li>
+              <li>Never wear cosmetic lenses bought without a prescription.</li>
+            </ul>
+            <a href="question.html?q=Contact+lens+safety+tips" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">⚠️</div>
-          <h3 class="info-card-title">Warning signs — remove immediately</h3>
-          <ul class="info-list">
-            <li>Sudden blurred vision that doesn't clear with blinking</li>
-            <li>Eye pain or significant discomfort</li>
-            <li>Unusual redness or discharge</li>
-            <li>Sensitivity to light</li>
-            <li>Feeling that something is in your eye</li>
-          </ul>
-          <p class="info-note">If symptoms persist after removal, seek same-day care from your optometrist or emergency eye service.</p>
-          <a href="question.html?q=Contact+lens+red+eye+warning+signs" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">⚠️</span>
+              <div>
+                <div class="pat-title">Warning signs — remove immediately</div>
+                <div class="pat-preview">Sudden blurred vision, eye pain, or unusual redness…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li>Sudden blurred vision that doesn't clear with blinking</li>
+              <li>Eye pain or significant discomfort</li>
+              <li>Unusual redness or discharge</li>
+              <li>Sensitivity to light</li>
+              <li>Feeling that something is in your eye</li>
+            </ul>
+            <p class="pat-note">If symptoms persist after removal, seek same-day care from your optometrist or emergency eye service.</p>
+            <a href="question.html?q=Contact+lens+red+eye+warning+signs" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -176,47 +240,81 @@
         <h2 class="topic-title">Nutrition & Eye Health</h2>
         <p class="topic-intro">What you eat directly affects your eye health. Here's what the evidence says about nutrition and vision.</p>
       </div>
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-card-icon">🥬</div>
-          <h3 class="info-card-title">Foods that protect your eyes</h3>
-          <ul class="info-list">
-            <li><strong>Dark leafy greens</strong> (spinach, kale, collard greens) — rich in lutein and zeaxanthin, which protect the macula from oxidative damage.</li>
-            <li><strong>Orange and yellow vegetables</strong> (carrots, sweet potato, butternut squash) — high in beta-carotene, converted to vitamin A which supports night vision.</li>
-            <li><strong>Oily fish</strong> (salmon, sardines, mackerel) — omega-3 fatty acids support tear film quality and reduce dry eye risk.</li>
-            <li><strong>Eggs</strong> — contain lutein, zeaxanthin, and zinc, all beneficial for macular health.</li>
-            <li><strong>Citrus fruits and berries</strong> — vitamin C supports the health of blood vessels in the eye and reduces cataract risk.</li>
-            <li><strong>Nuts and seeds</strong> — vitamin E protects eye cells from free radical damage.</li>
-          </ul>
-          <a href="question.html?q=What+foods+are+good+for+eye+health%3F" class="info-card-link">Ask AI more →</a>
+      <div class="pat-stack">
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🥬</span>
+              <div>
+                <div class="pat-title">Foods that protect your eyes</div>
+                <div class="pat-preview">Dark leafy greens, orange vegetables, oily fish, eggs, citrus fruits…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li><strong>Dark leafy greens</strong> (spinach, kale, collard greens) — rich in lutein and zeaxanthin, which protect the macula from oxidative damage.</li>
+              <li><strong>Orange and yellow vegetables</strong> (carrots, sweet potato, butternut squash) — high in beta-carotene, converted to vitamin A which supports night vision.</li>
+              <li><strong>Oily fish</strong> (salmon, sardines, mackerel) — omega-3 fatty acids support tear film quality and reduce dry eye risk.</li>
+              <li><strong>Eggs</strong> — contain lutein, zeaxanthin, and zinc, all beneficial for macular health.</li>
+              <li><strong>Citrus fruits and berries</strong> — vitamin C supports blood vessel health in the eye and reduces cataract risk.</li>
+              <li><strong>Nuts and seeds</strong> — vitamin E protects eye cells from free radical damage.</li>
+            </ul>
+            <a href="question.html?q=What+foods+are+good+for+eye+health%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">💊</div>
-          <h3 class="info-card-title">Supplements for AMD (AREDS2 formula)</h3>
-          <p class="info-note" style="margin-bottom:10px;">If you have been diagnosed with age-related macular degeneration (AMD), your optometrist may recommend the AREDS2 supplement formula. This was developed from large clinical trials and contains:</p>
-          <ul class="info-list">
-            <li>Vitamin C — 500mg</li>
-            <li>Vitamin E — 400 IU</li>
-            <li>Lutein — 10mg</li>
-            <li>Zeaxanthin — 2mg</li>
-            <li>Zinc — 80mg</li>
-            <li>Copper — 2mg</li>
-          </ul>
-          <p class="info-note" style="margin-top:10px;"><strong>Only take AREDS2 supplements if recommended by your optometrist or ophthalmologist.</strong> They are not a general eye vitamin and are specifically for people with intermediate or advanced AMD.</p>
-          <a href="question.html?q=What+are+AREDS2+supplements+for+AMD%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">💊</span>
+              <div>
+                <div class="pat-title">Supplements for AMD (AREDS2)</div>
+                <div class="pat-preview">If diagnosed with age-related macular degeneration, your optometrist may recommend…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <p class="pat-note" style="margin-bottom:10px;">The AREDS2 formula was developed from large clinical trials. It contains:</p>
+            <ul class="pat-list">
+              <li>Vitamin C — 500mg</li>
+              <li>Vitamin E — 400 IU</li>
+              <li>Lutein — 10mg</li>
+              <li>Zeaxanthin — 2mg</li>
+              <li>Zinc — 80mg</li>
+              <li>Copper — 2mg</li>
+            </ul>
+            <p class="pat-note" style="margin-top:10px;"><strong>Only take AREDS2 if recommended by your optometrist or ophthalmologist.</strong> They are specifically for people with intermediate or advanced AMD.</p>
+            <a href="question.html?q=What+are+AREDS2+supplements+for+AMD%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">🫐</div>
-          <h3 class="info-card-title">General eye health supplements</h3>
-          <ul class="info-list">
-            <li><strong>Omega-3 (fish oil or algae-based)</strong> — 1000mg daily supports tear production and reduces dry eye symptoms.</li>
-            <li><strong>Lutein & Zeaxanthin</strong> — 10mg / 2mg daily supports macular pigment density.</li>
-            <li><strong>Vitamin D</strong> — deficiency has been linked to dry eye and retinal changes.</li>
-            <li><strong>Zinc</strong> — supports the transport of vitamin A from the liver to the retina.</li>
-          </ul>
-          <p class="info-note" style="margin-top:10px;">Always consult your optometrist or GP before starting any supplement regimen.</p>
-          <a href="question.html?q=What+supplements+are+good+for+eye+health%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🫐</span>
+              <div>
+                <div class="pat-title">General eye health supplements</div>
+                <div class="pat-preview">Omega-3, lutein & zeaxanthin, vitamin D, zinc…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li><strong>Omega-3 (fish oil or algae-based)</strong> — 1000mg daily supports tear production and reduces dry eye symptoms.</li>
+              <li><strong>Lutein & Zeaxanthin</strong> — 10mg / 2mg daily supports macular pigment density.</li>
+              <li><strong>Vitamin D</strong> — deficiency has been linked to dry eye and retinal changes.</li>
+              <li><strong>Zinc</strong> — supports the transport of vitamin A from the liver to the retina.</li>
+            </ul>
+            <p class="pat-note" style="margin-top:10px;">Always consult your optometrist or GP before starting any supplement regimen.</p>
+            <a href="question.html?q=What+supplements+are+good+for+eye+health%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -226,44 +324,77 @@
         <h2 class="topic-title">Screen Time & Myopia</h2>
         <p class="topic-intro">Screen time is reshaping how the world sees — literally. Here's what the evidence says and what you can do about it.</p>
       </div>
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-card-icon">📱</div>
-          <h3 class="info-card-title">The 20-20-20 rule</h3>
-          <p class="info-note" style="margin-bottom:12px;">Every 20 minutes of screen time, look at something 20 feet (6 metres) away for at least 20 seconds. This relaxes the focusing muscles inside your eye and reduces digital eye strain.</p>
-          <ul class="info-list">
-            <li>Set a timer or use an app to remind you every 20 minutes.</li>
-            <li>Look out a window at a distant object — a tree, a building, the horizon.</li>
-            <li>Blink fully and deliberately during your break — screen use reduces blink rate by up to 60%.</li>
-            <li>Stand up and take a short walk if possible — your posture affects your eyes too.</li>
-          </ul>
-          <a href="question.html?q=What+is+the+20-20-20+rule+for+eye+strain%3F" class="info-card-link">Ask AI more →</a>
+      <div class="pat-stack">
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">📱</span>
+              <div>
+                <div class="pat-title">The 20-20-20 rule</div>
+                <div class="pat-preview">Every 20 minutes, look at something 20 feet away for 20 seconds…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <p class="pat-note" style="margin-bottom:10px;">Every 20 minutes of screen time, look at something 20 feet (6 metres) away for at least 20 seconds. This relaxes the focusing muscles inside your eye.</p>
+            <ul class="pat-list">
+              <li>Set a timer or use an app to remind you every 20 minutes.</li>
+              <li>Look out a window at a distant object — a tree, a building, the horizon.</li>
+              <li>Blink fully and deliberately during your break — screen use reduces blink rate by up to 60%.</li>
+              <li>Stand up and take a short walk if possible.</li>
+            </ul>
+            <a href="question.html?q=What+is+the+20-20-20+rule+for+eye+strain%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">🌳</div>
-          <h3 class="info-card-title">Outdoor time and myopia in children</h3>
-          <p class="info-note" style="margin-bottom:12px;">This is one of the most important things parents can do. Research consistently shows that children who spend more time outdoors have a significantly lower risk of developing myopia — and slower progression if they already have it.</p>
-          <ul class="info-list">
-            <li><strong>Target 90 minutes of outdoor time daily</strong> for children — not necessarily sport, just being outside in natural light.</li>
-            <li>Natural light exposure triggers dopamine release in the retina, which helps regulate eye growth.</li>
-            <li><strong>Morning and afternoon outdoor play</strong> is particularly beneficial — bright daylight, not just overcast skies.</li>
-            <li>Reducing near work alone is not enough — the outdoor light exposure is the key factor.</li>
-            <li>Screen time and near work increase myopia risk, but outdoor time can counteract this.</li>
-          </ul>
-          <a href="question.html?q=How+does+outdoor+time+reduce+myopia+in+children%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🌳</span>
+              <div>
+                <div class="pat-title">Outdoor time and myopia in children</div>
+                <div class="pat-preview">90 minutes of outdoor time daily significantly reduces myopia risk…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li><strong>Target 90 minutes of outdoor time daily</strong> for children — not necessarily sport, just being outside in natural light.</li>
+              <li>Natural light exposure triggers dopamine release in the retina, which helps regulate eye growth.</li>
+              <li><strong>Morning and afternoon outdoor play</strong> is particularly beneficial.</li>
+              <li>Reducing near work alone is not enough — the outdoor light exposure is the key factor.</li>
+              <li>Screen time and near work increase myopia risk, but outdoor time can counteract this.</li>
+            </ul>
+            <a href="question.html?q=How+does+outdoor+time+reduce+myopia+in+children%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">💡</div>
-          <h3 class="info-card-title">Screen habits that protect your eyes</h3>
-          <ul class="info-list">
-            <li><strong>Screen brightness</strong> — match it to your ambient lighting. A screen that glows brightly in a dark room strains your eyes.</li>
-            <li><strong>Screen distance</strong> — keep screens at arm's length (50–70cm). Phones are often held too close.</li>
-            <li><strong>Night mode / warm light</strong> — switching to warmer screen tones in the evening reduces blue light exposure and improves sleep quality.</li>
-            <li><strong>No screens 1 hour before bed</strong> — blue light suppresses melatonin and disrupts sleep, which in turn affects eye health.</li>
-            <li><strong>Posture</strong> — screens should be slightly below eye level. Looking up at a screen increases dry eye risk by widening the eye opening.</li>
-          </ul>
-          <a href="question.html?q=How+can+I+reduce+digital+eye+strain%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">💡</span>
+              <div>
+                <div class="pat-title">Screen habits that protect your eyes</div>
+                <div class="pat-preview">Match screen brightness to your environment, keep screens at arm's length…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li><strong>Screen brightness</strong> — match it to your ambient lighting. A screen that glows brightly in a dark room strains your eyes.</li>
+              <li><strong>Screen distance</strong> — keep screens at arm's length (50–70cm). Phones are often held too close.</li>
+              <li><strong>Night mode / warm light</strong> — switching to warmer tones in the evening reduces blue light exposure and improves sleep quality.</li>
+              <li><strong>No screens 1 hour before bed</strong> — blue light suppresses melatonin and disrupts sleep.</li>
+              <li><strong>Posture</strong> — screens should be slightly below eye level. Looking up increases dry eye risk by widening the eye opening.</li>
+            </ul>
+            <a href="question.html?q=How+can+I+reduce+digital+eye+strain%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -273,47 +404,79 @@
         <h2 class="topic-title">Lid Hygiene & Procedures</h2>
         <p class="topic-intro">Healthy eyelids are the foundation of healthy eyes. These are the techniques your optometrist may recommend at home.</p>
       </div>
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-card-icon">🧴</div>
-          <h3 class="info-card-title">How to perform a lid scrub</h3>
-          <p class="info-note" style="margin-bottom:10px;">Lid scrubs remove debris, bacteria, and blocked oil from the eyelid margins. Your optometrist may recommend these if you have blepharitis, meibomian gland dysfunction, or recurrent styes.</p>
-          <ol class="info-list">
-            <li>Wash your hands thoroughly.</li>
-            <li>Apply a small amount of baby shampoo or specialist lid cleanser (e.g. Blephaclean, Cliradex) to a cotton pad, cotton bud, or clean fingertip.</li>
-            <li>Close your eye and gently scrub along the base of your lashes — upper and lower lid — using small horizontal strokes.</li>
-            <li>Rinse with clean water or a sterile saline solution.</li>
-            <li>Repeat on the other eye using a fresh pad or bud.</li>
-            <li>Follow with warm compresses if instructed by your optometrist.</li>
-          </ol>
-          <a href="question.html?q=How+do+I+perform+a+lid+scrub%3F" class="info-card-link">Ask AI more →</a>
+      <div class="pat-stack">
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🧴</span>
+              <div>
+                <div class="pat-title">How to perform a lid scrub</div>
+                <div class="pat-preview">Apply a small amount of baby shampoo or lid cleanser to a cotton pad…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <p class="pat-note" style="margin-bottom:10px;">Lid scrubs remove debris, bacteria, and blocked oil from the eyelid margins. Recommended for blepharitis, MGD, or recurrent styes.</p>
+            <ol class="pat-list">
+              <li>Wash your hands thoroughly.</li>
+              <li>Apply a small amount of baby shampoo or specialist lid cleanser to a cotton pad or bud.</li>
+              <li>Close your eye and gently scrub along the base of your lashes using small horizontal strokes.</li>
+              <li>Rinse with clean water or sterile saline.</li>
+              <li>Repeat on the other eye using a fresh pad.</li>
+              <li>Follow with warm compresses if instructed.</li>
+            </ol>
+            <a href="question.html?q=How+do+I+perform+a+lid+scrub%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">🔄</div>
-          <h3 class="info-card-title">Lid massage for meibomian gland dysfunction</h3>
-          <p class="info-note" style="margin-bottom:10px;">Meibomian glands in your eyelids produce the oily layer of your tear film. When they become blocked, tears evaporate quickly causing dry eye. Lid massage helps unblock them.</p>
-          <ol class="info-list">
-            <li>First, apply a warm compress for 10 minutes to soften the meibomian secretions.</li>
-            <li>With a clean finger, place gentle pressure on the outer edge of the eyelid (above the lashes on the upper lid, below on the lower lid).</li>
-            <li>Sweep your finger toward the lash line using firm but gentle pressure — as if squeezing a tube of toothpaste toward the opening.</li>
-            <li>Repeat 10 times on each lid.</li>
-            <li>You may see a small amount of clear or slightly cloudy oil expressed — this is normal.</li>
-            <li>Follow with a lid scrub to clean away expressed secretions.</li>
-          </ol>
-          <a href="question.html?q=What+is+meibomian+gland+dysfunction%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">🔄</span>
+              <div>
+                <div class="pat-title">Lid massage for meibomian gland dysfunction</div>
+                <div class="pat-preview">Apply warm compress first, then use gentle pressure to express blocked oil…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ol class="pat-list">
+              <li>First, apply a warm compress for 10 minutes to soften meibomian secretions.</li>
+              <li>With a clean finger, place gentle pressure on the outer edge of the eyelid.</li>
+              <li>Sweep your finger toward the lash line using firm but gentle pressure.</li>
+              <li>Repeat 10 times on each lid.</li>
+              <li>You may see a small amount of clear or slightly cloudy oil — this is normal.</li>
+              <li>Follow with a lid scrub to clean away expressed secretions.</li>
+            </ol>
+            <a href="question.html?q=What+is+meibomian+gland+dysfunction%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
-        <div class="info-card">
-          <div class="info-card-icon">📅</div>
-          <h3 class="info-card-title">Recommended daily routine</h3>
-          <p class="info-note" style="margin-bottom:10px;">For patients with blepharitis, dry eye, or MGD — consistency is everything. Here's a suggested routine:</p>
-          <ul class="info-list">
-            <li><strong>Morning:</strong> Warm compress (5–10 min) → Lid massage → Lid scrub → Lubricating drops</li>
-            <li><strong>During the day:</strong> Lubricating drops as needed. Follow 20-20-20 rule if using screens.</li>
-            <li><strong>Evening:</strong> Warm compress (5–10 min) → Lid scrub → Lubricating gel or ointment (if prescribed)</li>
-          </ul>
-          <p class="info-note" style="margin-top:10px;">Results take 4–6 weeks of consistent treatment. Don't stop if you don't see immediate improvement.</p>
-          <a href="question.html?q=What+is+blepharitis+and+how+do+I+treat+it%3F" class="info-card-link">Ask AI more →</a>
+
+        <div class="pat-item">
+          <button class="pat-trigger" onclick="togglePat(this)">
+            <div class="pat-trigger-left">
+              <span class="pat-icon">📅</span>
+              <div>
+                <div class="pat-title">Recommended daily routine</div>
+                <div class="pat-preview">Morning: warm compress → lid massage → lid scrub → lubricating drops…</div>
+              </div>
+            </div>
+            <svg class="pat-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="pat-body">
+            <ul class="pat-list">
+              <li><strong>Morning:</strong> Warm compress (5–10 min) → Lid massage → Lid scrub → Lubricating drops</li>
+              <li><strong>During the day:</strong> Lubricating drops as needed. Follow 20-20-20 rule if using screens.</li>
+              <li><strong>Evening:</strong> Warm compress (5–10 min) → Lid scrub → Lubricating gel or ointment if prescribed</li>
+            </ul>
+            <p class="pat-note" style="margin-top:10px;">Results take 4–6 weeks of consistent treatment. Don't stop if you don't see immediate improvement.</p>
+            <a href="question.html?q=What+is+blepharitis+and+how+do+I+treat+it%3F" class="pat-ask">Ask AI for more detail →</a>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -342,7 +505,7 @@
         <a href="students.html">for students</a>
         <a href="professionals.html">for professionals</a>
       </div>
-      <p class="footer-disclaimer">Content is for educational purposes only and does not constitute medical advice. Always follow the specific guidance of your licensed optometrist.</p>
+      <p class="footer-disclaimer">Content is for educational purposes only and does not constitute medical advice. Always follow the guidance of your licensed optometrist.</p>
       <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
     </div>
   </footer>
@@ -353,6 +516,15 @@
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('tab-' + id).classList.remove('hidden');
       btn.classList.add('active');
+      // collapse all items when switching tabs
+      document.querySelectorAll('.pat-item.pat-open').forEach(el => el.classList.remove('pat-open'));
+    }
+    function togglePat(trigger) {
+      const item = trigger.closest('.pat-item');
+      const isOpen = item.classList.contains('pat-open');
+      // close all in this tab
+      trigger.closest('.pat-stack').querySelectorAll('.pat-item.pat-open').forEach(el => el.classList.remove('pat-open'));
+      if (!isOpen) item.classList.add('pat-open');
     }
     function openDrawer() {
       document.getElementById('drawer').classList.remove('hidden');

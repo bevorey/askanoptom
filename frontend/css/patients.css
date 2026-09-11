@@ -159,3 +159,99 @@
   .info-grid { grid-template-columns: 1fr; }
   .patients-cta-inner { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── PATIENT ACCORDION STACK ─────────────── */
+.pat-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #fff;
+}
+.pat-item {
+  border-bottom: 1px solid var(--border);
+}
+.pat-item:last-child { border-bottom: none; }
+
+.pat-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-align: left;
+  gap: 12px;
+  transition: background var(--transition);
+}
+.pat-trigger:hover { background: var(--bg-secondary); }
+.pat-item.pat-open .pat-trigger { background: var(--teal-light); }
+
+.pat-trigger-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+.pat-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.pat-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+.pat-preview {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+.pat-item.pat-open .pat-preview { display: none; }
+.pat-item.pat-open .pat-title { color: var(--teal-dark); }
+
+.pat-chevron {
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.pat-item.pat-open .pat-chevron {
+  transform: rotate(180deg);
+  color: var(--teal);
+}
+
+.pat-body {
+  display: none;
+  padding: 0 1.25rem 1.25rem 3.1rem;
+  animation: expandDown 0.15s ease;
+}
+.pat-item.pat-open .pat-body { display: block; }
+
+.pat-list {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.pat-note {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+.pat-ask {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+}
+.pat-ask:hover { text-decoration: underline; }
