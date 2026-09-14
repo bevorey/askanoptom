@@ -190,7 +190,10 @@
   transition: background var(--transition);
 }
 .pat-trigger:hover { background: var(--bg-secondary); }
-.pat-item.pat-open .pat-trigger { background: var(--teal-light); }
+.pat-item.pat-open .pat-trigger {
+  background: var(--teal-light);
+  border-bottom: 1px solid var(--teal-mid);
+}
 
 .pat-trigger-left {
   display: flex;
