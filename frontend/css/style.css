@@ -703,7 +703,7 @@ img { max-width: 100%; }
 .consult-card-link:hover { text-decoration: underline; }
 
 /* ── FAQ SECTION ─────────────────────────── */
-.faq-section { padding-top: 1.5rem; padding-bottom: 1rem; }
+.faq-section { padding-top: 2rem; padding-bottom: 2rem; background: var(--bg-secondary); }
 .faq-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
