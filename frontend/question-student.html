@@ -17,12 +17,29 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="resources.html">resources</a>
-      <a href="students.html" style="color:var(--teal);">for students</a>
-      <a href="professionals.html">for professionals</a>
+      <a href="for-patients.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <a href="students.html" style="color:var(--teal);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
+      <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
     </div>
     <a href="https://calendly.com" target="_blank" class="nav-cta">book a consultation</a>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-header">
+      <a href="index.html" class="logo">ask<span>anoptom</span></a>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" onclick="closeDrawer()">Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">For patients</a>
+      <a href="students.html" onclick="closeDrawer()">For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">For professionals</a>
+    </div>
+    <a href="https://calendly.com" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
+  </div>
 
   <!-- STUDENT CONTEXT BADGE -->
   <div class="student-context-bar">
@@ -99,5 +116,17 @@
   </footer>
 
   <script src="js/question-student.js"></script>
+  <script>
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  </script>
 </body>
 </html>
