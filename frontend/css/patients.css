@@ -229,7 +229,7 @@
 
 .pat-body {
   display: none;
-  padding: 0 1.25rem 1.25rem 3.1rem;
+  padding: 1.25rem 1.25rem 1.25rem 3.1rem;
   animation: expandDown 0.15s ease;
 }
 .pat-item.pat-open .pat-body { display: block; }
