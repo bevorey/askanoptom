@@ -1119,7 +1119,7 @@ img { max-width: 100%; }
 .consult-card-content {
   position: relative;
   z-index: 2;
-  padding: 0.85rem 1.1rem;
+  padding: 0.75rem 1rem;
   max-width: 65%;
 }
 .consult-card-img-bg .consult-card-icon-wrap {
