@@ -972,3 +972,125 @@ img { max-width: 100%; }
   vertical-align: -2px;
   margin-right: 4px;
 }
+
+/* ── CONSULTATION SECTION UPDATES ────────── */
+.consult-section-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.85rem;
+  line-height: 1.4;
+}
+.consult-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.consult-feature svg { flex-shrink: 0; }
+.consult-secure {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 0.75rem;
+}
+.consult-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+.consult-card-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+.consult-card-img {
+  width: 90px;
+  height: 70px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* HOW WE CAN HELP */
+.consult-reasons {
+  max-width: var(--max-w);
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2.5rem;
+}
+.consult-reasons-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.consult-reasons-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+.consult-reasons-sub {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.consult-reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.reason-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.reason-card:hover {
+  border-color: var(--teal-mid);
+  box-shadow: 0 2px 14px rgba(29,158,117,0.06);
+}
+.reason-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+.reason-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.reason-body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+@media (max-width: 700px) {
+  .consult-reasons-grid { grid-template-columns: 1fr; }
+  .consult-reasons-header { flex-direction: column; }
+}
