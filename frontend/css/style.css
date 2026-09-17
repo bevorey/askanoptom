@@ -1102,8 +1102,6 @@ img { max-width: 100%; }
   background-position: center;
   overflow: hidden;
   border: none !important;
-  min-height: 120px;
-  max-height: 140px;
 }
 .consult-card-img-overlay {
   position: absolute;
