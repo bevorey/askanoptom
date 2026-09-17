@@ -1094,3 +1094,47 @@ img { max-width: 100%; }
   .consult-reasons-grid { grid-template-columns: 1fr; }
   .consult-reasons-header { flex-direction: column; }
 }
+
+/* ── CONSULT CARD — IMAGE BACKGROUND ─────── */
+.consult-card-img-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border: none !important;
+  min-height: 200px;
+}
+.consult-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.97) 0%,
+    rgba(255,255,255,0.92) 45%,
+    rgba(255,255,255,0.4) 75%,
+    rgba(255,255,255,0) 100%
+  );
+  z-index: 1;
+}
+.consult-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1.25rem;
+  max-width: 70%;
+}
+.consult-card-img-bg .consult-card-icon-wrap {
+  margin-bottom: 8px;
+}
+.consult-card-img-bg .consult-card-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.consult-card-img-bg .consult-card-body {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
