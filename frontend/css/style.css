@@ -1098,8 +1098,8 @@ img { max-width: 100%; }
 /* ── CONSULT CARD — IMAGE BACKGROUND ─────── */
 .consult-card-img-bg {
   position: relative;
-  background-size: 50% auto;
-  background-position: right center;
+  background-size: cover;
+  background-position: center right;
   background-repeat: no-repeat;
   overflow: hidden;
   border: none !important;
