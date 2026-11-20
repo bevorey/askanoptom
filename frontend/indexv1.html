@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AskAnOptom — Eye Care Answers You Can Trust</title>
+  <meta name="description" content="AI-powered eye care answers from a doctor-curated knowledge base. For patients, students, and professionals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">ask<span>anoptom</span></a>
+    <div class="nav-links">
+      <a href="for-patients.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <a href="students.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
+      <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
+    </div>
+    <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="nav-cta">book a consultation</a>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-header">
+      <a href="index.html" class="logo">ask<span>anoptom</span></a>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">👁️ For patients</a>
+      <a href="students.html" onclick="closeDrawer()">🎓 For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">🩺 For professionals</a>
+    </div>
+    <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      answers reviewed by licensed optometrists
+    </div>
+    <h1 class="hero-title">
+      Eye care answers<br />
+      <em>you can trust</em>
+    </h1>
+    <p class="hero-sub">
+      Ask questions about your eyes, vision, lenses, and more.<br />
+      <span style="font-size:14px;">Powered by AI. Curated by licensed optometrists.</span>
+    </p>
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+      <div class="search-box" id="searchBox">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M13 13l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="e.g. What causes floaters in my vision?"
+          autocomplete="off"
+        />
+        <button id="searchBtn" onclick="handleSearch()">
+          Ask
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <!-- SUGGESTIONS -->
+      <div class="suggestions">
+        <span class="suggestions-label">try asking:</span>
+        <button class="chip" onclick="fillSearch('What is keratoconus?')">What is keratoconus?</button>
+        <button class="chip" onclick="fillSearch('What causes dry eyes?')">What causes dry eyes?</button>
+        <button class="chip" onclick="fillSearch('Are blue light glasses worth it?')">Are blue light glasses worth it?</button>
+        <button class="chip" onclick="fillSearch('When should I see an optometrist?')">When should I see an optometrist?</button>
+        <button class="chip" onclick="fillSearch('What is myopia control?')">What is myopia control?</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item trust-item-stack">
+      <div class="trust-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5H18l-3.75 2.75L15.75 15 12 12.25 8.25 15l1.5-4.75L6 7.5h4.5z"/></svg>
+      </div>
+      <div class="trust-item-text">
+        <div class="trust-item-label">AI-powered</div>
+        <div class="trust-item-desc">Evidence-based answers</div>
+      </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item trust-item-stack">
+      <div class="trust-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="trust-item-text">
+        <div class="trust-item-label">Optometrist-curated</div>
+        <div class="trust-item-desc">Reviewed by licensed professionals</div>
+      </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item trust-item-stack">
+      <div class="trust-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+      </div>
+      <div class="trust-item-text">
+        <div class="trust-item-label">Sources cited</div>
+        <div class="trust-item-desc">So you can learn more</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <section class="section faq-section">
+    <div class="section-header">
+      <div class="section-label">common asks</div>
+      <a href="index.html" class="section-link">ask your own →</a>
+    </div>
+    <div class="bubbles-flow" id="bubblesFlow">
+      <div class="bub" onclick="selectBub(this, 'a1')">💭 What is a refraction?</div>
+      <div class="bub" onclick="selectBub(this, 'a2')">💭 What is a PD?</div>
+      <div class="bub" onclick="selectBub(this, 'a3')">💭 What is myopia?</div>
+      <div class="bub" onclick="selectBub(this, 'a4')">💭 What is hyperopia?</div>
+      <div class="bub" onclick="selectBub(this, 'a5')">💭 What is astigmatism?</div>
+      <div class="bub" onclick="selectBub(this, 'a6')">💭 What is presbyopia?</div>
+      <div class="bub" onclick="selectBub(this, 'a7')">💭 What is a progressive lens?</div>
+      <div class="bub" onclick="selectBub(this, 'a8')">💭 What is a single vision lens?</div>
+      <div class="bub" onclick="selectBub(this, 'a9')">💭 What causes dry eyes?</div>
+      <div class="bub" onclick="selectBub(this, 'a10')">💭 Are my headaches from my eyes?</div>
+
+      <div class="bub-answer" id="a1">The "which is better, 1 or 2?" test. Your optometrist uses it to determine your glasses or contact lens prescription by measuring how light bends as it enters your eye. <a href="question.html?q=What+is+a+refraction%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a2">Your pupillary distance — the gap in mm between your pupils. Labs need it to centre each lens correctly so your vision stays clear and comfortable. <a href="question.html?q=What+is+pupillary+distance+PD%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a3">Short-sightedness. You see clearly up close but distant objects appear blurry. The eye is slightly too long, so light focuses in front of the retina instead of on it. <a href="question.html?q=What+is+myopia%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a4">Long-sightedness. The eye is slightly too short, so light focuses behind the retina. Often causes eyestrain and headaches — especially with reading — even if distance vision seems fine. <a href="question.html?q=What+is+hyperopia%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a5">The cornea or lens is slightly irregular in shape — more rugby ball than football — causing light to focus at multiple points and vision to appear blurred at all distances. <a href="question.html?q=What+is+astigmatism%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a6">The natural age-related loss of near focus, typically starting around 40. The lens inside the eye gradually stiffens, making it harder to read up close — hence reading glasses or progressives. <a href="question.html?q=What+is+presbyopia%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a7">A lens with no visible line that corrects distance, intermediate, and near vision all at once. Typically prescribed for people over 40 who need correction at multiple distances. <a href="question.html?q=What+is+a+progressive+lens%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a8">The most common lens type — one focal power throughout, correcting either distance or near vision but not both. Suits most patients under 40. <a href="question.html?q=What+is+a+single+vision+lens%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a9">Dry eye occurs when the eyes don't produce enough tears or they evaporate too quickly. Common causes include screen time, air conditioning, contact lenses, and certain medications. <a href="question.html?q=What+causes+dry+eyes%3F">Ask AI for more detail →</a></div>
+      <div class="bub-answer" id="a10">Possibly — eye strain, uncorrected prescriptions, and binocular vision issues all cause headaches around the temples or forehead, especially after screen time. An optometrist can confirm if your eyes are the cause. <a href="question.html?q=Can+eye+problems+cause+headaches%3F">Ask AI for more detail →</a></div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION PITCH -->
+  <section class="consult-section">
+    <div class="consult-section-inner">
+      <div class="consult-section-left">
+        <div style="margin-bottom:0.85rem;">
+          <span class="pc-pill">Personal Eye Care Consultation</span>
+        </div>
+        <h2 class="consult-section-title">Sometimes you just need to speak to the doctor.</h2>
+        <h3 class="consult-section-subtitle">Got your prescription and PD but don't know what to do next?</h3>
+        <p class="consult-section-body">
+          In a world of increasingly complex lens designs — progressives, blue blockers, Transitions, hi-index — choosing the right eyewear for your specific prescription is harder than ever. A 10-minute commercial eye exam rarely gives you the time to ask everything you need to know.
+        </p>
+        <p class="consult-section-body" style="margin-top:0.75rem;">
+          Book a consultation with a licensed optometrist. Bring your own frame (BYOF) or choose from our catalog — we'll guide you through the right lenses, coatings, and treatments for your eyes, then order directly from industry-leading labs.
+        </p>
+        <div class="consult-features">
+          <div class="consult-feature">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1D9E75"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            BYOF or choose from our frame catalog
+          </div>
+          <div class="consult-feature">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1D9E75"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Industry-leading lens labs
+          </div>
+          <div class="consult-feature">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1D9E75"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Insurance accepted — subject to availability
+          </div>
+          <div class="consult-feature">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1D9E75"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            30-minute consultation — $39.99 USD
+          </div>
+        </div>
+        <div class="consult-section-actions">
+          <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-cta-btn">
+            Book a consultation →
+          </a>
+          <span class="consult-price">30 minutes · $39.99 USD</span>
+        </div>
+        <div class="consult-secure">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2l5 2.5V8c0 3-2 5-5 6C5 13 3 11 3 8V4.5L8 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          Secure booking through Calendly
+        </div>
+      </div>
+      <div class="consult-section-right">
+        <div class="consult-card consult-card-img-bg" style="margin-bottom:12px;background-image:url('img/phoropter.png');">
+          <div class="consult-card-img-overlay"></div>
+          <div class="consult-card-content">
+            <div class="consult-card-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="consult-card-title">Still have questions after your eye exam?</div>
+            <div class="consult-card-body">An eye exam can answer a lot — but you may still leave with questions about your prescription, test results, lenses, or next steps. Get the time and clarity you need with a one-on-one consultation.</div>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-card-link">Book a dedicated appointment →</a>
+          </div>
+        </div>
+        <div class="consult-card consult-card-img-bg" style="background-image:url('img/oct-scan.png');">
+          <div class="consult-card-img-overlay"></div>
+          <div class="consult-card-content">
+            <div class="consult-card-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+            </div>
+            <div class="consult-card-title">Referred for further testing?</div>
+            <div class="consult-card-body">OCT, visual field tests, topography, fundus photography — these tests can raise a lot of questions. If you've been told you're a glaucoma suspect or need specialist imaging, we can help you understand what it means and what to expect.</div>
+            <a href="question.html?q=What+does+it+mean+to+be+a+glaucoma+suspect%3F" class="consult-card-link">Ask an optometrist →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW WE CAN HELP -->
+    <div class="consult-reasons">
+      <div class="consult-reasons-grid">
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h2m16 0h2M5 12a4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4zm10 0a4 4 0 0 0 4 4 4 4 0 0 0 0-8 4 4 0 0 0-4 4zm-6 0h6"/></svg>
+          </div>
+          <h4 class="reason-title">Choosing the right lenses?</h4>
+          <p class="reason-body">Progressives, high-index, photochromic, coatings, blue-light filters — we'll help you understand your options and choose what makes sense for your prescription and lifestyle.</p>
+          <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-card-link">Explore your options →</a>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h4 class="reason-title">Need a second opinion?</h4>
+          <p class="reason-body">Sometimes you just want another optometrist's perspective. Talk through a prescription, recommendation, test result, or something you were told at your last visit.</p>
+          <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-card-link">Get another perspective →</a>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+          </div>
+          <h4 class="reason-title">Eye care, wherever you are.</h4>
+          <p class="reason-body">Connect with an optometrist online, wherever you are in the world. Get the time and attention to ask your questions, understand your options, and make informed decisions about your eye care.</p>
+          <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-card-link">Talk to an optometrist →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE PILLARS -->
+  <section class="pillars-section">
+    <div class="pillar">
+      <div class="pillar-icon pillar-icon-teal">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M10 6v5l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="pillar-title">Always-on answers</h3>
+      <p class="pillar-desc">AI-generated responses from a doctor-curated database, available 24/7 to patients and students across the Caribbean and beyond.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon pillar-icon-blue">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M6 10h8M6 7h8M6 13h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="pillar-title">Free for everyone</h3>
+      <p class="pillar-desc">Open-access clinical guides and study materials for optometry students and professionals — no paywall, no subscription.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon pillar-icon-amber">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.5 5H17l-4 3.5 1.5 5.5L10 13l-4.5 3 1.5-5.5L3 7h4.5L10 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 class="pillar-title">Trusted authority</h3>
+      <p class="pillar-desc">Every answer is sourced from content reviewed by licensed optometrists — not scraped from the web or generated from general knowledge alone.</p>
+    </div>
+  </section>
+
+  <!-- AD STRIP -->
+  <div class="ad-strip">
+    <div class="ad-inner">
+      <span class="ad-label">sponsored</span>
+      <p class="ad-text">Acuvue — the world's #1 contact lens brand</p>
+      <p class="ad-sub">Order your Acuvue lenses online — fast delivery, trusted quality</p>
+    </div>
+    <a href="#" class="ad-btn">order now</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ask<span>anoptom</span></a>
+        <p class="footer-tagline">have an eye care question? askanoptom</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">ask a question</a>
+        <a href="resources.html">resources</a>
+        <a href="students.html">for students</a>
+        <a href="professionals.html">for professionals</a>
+      </div>
+      <p class="footer-disclaimer">
+        Answers are for informational purposes only and do not constitute medical advice.
+        Always consult a licensed optometrist for clinical decisions.
+      </p>
+      <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function selectBub(el, id) {
+      const wasActive = el.classList.contains('bub-active');
+      document.querySelectorAll('.bub.bub-active').forEach(b => b.classList.remove('bub-active'));
+      document.querySelectorAll('.bub-answer.show').forEach(p => p.classList.remove('show'));
+      if (!wasActive) {
+        el.classList.add('bub-active');
+        document.getElementById(id).classList.add('show');
+      }
+    }
+  </script>
+</body>
+</html>
