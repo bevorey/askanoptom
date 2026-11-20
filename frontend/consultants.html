@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultants — AskAnOptom</title>
+  <meta name="description" content="Book a consultant optometrist for practice development, clinic launches, SOPs and international standards, sales and brand experience, applied AI, and lectures." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/consultants.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">ask<span>anoptom</span></a>
+    <div class="nav-links">
+      <a href="for-patients.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <a href="students.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
+      <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
+      <a href="consultants.html" aria-current="page" style="color:var(--teal-dark);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>consultants</a>
+    </div>
+    <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="nav-cta">book a consultation</a>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Open menu">&#9776;</button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-header">
+      <a href="index.html" class="logo">ask<span>anoptom</span></a>
+      <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
+      <a href="for-patients.html" onclick="closeDrawer()">👁️ For patients</a>
+      <a href="students.html" onclick="closeDrawer()">🎓 For students</a>
+      <a href="professionals.html" onclick="closeDrawer()">🩺 For professionals</a>
+      <a href="consultants.html" onclick="closeDrawer()">💼 Consultants</a>
+    </div>
+    <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      for practices &amp; organizations
+    </div>
+    <h1 class="hero-title">
+      Optometry expertise for<br />
+      <em>the business of eye care</em>
+    </h1>
+    <p class="hero-sub">
+      Book a consultant optometrist for practice development, clinic launches, standards and SOPs, sales and brand experience, applied AI, and lectures.
+    </p>
+    <div class="ct-actions">
+      <a href="#contact" class="ct-btn" data-book>Book a scoping call →</a>
+      <a href="#services" class="ct-btn-ghost">See services</a>
+    </div>
+  </section>
+
+  <!-- FEATURED CONSULTANT (rendered from js/consultants.js) -->
+  <section class="section" aria-labelledby="featured-name" style="padding-top:0;">
+    <div class="ct-featured" id="featuredConsultant"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="section-label">services</div>
+    <h2 class="ct-section-title" id="services-title">Four ways we can help</h2>
+    <p class="ct-section-sub">Each engagement is scoped to your business after a short call. Delivered on-site or remotely.</p>
+    <div class="ct-services">
+      <article class="ct-service">
+        <div class="reason-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/></svg></div>
+        <h3 class="ct-service-title">Practice Build &amp; Launch</h3>
+        <ul>
+          <li>New clinic planning and launch</li>
+          <li>SOPs and clinical workflows</li>
+          <li>Applying international standards</li>
+          <li>Proposals and tenders</li>
+        </ul>
+      </article>
+      <article class="ct-service">
+        <div class="reason-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+        <h3 class="ct-service-title">Growth &amp; Experience</h3>
+        <ul>
+          <li>Sales optimization</li>
+          <li>Product and brand experience</li>
+          <li>Streamlining a brand</li>
+          <li>Patient journey review</li>
+        </ul>
+      </article>
+      <article class="ct-service">
+        <div class="reason-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
+        <h3 class="ct-service-title">Applied AI in Optometry</h3>
+        <ul>
+          <li>AI for patient education and triage</li>
+          <li>Workflow and operations automation</li>
+          <li>Staff readiness and safe use</li>
+          <li>askanoptom as a working example</li>
+        </ul>
+      </article>
+      <article class="ct-service">
+        <div class="reason-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3 class="ct-service-title">Speaking &amp; Training</h3>
+        <ul>
+          <li>Lectures and conference talks</li>
+          <li>CPD sessions</li>
+          <li>In-practice staff training</li>
+          <li>Custom topics on request</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="consult-section" aria-labelledby="how-title">
+    <div style="max-width:var(--max-w);margin:0 auto;">
+      <div class="section-label">how it works</div>
+      <h2 class="ct-section-title" id="how-title">Every engagement starts with a conversation</h2>
+      <p class="ct-section-sub">So the scope and fee match the job.</p>
+      <ol class="ct-steps">
+        <li>
+          <div class="ct-step-num">1</div>
+          <h3 class="ct-step-title">Scoping call</h3>
+          <p class="ct-step-body">A short call to understand your business, goals and timeline.</p>
+        </li>
+        <li>
+          <div class="ct-step-num">2</div>
+          <h3 class="ct-step-title">Proposal</h3>
+          <p class="ct-step-body">A written scope, timeline and fee for your review.</p>
+        </li>
+        <li>
+          <div class="ct-step-num">3</div>
+          <h3 class="ct-step-title">Engagement</h3>
+          <p class="ct-step-body">On-site or remote delivery, with clear handover documents.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- WHO WE WORK WITH -->
+  <section class="section" aria-labelledby="who-title">
+    <div class="section-label" id="who-title">who we work with</div>
+    <div class="ct-who">
+      <span>Independent practices</span>
+      <span>Optical chains and retailers</span>
+      <span>Distributors and suppliers</span>
+      <span>Schools and associations</span>
+      <span>New clinic investors</span>
+    </div>
+  </section>
+
+  <!-- CONSULTANT NETWORK (rendered from js/consultants.js) -->
+  <section class="section" aria-labelledby="network-title" style="padding-top:0;">
+    <div class="section-label">consultant network</div>
+    <h2 class="ct-section-title" id="network-title">Vetted consultant optometrists</h2>
+    <p class="ct-section-sub">A small network, each with a distinct focus.</p>
+    <div class="ct-grid" id="consultantGrid"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" aria-labelledby="contact-title" style="padding-top:0;">
+    <div class="ct-contact">
+      <div>
+        <h2 id="contact-title">Let's talk about your practice.</h2>
+        <p>Book a scoping call and tell us what you're working on.</p>
+      </div>
+      <a href="#contact" class="ct-btn" data-book>Book a scoping call →</a>
+    </div>
+    <p class="ct-note">Consulting engagements are business services and do not constitute patient care. For personal eye care questions, <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="consult-card-link">book a patient consultation</a>.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ask<span>anoptom</span></a>
+        <p class="footer-tagline">have an eye care question? askanoptom</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">ask a question</a>
+        <a href="resources.html">resources</a>
+        <a href="students.html">for students</a>
+        <a href="professionals.html">for professionals</a>
+        <a href="consultants.html">consultants</a>
+      </div>
+      <p class="footer-disclaimer">
+        Answers are for informational purposes only and do not constitute medical advice.
+        Always consult a licensed optometrist for clinical decisions.
+      </p>
+      <p class="footer-copy">© 2025 The Optometrist Company · askanoptom.com</p>
+    </div>
+  </footer>
+
+  <script src="js/consultants.js"></script>
+  <script>
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>
