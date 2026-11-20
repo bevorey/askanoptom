@@ -19,7 +19,7 @@ const CONSULTANTS = [
     title: 'Consultant Optometrist & Contact Lens Practitioner',
     role: 'Founder, askanoptom',
     initials: 'BB',
-    photo: '',            // e.g. 'img/consultants/bevon.jpg'
+    photo: 'img/consultants/bevon-babwah.jpg',            // e.g. 'img/consultants/bevon.jpg'
     summary: 'Operations, systems, standards, applied AI',
     bio: 'Background in high-volume clinical practice, clinical systems design and practice operations across the Caribbean, licensed in multiple Caribbean jurisdictions. Builder of askanoptom, an AI-assisted eye care platform for patients, students and professionals.',
     focus: [
