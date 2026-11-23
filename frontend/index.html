@@ -17,7 +17,55 @@
   <nav class="nav">
     <a href="index.html" class="logo">ask<span>anoptom</span></a>
     <div class="nav-links">
-      <a href="for-patients.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+      <div class="nav-item has-menu">
+        <a href="for-patients.html" class="nav-top"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>for patients</a>
+        <button type="button" class="nav-menu-toggle" aria-expanded="false" aria-controls="menu-patients" aria-label="Show patient menu"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-panel" id="menu-patients" role="region" aria-label="For patients">
+          <div class="task-tiles">
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile task-tile-primary">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-5 15-5 18 0"/><path d="M3 12c3 3 15 3 18 0"/><circle cx="12" cy="11" r="2"/></svg></span>
+              <span class="task-tile-title">Order contact lenses</span>
+              <span class="task-tile-desc">Reorder your prescribed lenses with an optometrist.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile task-tile-primary">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4"/><path d="M3 14l1.5-6h2M21 14l-1.5-6h-2"/></svg></span>
+              <span class="task-tile-title">Order glasses online</span>
+              <span class="task-tile-desc">Bring your Rx — we guide your lenses and order from the lab.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+              <span class="task-tile-title">Browse frames</span>
+              <span class="task-tile-desc">Choose from our catalog or bring your own frame.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+              <span class="task-tile-title">Book a consultation</span>
+              <span class="task-tile-desc">30 minutes with an optometrist · $39.99</span>
+            </a>
+          </div>
+          <div class="nav-panel-lower">
+            <div class="nav-panel-guides">
+              <div class="section-label">patient guides</div>
+              <div class="guide-chips">
+                <a href="for-patients.html#dry-eye" class="guide-chip">Dry eye</a>
+                <a href="for-patients.html#contacts" class="guide-chip">Contact lenses</a>
+                <a href="for-patients.html#nutrition" class="guide-chip">Nutrition</a>
+                <a href="for-patients.html#screentime" class="guide-chip">Screen time</a>
+                <a href="for-patients.html#hygiene" class="guide-chip">Lid hygiene</a>
+                <a href="for-patients.html" class="guide-chip-all">All guides →</a>
+              </div>
+            </div>
+            <div class="nav-panel-ask">
+              <div class="section-label">have a question?</div>
+              <form class="panel-ask" role="search">
+                <label for="menuAsk" class="sr-only">Ask an eye care question</label>
+                <input id="menuAsk" type="text" placeholder="Ask anything about your eyes" autocomplete="off" />
+                <button type="submit">Ask</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="students.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>for students</a>
       <a href="professionals.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>for professionals</a>
       <a href="consultants.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>consultants</a>
@@ -28,17 +76,51 @@
 
   <!-- MOBILE DRAWER -->
   <div class="drawer-overlay hidden" id="drawerOverlay" onclick="closeDrawer()"></div>
-  <div class="drawer hidden" id="drawer">
+  <div class="drawer drawer-sections hidden" id="drawer">
     <div class="drawer-header">
       <a href="index.html" class="logo">ask<span>anoptom</span></a>
-      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+      <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
     </div>
     <div class="drawer-links">
-      <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
-      <a href="for-patients.html" onclick="closeDrawer()">👁️ For patients</a>
-      <a href="students.html" onclick="closeDrawer()">🎓 For students</a>
-      <a href="professionals.html" onclick="closeDrawer()">🩺 For professionals</a>
-      <a href="consultants.html" onclick="closeDrawer()">💼 Consultants</a>
+      <div class="drawer-section open">
+        <button type="button" class="drawer-section-toggle" aria-expanded="true" aria-controls="drawer-patients"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>For patients<svg class="drawer-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="drawer-section-body" id="drawer-patients">
+          <div class="task-tiles">
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile task-tile-primary">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-5 15-5 18 0"/><path d="M3 12c3 3 15 3 18 0"/><circle cx="12" cy="11" r="2"/></svg></span>
+              <span class="task-tile-title">Order contact lenses</span>
+              <span class="task-tile-desc">Reorder your prescribed lenses with an optometrist.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile task-tile-primary">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4"/><path d="M3 14l1.5-6h2M21 14l-1.5-6h-2"/></svg></span>
+              <span class="task-tile-title">Order glasses online</span>
+              <span class="task-tile-desc">Bring your Rx — we guide your lenses and order from the lab.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+              <span class="task-tile-title">Browse frames</span>
+              <span class="task-tile-desc">Choose from our catalog or bring your own frame.</span>
+            </a>
+            <a href="https://calendly.com/askanoptom/consultation" target="_blank" rel="noopener" class="task-tile">
+              <span class="task-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+              <span class="task-tile-title">Book a consultation</span>
+              <span class="task-tile-desc">30 minutes with an optometrist · $39.99</span>
+            </a>
+          </div>
+          <div class="section-label">patient guides</div>
+          <div class="guide-chips">
+            <a href="for-patients.html#dry-eye" class="guide-chip" onclick="closeDrawer()">Dry eye</a>
+            <a href="for-patients.html#contacts" class="guide-chip" onclick="closeDrawer()">Contact lenses</a>
+            <a href="for-patients.html#nutrition" class="guide-chip" onclick="closeDrawer()">Nutrition</a>
+            <a href="for-patients.html#screentime" class="guide-chip" onclick="closeDrawer()">Screen time</a>
+            <a href="for-patients.html#hygiene" class="guide-chip" onclick="closeDrawer()">Lid hygiene</a>
+            <a href="for-patients.html" class="guide-chip-all" onclick="closeDrawer()">All guides →</a>
+          </div>
+        </div>
+      </div>
+      <a href="students.html" onclick="closeDrawer()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9.5v5c0 2 2 3 5 3s5-1 5-3v-5"/><path d="M21 7v5"/></svg>For students</a>
+      <a href="professionals.html" onclick="closeDrawer()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>For professionals</a>
+      <a href="consultants.html" onclick="closeDrawer()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>Consultants</a>
     </div>
     <a href="https://calendly.com/askanoptom/consultation" target="_blank" class="drawer-cta">Book a consultation — $39.99</a>
   </div>
@@ -299,7 +381,7 @@
         </div>
       </div>
       <a href="consultants.html" class="ct-home-card">
-        <div class="ct-avatar-initials" aria-hidden="true">BB</div>
+        <img class="ct-home-card-photo" src="img/consultants/bevon-babwah.jpg" alt="Portrait of Dr. Bevon R. Babwah" width="64" height="64" />
         <div class="section-label" style="margin:0;">featured consultant</div>
         <div class="ct-home-card-name">Dr. Bevon R. Babwah</div>
         <div class="ct-home-card-meta">BSc Optom (Hons.), MCOptom (U.K.), O.D.<br />Consultant Optometrist &amp; Contact Lens Practitioner</div>
@@ -341,6 +423,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/nav.js"></script>
   <script>
     function openDrawer() {
       document.getElementById('drawer').classList.remove('hidden');
